@@ -17,6 +17,7 @@
   },
   "scripts": {
     "lint": "oxlint .",
+    "format": "oxfmt .",
     "check-types": "tsc --noEmit",
     "build": "tsc -b",
     "dev": "tsc --watch --preserveWatchOutput"

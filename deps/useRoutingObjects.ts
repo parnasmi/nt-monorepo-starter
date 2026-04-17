@@ -1,7 +1,7 @@
 // Source: apps/dashboard/src/shared/hooks/useRoutingObjects/useRoutingObjects.ts
 // Target: apps/naiton/src/shared/hooks/useRoutingObjects/useRoutingObjects.ts
 
-import { useLocation, useNavigate } from 'react-router';
+import { useLocation, useNavigate } from "react-router";
 
 export function useRoutingObjects() {
   const location = useLocation();

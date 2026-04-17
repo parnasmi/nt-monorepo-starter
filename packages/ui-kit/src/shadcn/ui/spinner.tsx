@@ -1,22 +1,22 @@
-import { Loader2Icon } from "lucide-react"
+import { Loader2Icon } from "lucide-react";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 const sizeMap = {
   small: "size-4",
   medium: "size-6",
   large: "size-10",
-} as const
+} as const;
 
-type SpinnerSize = keyof typeof sizeMap
+type SpinnerSize = keyof typeof sizeMap;
 
 interface SpinnerProps extends Omit<React.ComponentProps<"svg">, "size"> {
-  size?: SpinnerSize
-  show?: boolean
+  size?: SpinnerSize;
+  show?: boolean;
 }
 
 function Spinner({ className, size = "medium", show = true, ...props }: SpinnerProps) {
-  if (!show) return null
+  if (!show) return null;
   return (
     <Loader2Icon
       role="status"
@@ -24,7 +24,7 @@ function Spinner({ className, size = "medium", show = true, ...props }: SpinnerP
       className={cn("animate-spin", sizeMap[size], className)}
       {...props}
     />
-  )
+  );
 }
 
-export { Spinner }
+export { Spinner };

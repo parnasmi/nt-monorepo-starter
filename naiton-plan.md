@@ -10,28 +10,28 @@
 
 ### 0.1 Technology Stack (always latest stable at time of install)
 
-| Concern | Choice |
-|---|---|
-| Language | TypeScript 5.8+ (strict) |
-| Framework | React 19 |
-| Bundler | Vite 6+ |
-| Monorepo | pnpm workspaces + Turborepo |
-| Routing | `react-router` v7 (**NOT** `react-router-dom`) |
-| Client state | Zustand |
-| Server state | TanStack Query v5 |
-| Forms | react-hook-form + @hookform/resolvers + zod |
-| HTTP | axios |
-| Toasts | sonner |
-| i18n | react-i18next + i18next-http-backend + i18next-browser-languagedetector |
-| Styling | Tailwind CSS v4 (CSS-driven, `@tailwindcss/postcss` + `@tailwindcss/vite`) |
-| UI Kit | Custom `@repo/ui-kit` package (shadcn-based) |
-| Linter | **oxlint** (Rust-speed) |
-| Formatter | **oxfmt** (Rust-speed) + `prettier-plugin-tailwindcss` fallback when oxfmt cannot handle JSX/TSX yet |
-| Unit test | Vitest + jsdom |
-| Integration test | Vitest + @testing-library/react + @testing-library/jest-dom + @testing-library/user-event |
-| E2E test | Playwright |
-| Hooks | husky + lint-staged |
-| API mocking | MSW (Mock Service Worker) v2 |
+| Concern          | Choice                                                                                               |
+| ---------------- | ---------------------------------------------------------------------------------------------------- |
+| Language         | TypeScript 5.8+ (strict)                                                                             |
+| Framework        | React 19                                                                                             |
+| Bundler          | Vite 6+                                                                                              |
+| Monorepo         | pnpm workspaces + Turborepo                                                                          |
+| Routing          | `react-router` v7 (**NOT** `react-router-dom`)                                                       |
+| Client state     | Zustand                                                                                              |
+| Server state     | TanStack Query v5                                                                                    |
+| Forms            | react-hook-form + @hookform/resolvers + zod                                                          |
+| HTTP             | axios                                                                                                |
+| Toasts           | sonner                                                                                               |
+| i18n             | react-i18next + i18next-http-backend + i18next-browser-languagedetector                              |
+| Styling          | Tailwind CSS v4 (CSS-driven, `@tailwindcss/postcss` + `@tailwindcss/vite`)                           |
+| UI Kit           | Custom `@repo/ui-kit` package (shadcn-based)                                                         |
+| Linter           | **oxlint** (Rust-speed)                                                                              |
+| Formatter        | **oxfmt** (Rust-speed) + `prettier-plugin-tailwindcss` fallback when oxfmt cannot handle JSX/TSX yet |
+| Unit test        | Vitest + jsdom                                                                                       |
+| Integration test | Vitest + @testing-library/react + @testing-library/jest-dom + @testing-library/user-event            |
+| E2E test         | Playwright                                                                                           |
+| Hooks            | husky + lint-staged                                                                                  |
+| API mocking      | MSW (Mock Service Worker) v2                                                                         |
 
 ### 0.2 Architectural Decisions
 
@@ -58,18 +58,18 @@
 
 The `deps/` folder alongside this plan contains battle-tested reference implementations. Each file has header comments showing the **source** (original repo path), **target** (where to place it in `apps/naiton`), and **adaptation notes**.
 
-| Dep file | Target path in `apps/naiton` | Used in Phase |
-|---|---|---|
-| `deps/storage.ts` | `src/shared/lib/storage/index.ts` | 6 |
-| `deps/notification.types.ts` | `src/shared/types/notification.types.ts` | 6 |
-| `deps/useRoutingObjects.ts` | `src/shared/hooks/useRoutingObjects/useRoutingObjects.ts` | 6 |
-| `deps/getAbsolutePath.ts` | `src/shared/lib/utils/getAbsolutePath/getAbsolutePath.ts` | 6 |
-| `deps/PublicProvider.tsx` | `src/app/providers/publicProvider/PublicProvider.tsx` | 8 |
-| `deps/RequireAuth.tsx` | `src/app/providers/router/components/RequireAuth.tsx` | 8 |
-| `deps/ScrollContainer.tsx` | `src/app/providers/router/components/ScrollContainer/ScrollContainer.tsx` | 8 |
-| `deps/PageLoader.tsx` | `packages/ui-kit/src/shared/ui/PageLoader.tsx` or `src/shared/ui/PageLoader/PageLoader.tsx` | 3, 8 |
-| `deps/ErrorBoundaryWrapper.tsx` | `src/shared/lib/error-boundary/ErrorBoundaryWrapper.tsx` | 3, 8 |
-| `deps/integration-setup.ts` | `tests/integration/setup.ts` | 11 |
+| Dep file                        | Target path in `apps/naiton`                                                                | Used in Phase |
+| ------------------------------- | ------------------------------------------------------------------------------------------- | ------------- |
+| `deps/storage.ts`               | `src/shared/lib/storage/index.ts`                                                           | 6             |
+| `deps/notification.types.ts`    | `src/shared/types/notification.types.ts`                                                    | 6             |
+| `deps/useRoutingObjects.ts`     | `src/shared/hooks/useRoutingObjects/useRoutingObjects.ts`                                   | 6             |
+| `deps/getAbsolutePath.ts`       | `src/shared/lib/utils/getAbsolutePath/getAbsolutePath.ts`                                   | 6             |
+| `deps/PublicProvider.tsx`       | `src/app/providers/publicProvider/PublicProvider.tsx`                                       | 8             |
+| `deps/RequireAuth.tsx`          | `src/app/providers/router/components/RequireAuth.tsx`                                       | 8             |
+| `deps/ScrollContainer.tsx`      | `src/app/providers/router/components/ScrollContainer/ScrollContainer.tsx`                   | 8             |
+| `deps/PageLoader.tsx`           | `packages/ui-kit/src/shared/ui/PageLoader.tsx` or `src/shared/ui/PageLoader/PageLoader.tsx` | 3, 8          |
+| `deps/ErrorBoundaryWrapper.tsx` | `src/shared/lib/error-boundary/ErrorBoundaryWrapper.tsx`                                    | 3, 8          |
+| `deps/integration-setup.ts`     | `tests/integration/setup.ts`                                                                | 11            |
 
 **How to use**: When a phase task says "reference implementation in `deps/X`", copy that file to the target path and adapt per the header comments. Do not use deps as-is without reading the adaptation notes.
 
@@ -382,6 +382,7 @@ The `deps/` folder alongside this plan contains battle-tested reference implemen
   ```
 - [x] Create `tsconfig.node.json` (for Vite config files).
 - [x] Create `vite.config.ts` (mirrors dashboard):
+
   ```ts
   import { defineConfig } from 'vite';
   import viteReact from '@vitejs/plugin-react';
@@ -410,6 +411,7 @@ The `deps/` folder alongside this plan contains battle-tested reference implemen
     server: { port: 5175 },
   }));
   ```
+
 - [x] Create env files:
   - `.env` (dev defaults)
   - `.env.prod`
@@ -430,7 +432,7 @@ The `deps/` folder alongside this plan contains battle-tested reference implemen
 - [x] Create `src/App.tsx` (renders `<AppRouter />` — placeholder until Phase 8).
 - [x] Create `src/app/styles/index.css`:
   ```css
-  @import "@repo/ui-kit/index.css";
+  @import '@repo/ui-kit/index.css';
   ```
 
 **Verification**
@@ -472,23 +474,27 @@ The `deps/` folder alongside this plan contains battle-tested reference implemen
 
 ### Tasks
 
-- [ ] Install at root: `pnpm add -Dw oxlint @oxlint/oxfmt`.
-- [ ] Create `oxlint.json` at workspace root:
+- [x] Install at root: `pnpm add -Dw oxlint oxfmt` (`oxfmt` is the current official formatter package name).
+- [x] Create `oxlint.json` at workspace root:
   ```json
   {
     "$schema": "https://raw.githubusercontent.com/oxc-project/oxc/main/npm/oxlint/configuration_schema.json",
-    "categories": { "correctness": "error", "suspicious": "warn", "perf": "warn" },
+    "categories": {
+      "correctness": "error",
+      "suspicious": "warn",
+      "perf": "warn"
+    },
     "rules": { "no-console": "warn" },
     "ignorePatterns": ["dist", "node_modules", ".turbo", "coverage", "public"]
   }
   ```
-- [ ] Add `format` and `lint` turbo tasks to each workspace `package.json`.
-- [ ] Initialise husky: `pnpm exec husky init`.
-- [ ] Create `.husky/pre-commit`:
+- [x] Add `format` and `lint` turbo tasks to each workspace `package.json`.
+- [x] Initialise husky: `pnpm exec husky init`.
+- [x] Create `.husky/pre-commit`:
   ```sh
   pnpm lint-staged
   ```
-- [ ] Add `lint-staged` config to root `package.json`:
+- [x] Add `lint-staged` config to root `package.json`:
   ```json
   {
     "lint-staged": {
@@ -503,6 +509,15 @@ The `deps/` folder alongside this plan contains battle-tested reference implemen
 - `pnpm lint` exits 0 across all packages.
 - `pnpm format` exits 0.
 - A staged commit with a deliberate lint error fails pre-commit.
+
+### Files changed
+
+- `package.json` — added `oxlint`/`oxfmt` devDependencies and root `lint-staged` rules for JS/TS and docs/config files.
+- `turbo.json` — added the `format` task so workspace formatting can be orchestrated through Turborepo.
+- `oxlint.json` — added root oxlint configuration with correctness errors, suspicious/perf warnings, and ignored build artifacts.
+- `.husky/pre-commit` — added the pre-commit hook that runs `pnpm lint-staged`.
+- `packages/ui-kit/package.json` — added the missing `format` script so both workspace packages expose Phase 5 tooling commands.
+- `pnpm-lock.yaml` — updated lockfile entries for the newly installed `oxlint` and `oxfmt` tooling.
 
 ---
 
@@ -573,7 +588,15 @@ export type CompanyRequest = {
   inn?: string;
 };
 
-export type AllowedProducts = 'sales' | 'crm' | 'wms' | 'procurement' | 'production' | 'accounting' | 'hrm' | 'fms';
+export type AllowedProducts =
+  | 'sales'
+  | 'crm'
+  | 'wms'
+  | 'procurement'
+  | 'production'
+  | 'accounting'
+  | 'hrm'
+  | 'fms';
 
 export type FormSubmitResponse = PostRequestResponse<LoginResponse>;
 
@@ -638,7 +661,10 @@ export type ShowToastOptions = {
 ```ts
 import axios from 'axios';
 
-type AxiosErrorType<T> = { type: 'axios-error'; error: import('axios').AxiosError<T> };
+type AxiosErrorType<T> = {
+  type: 'axios-error';
+  error: import('axios').AxiosError<T>;
+};
 type UnknownErrorType = { type: 'unknown'; error: unknown };
 
 export function axiosErrorHandler<T>({
@@ -736,7 +762,9 @@ export interface AuthState {
 }
 
 const companyRaw = storage.get(COMPANYINFO_LOCALSTORAGE_KEY);
-const initialCompany = companyRaw ? (JSON.parse(companyRaw) as TCompanyInfo) : null;
+const initialCompany = companyRaw
+  ? (JSON.parse(companyRaw) as TCompanyInfo)
+  : null;
 
 const initialState = {
   accessToken: storage.get(ACCESSTOKEN_LOCALSTORAGE_KEY) ?? null,
@@ -748,7 +776,9 @@ const initialState = {
   isAuthenticated: Boolean(storage.get(ACCESSTOKEN_LOCALSTORAGE_KEY)),
 };
 
-export const createAuthSlice: StateCreator<AuthState, [], [], AuthState> = (set) => ({
+export const createAuthSlice: StateCreator<AuthState, [], [], AuthState> = (
+  set,
+) => ({
   ...initialState,
 
   setAccessToken: (accessToken) => {
@@ -793,7 +823,12 @@ export const createAuthSlice: StateCreator<AuthState, [], [], AuthState> = (set)
     storage.remove(ACCESSTOKEN_LOCALSTORAGE_KEY);
     storage.remove(REFRESHTOKEN_LOCALSTORAGE_KEY);
     storage.remove(COMPANYINFO_LOCALSTORAGE_KEY);
-    set({ ...initialState, accessToken: null, refreshToken: null, isAuthenticated: false });
+    set({
+      ...initialState,
+      accessToken: null,
+      refreshToken: null,
+      isAuthenticated: false,
+    });
   },
 });
 ```
@@ -836,11 +871,16 @@ export interface MetaState {
 }
 
 const initialLng = (storage.get(LNG_LOCALSTORAGE_KEY) ?? 'uz') as TLanguages;
-const initialTheme = (storage.get(THEME_LOCALSTORAGE_KEY) ?? 'system') as TTheme;
+const initialTheme = (storage.get(THEME_LOCALSTORAGE_KEY) ??
+  'system') as TTheme;
 const collapsedRaw = storage.get(SIDEBAR_COLLAPSED_LOCALSTORAGE_KEY);
-const initialCollapsed = collapsedRaw ? (JSON.parse(collapsedRaw) as boolean) : false;
+const initialCollapsed = collapsedRaw
+  ? (JSON.parse(collapsedRaw) as boolean)
+  : false;
 
-export const createMetaSlice: StateCreator<MetaState, [], [], MetaState> = (set) => ({
+export const createMetaSlice: StateCreator<MetaState, [], [], MetaState> = (
+  set,
+) => ({
   lng: initialLng,
   theme: initialTheme,
   isSidebarCollapsed: initialCollapsed,
@@ -858,7 +898,10 @@ export const createMetaSlice: StateCreator<MetaState, [], [], MetaState> = (set)
   },
 
   setIsSidebarCollapsed: (isSidebarCollapsed) => {
-    storage.set(SIDEBAR_COLLAPSED_LOCALSTORAGE_KEY, JSON.stringify(isSidebarCollapsed));
+    storage.set(
+      SIDEBAR_COLLAPSED_LOCALSTORAGE_KEY,
+      JSON.stringify(isSidebarCollapsed),
+    );
     set({ isSidebarCollapsed });
   },
 
@@ -891,10 +934,16 @@ const initialState = {
   activeModal: null as string | null,
 };
 
-export const createModuleUiSlice: StateCreator<ModuleUiState, [], [], ModuleUiState> = (set) => ({
+export const createModuleUiSlice: StateCreator<
+  ModuleUiState,
+  [],
+  [],
+  ModuleUiState
+> = (set) => ({
   ...initialState,
   setIsGlobalLoading: (isGlobalLoading) => set({ isGlobalLoading }),
-  setIsCommandPaletteOpen: (isCommandPaletteOpen) => set({ isCommandPaletteOpen }),
+  setIsCommandPaletteOpen: (isCommandPaletteOpen) =>
+    set({ isCommandPaletteOpen }),
   setActiveModal: (activeModal) => set({ activeModal }),
   resetUi: () => set(initialState),
 });
@@ -1018,7 +1067,12 @@ useEffect(() => {
 - **Reading outside React**: `useBoundStore.getState()` — used by `api.ts` for interceptors.
 - **Cross-slice actions**: if an action needs state from another slice, use `get()` inside the slice factory:
   ```ts
-  export const createFooSlice: StateCreator<FooState & BarState, [], [], FooState> = (set, get) => ({
+  export const createFooSlice: StateCreator<
+    FooState & BarState,
+    [],
+    [],
+    FooState
+  > = (set, get) => ({
     doThing: () => set({ foo: get().bar + 1 }),
   });
   ```
@@ -1109,7 +1163,8 @@ export const request: AxiosInstance = axios.create({
 });
 
 request.defaults.headers.common.Accept = 'application/json';
-request.defaults.headers.common['Content-Type'] = 'application/json; charset=utf-8';
+request.defaults.headers.common['Content-Type'] =
+  'application/json; charset=utf-8';
 
 let token = storage.get(ACCESSTOKEN_LOCALSTORAGE_KEY);
 const companyInfo = storage.get(COMPANYINFO_LOCALSTORAGE_KEY)
@@ -1267,8 +1322,16 @@ import { PostRequestResponse } from '@/shared/types/requests.types';
 interface UseCreateMutationArgs<TRequestBody, TResponseData> {
   url: string;
   params?: Record<string, string>;
-  onSuccess?: (data: TResponseData, variables: TRequestBody, context: unknown) => void;
-  onError?: (error: AxiosError, variables: TRequestBody, context: unknown) => void;
+  onSuccess?: (
+    data: TResponseData,
+    variables: TRequestBody,
+    context: unknown,
+  ) => void;
+  onError?: (
+    error: AxiosError,
+    variables: TRequestBody,
+    context: unknown,
+  ) => void;
   onSettled?: (
     data: TResponseData | undefined,
     error: AxiosError | null,
@@ -1301,7 +1364,10 @@ export function useCreateMutation<
   unknown
 > {
   const stringifiedParams = params
-    ? Object.entries(params).reduce((acc, [key, value]) => `${acc}-${key}-${value}`, '')
+    ? Object.entries(params).reduce(
+        (acc, [key, value]) => `${acc}-${key}-${value}`,
+        '',
+      )
     : '';
   const computedQueryKey = `${url}-${stringifiedParams}`;
   const cachedQueryKey = useMemo(() => [computedQueryKey], [computedQueryKey]);
@@ -1310,10 +1376,14 @@ export function useCreateMutation<
 
   return useMutation<TResponseData, AxiosError, TRequestBody, unknown>({
     mutationFn: async (requestData: TRequestBody) => {
-      const response: AxiosResponse<TResponseData> = await request.post(url, requestData, {
-        params,
-        headers,
-      });
+      const response: AxiosResponse<TResponseData> = await request.post(
+        url,
+        requestData,
+        {
+          params,
+          headers,
+        },
+      );
       return response.data;
     },
     mutationKey: cachedQueryKey,
@@ -1336,7 +1406,9 @@ export function useCreateMutation<
               }
 
               const errorsObjects = err?.error?.response?.data?.data;
-              const ALL_PROPERTIES = Object.keys(variables) as (keyof TRequestBody)[];
+              const ALL_PROPERTIES = Object.keys(
+                variables,
+              ) as (keyof TRequestBody)[];
 
               if (errorsObjects) {
                 ALL_PROPERTIES.forEach((fieldName) => {
@@ -1383,7 +1455,11 @@ const editRequest = async <TRequestBody, TResponseData>({
   method = 'put',
 }: EditRequestArgs<TRequestBody>): Promise<TResponseData> => {
   if (!url) throw new Error('URL is required for useEditMutation');
-  const response: AxiosResponse<TResponseData> = await request[method](url, body, { params });
+  const response: AxiosResponse<TResponseData> = await request[method](
+    url,
+    body,
+    { params },
+  );
   return response.data;
 };
 
@@ -1393,7 +1469,10 @@ interface UseEditMutationArgs<TRequestBody, TResponseData> {
   method?: 'put' | 'patch' | 'post';
   onSuccess?: (data: TResponseData) => void;
   onError?: (error: AxiosError) => void;
-  onSettled?: (data: TResponseData | undefined, error: AxiosError | null) => void;
+  onSettled?: (
+    data: TResponseData | undefined,
+    error: AxiosError | null,
+  ) => void;
   onMutate?: (variables: EditRequestArgs<TRequestBody>) => void;
 }
 
@@ -1411,7 +1490,12 @@ export function useEditMutation<TRequestBody, TResponseData>({
   EditRequestArgs<TRequestBody>,
   unknown
 > {
-  return useMutation<TResponseData, AxiosError, EditRequestArgs<TRequestBody>, unknown>({
+  return useMutation<
+    TResponseData,
+    AxiosError,
+    EditRequestArgs<TRequestBody>,
+    unknown
+  >({
     mutationFn: (variables) =>
       editRequest<TRequestBody, TResponseData>({
         ...variables,
@@ -1466,7 +1550,11 @@ const deleteRequest = async <TResponseBody>({
 interface QueryArgs<TRequestBody, T extends DeleteResponseData> {
   apiUrl: string;
   onSuccess?: (data: T, variables: DeleteRequestArgs, context: unknown) => void;
-  onError?: (error: unknown, variables: DeleteRequestArgs, context: unknown) => void;
+  onError?: (
+    error: unknown,
+    variables: DeleteRequestArgs,
+    context: unknown,
+  ) => void;
   onSettled?: (
     data: T | undefined,
     error: unknown,
@@ -1505,10 +1593,14 @@ export function useDeleteMutation<
         requestBody: variables.requestBody,
       }),
     onMutate,
-    onSuccess: (data, variables, context) => onSuccess?.(data, variables, context),
+    onSuccess: (data, variables, context) =>
+      onSuccess?.(data, variables, context),
     onError: (err, variables, context) => {
       if (
-        axios.isAxiosError<PostRequestResponse<TRequestBody>, Record<string, unknown>>(err) &&
+        axios.isAxiosError<
+          PostRequestResponse<TRequestBody>,
+          Record<string, unknown>
+        >(err) &&
         autoErrorHandle
       ) {
         const errorMessage = err?.response?.data?.message;
@@ -1518,7 +1610,8 @@ export function useDeleteMutation<
       }
       onError?.(err, variables, context);
     },
-    onSettled: (data, err, variables, context) => onSettled?.(data, err, variables, context),
+    onSettled: (data, err, variables, context) =>
+      onSettled?.(data, err, variables, context),
   });
 }
 ```
@@ -1614,8 +1707,13 @@ type UseRhFormProps<
     formData: zodInfer<TSchema>,
     response?: AxiosResponse<ResponseType>,
   ) => void;
-  errorCallback?: (setError: UseFormSetError<zodInfer<TSchema>>, error: unknown) => void;
-  fieldDataMapper?: (formData: zodInfer<TSchema>) => Promise<RequestType> | RequestType;
+  errorCallback?: (
+    setError: UseFormSetError<zodInfer<TSchema>>,
+    error: unknown,
+  ) => void;
+  fieldDataMapper?: (
+    formData: zodInfer<TSchema>,
+  ) => Promise<RequestType> | RequestType;
   url: string;
   method?: 'put' | 'post';
   validationSchema: TSchema;
@@ -1672,14 +1770,23 @@ export function useRhForm<
         await Promise.resolve();
         successCallback(data);
       } else {
-        const response = await request[method]<ResponseType>(url, normalizedData, headers);
+        const response = await request[method]<ResponseType>(
+          url,
+          normalizedData,
+          headers,
+        );
         successCallback(data, response);
       }
     } catch (error: unknown) {
-      const ALL_PROPERTIES = Object.keys(initialValues) as (keyof RequestType)[];
+      const ALL_PROPERTIES = Object.keys(
+        initialValues,
+      ) as (keyof RequestType)[];
 
       if (
-        axios.isAxiosError<PostRequestResponse<RequestType>, Record<string, unknown>>(error)
+        axios.isAxiosError<
+          PostRequestResponse<RequestType>,
+          Record<string, unknown>
+        >(error)
       ) {
         const message = error?.response?.data?.message;
         const errorsObjects = error?.response?.data?.data;
@@ -1856,8 +1963,12 @@ export function useRhForm<
     authOnly?: boolean;
     availableIn?: AllowedProducts[];
   };
-  export const routes: Record<string, AppRoutesProps> = { /* ... */ };
-  export const authRoutes = { /* login, register */ };
+  export const routes: Record<string, AppRoutesProps> = {
+    /* ... */
+  };
+  export const authRoutes = {
+    /* login, register */
+  };
   ```
 
 ### 8.5 — `AppRouter.tsx` (verbatim pattern adapted)
@@ -1940,6 +2051,7 @@ export default function AppRouter() {
 ### 8.6 — Wire `App.tsx`
 
 - [ ] Replace placeholder `App.tsx`:
+
   ```tsx
   import { BrowserRouter } from 'react-router';
   import { PublicProvider } from '@/app/providers/publicProvider/PublicProvider';

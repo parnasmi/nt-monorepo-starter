@@ -2,7 +2,7 @@
 // Target: apps/naiton/src/shared/lib/storage/index.ts
 // Used by: api.ts, auth store, meta store
 
-const isBrowser = typeof window !== 'undefined';
+const isBrowser = typeof window !== "undefined";
 
 const storage = {
   get: (key: string) => {

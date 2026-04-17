@@ -306,7 +306,7 @@ The `deps/` folder alongside this plan contains battle-tested reference implemen
 
 ### Tasks
 
-- [ ] Create `apps/naiton/package.json` (name `naiton`, private, type `module`). Scripts:
+- [x] Create `apps/naiton/package.json` (name `naiton`, private, type `module`). Scripts:
   ```json
   {
     "scripts": {
@@ -329,9 +329,9 @@ The `deps/` folder alongside this plan contains battle-tested reference implemen
     }
   }
   ```
-- [ ] Install runtime deps: `react@latest react-dom@latest react-router@latest @tanstack/react-query@latest @tanstack/react-query-devtools@latest zustand@latest react-hook-form@latest @hookform/resolvers@latest zod@latest axios@latest sonner@latest react-i18next@latest i18next@latest i18next-http-backend@latest i18next-browser-languagedetector@latest react-error-boundary@latest clsx tailwind-merge class-variance-authority lucide-react nuqs date-fns usehooks-ts use-debounce next-themes vaul @repo/ui-kit@workspace:*`.
-- [ ] Install dev deps: `vite@latest @vitejs/plugin-react@latest @tailwindcss/vite@latest tailwindcss@latest vite-plugin-svgr@latest vitest@latest @vitest/coverage-v8@latest jsdom@latest @testing-library/react@latest @testing-library/jest-dom@latest @testing-library/user-event@latest @playwright/test@latest msw@latest env-cmd cross-env typescript@5.8 @types/react@latest @types/react-dom@latest @types/node@latest oxlint@latest`.
-- [ ] Create `tsconfig.json`:
+- [x] Install runtime deps: `react@latest react-dom@latest react-router@latest @tanstack/react-query@latest @tanstack/react-query-devtools@latest zustand@latest react-hook-form@latest @hookform/resolvers@latest zod@latest axios@latest sonner@latest react-i18next@latest i18next@latest i18next-http-backend@latest i18next-browser-languagedetector@latest react-error-boundary@latest clsx tailwind-merge class-variance-authority lucide-react nuqs date-fns usehooks-ts use-debounce next-themes vaul @repo/ui-kit@workspace:*`.
+- [x] Install dev deps: `vite@latest @vitejs/plugin-react@latest @tailwindcss/vite@latest tailwindcss@latest vite-plugin-svgr@latest vitest@latest @vitest/coverage-v8@latest jsdom@latest @testing-library/react@latest @testing-library/jest-dom@latest @testing-library/user-event@latest @playwright/test@latest msw@latest env-cmd cross-env typescript@5.8 @types/react@latest @types/react-dom@latest @types/node@latest oxlint@latest`.
+- [x] Create `tsconfig.json`:
   ```json
   {
     "files": [],
@@ -348,7 +348,7 @@ The `deps/` folder alongside this plan contains battle-tested reference implemen
     }
   }
   ```
-- [ ] Create `tsconfig.app.json`:
+- [x] Create `tsconfig.app.json`:
   ```json
   {
     "compilerOptions": {
@@ -380,8 +380,8 @@ The `deps/` folder alongside this plan contains battle-tested reference implemen
     "include": ["src", "config", "tests"]
   }
   ```
-- [ ] Create `tsconfig.node.json` (for Vite config files).
-- [ ] Create `vite.config.ts` (mirrors dashboard):
+- [x] Create `tsconfig.node.json` (for Vite config files).
+- [x] Create `vite.config.ts` (mirrors dashboard):
   ```ts
   import { defineConfig } from 'vite';
   import viteReact from '@vitejs/plugin-react';
@@ -410,7 +410,7 @@ The `deps/` folder alongside this plan contains battle-tested reference implemen
     server: { port: 5175 },
   }));
   ```
-- [ ] Create env files:
+- [x] Create env files:
   - `.env` (dev defaults)
   - `.env.prod`
   - `.env.beta`
@@ -425,10 +425,10 @@ The `deps/` folder alongside this plan contains battle-tested reference implemen
       APP_VERSION: import.meta.env.VITE_PUBLIC_APP_VERSION as string,
     };
     ```
-- [ ] Create `index.html` with `<div id="root">` and `<script type="module" src="/src/main.tsx">`.
-- [ ] Create `src/main.tsx` (renders `<App />` inside `StrictMode` + `BrowserRouter`).
-- [ ] Create `src/App.tsx` (renders `<AppRouter />` — placeholder until Phase 8).
-- [ ] Create `src/app/styles/index.css`:
+- [x] Create `index.html` with `<div id="root">` and `<script type="module" src="/src/main.tsx">`.
+- [x] Create `src/main.tsx` (renders `<App />` inside `StrictMode` + `BrowserRouter`).
+- [x] Create `src/App.tsx` (renders `<AppRouter />` — placeholder until Phase 8).
+- [x] Create `src/app/styles/index.css`:
   ```css
   @import "@repo/ui-kit/index.css";
   ```
@@ -438,6 +438,29 @@ The `deps/` folder alongside this plan contains battle-tested reference implemen
 - `pnpm --filter naiton dev` starts on `http://localhost:5175` showing a blank page (no error).
 - `pnpm --filter naiton check-types` exits 0.
 - Tailwind classes render (add a test `<div class="bg-primary">` to `App.tsx` — should see brand color).
+
+### Files changed
+
+- `apps/naiton/package.json` — app workspace manifest with Vite, build, lint, test scripts and the installed Phase 4 dependencies.
+- `apps/naiton/tsconfig.json` — project references plus `@/*` and `@repo/ui-kit/*` aliases.
+- `apps/naiton/tsconfig.app.json` — strict browser-side TypeScript config for `src`, `config`, and `tests`.
+- `apps/naiton/tsconfig.node.json` — TypeScript config for Vite, Vitest, and Playwright config files.
+- `apps/naiton/vite.config.ts` — Vite setup with React, Tailwind v4, SVGR, aliases, defines, and port `5175`.
+- `apps/naiton/.env` — local development API base URL and app version defaults.
+- `apps/naiton/.env.prod` — production API base URL and app version defaults.
+- `apps/naiton/.env.beta` — beta API base URL and app version defaults.
+- `apps/naiton/config/env/env.config.ts` — typed env export for API root and app version.
+- `apps/naiton/index.html` — root HTML shell that mounts `src/main.tsx` into `#root`.
+- `apps/naiton/src/main.tsx` — React bootstrap with `StrictMode`, `BrowserRouter`, and global CSS import.
+- `apps/naiton/src/App.tsx` — app entry component that renders `AppRouter`.
+- `apps/naiton/src/app/providers/router/AppRouter.tsx` — placeholder router surface with a Tailwind-backed scaffold screen.
+- `apps/naiton/src/app/providers/router/index.ts` — public router barrel export.
+- `apps/naiton/src/app/styles/index.css` — imports the shared UI kit stylesheet.
+- `apps/naiton/src/vite-env.d.ts` — Vite env typings for the `VITE_PUBLIC_*` variables.
+- `apps/naiton/vitest.config.ts` — base Vitest config stub using `jsdom`.
+- `apps/naiton/vitest.integration.config.mts` — integration-test Vitest config stub targeting `tests/integration`.
+- `apps/naiton/playwright.config.ts` — Playwright config stub targeting `tests/e2e` with local base URL.
+- `pnpm-lock.yaml` — lockfile updated for the new `naiton` workspace dependency graph.
 
 ---
 

@@ -48,3 +48,14 @@ Created the shared component library at `packages/ui-kit/`:
 - **Type declarations**: `css-modules.d.ts`, `svg.d.ts`
 - Both `pnpm --filter @repo/ui-kit build` and `check-types` exit 0.
 - Key note: shadcn CLI places files into `@/` literal directory by default; they were moved manually to `src/`.
+
+### Phase 4 — App Scaffold (`apps/naiton`) ✅
+
+Created the initial Vite app scaffold in `apps/naiton/` and installed the Phase 4 dependency set:
+- **Workspace app manifest**: `apps/naiton/package.json` with Vite, build, lint, Vitest, and Playwright scripts plus runtime/dev dependencies.
+- **TypeScript setup**: `tsconfig.json`, `tsconfig.app.json`, and `tsconfig.node.json` with `@/*` and `@repo/ui-kit/*` aliases.
+- **Bundler/env setup**: `vite.config.ts`, `.env`, `.env.prod`, `.env.beta`, and `config/env/env.config.ts`.
+- **Bootstrap files**: `index.html`, `src/main.tsx`, `src/App.tsx`, `src/app/styles/index.css`, and `src/vite-env.d.ts`.
+- **Router placeholder**: `src/app/providers/router/AppRouter.tsx` plus barrel export at `src/app/providers/router/index.ts`.
+- **Test config stubs**: `vitest.config.ts`, `vitest.integration.config.mts`, and `playwright.config.ts`.
+- Verification completed: `pnpm --filter naiton check-types` passes, `pnpm --filter naiton build` passes, and `pnpm --filter naiton dev` boots on `http://localhost:5175`.

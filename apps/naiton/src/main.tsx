@@ -12,10 +12,19 @@ if (container === null) {
   throw new Error("Root container #root was not found.");
 }
 
-createRoot(container).render(
-  <StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </StrictMode>,
-);
+const bootstrap = async (): Promise<void> => {
+  if (import.meta.env.DEV) {
+    const { worker } = await import("@/shared/api/mocks/browser");
+    await worker.start({ onUnhandledRequest: "bypass" });
+  }
+
+  createRoot(container).render(
+    <StrictMode>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </StrictMode>,
+  );
+};
+
+void bootstrap();

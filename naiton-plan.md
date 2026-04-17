@@ -529,7 +529,7 @@ The `deps/` folder alongside this plan contains battle-tested reference implemen
 
 ### 6.1 — `shared/types/requests.types.ts` (verbatim)
 
-- [ ] Create `apps/naiton/src/shared/types/requests.types.ts`:
+- [x] Create `apps/naiton/src/shared/types/requests.types.ts`:
 
 ```ts
 export type GetRequestResponse<T> = {
@@ -632,7 +632,7 @@ export type SubscriptionMeta = {
 
 ### 6.2 — `shared/types/notification.types.ts`
 
-- [ ] Create. Reference implementation in **`deps/notification.types.ts`** (dashboard's original uses `ToastT` from sonner). Either approach works — use this version for consistency with the dashboard:
+- [x] Create. Reference implementation in **`deps/notification.types.ts`** (dashboard's original uses `ToastT` from sonner). Either approach works — use this version for consistency with the dashboard:
 
 ```ts
 import type { ExternalToast } from 'sonner';
@@ -648,15 +648,15 @@ export type ShowToastOptions = {
 
 ### 6.3 — `shared/const/localstorage.const.ts`
 
-- [ ] Create this file; final key list is authoritative in **section 6.6.5** (it's grouped with the Zustand slices that own each key). For now, create an empty file or stub — section 6.6.5 will fill it in.
+- [x] Create this file; final key list is authoritative in **section 6.6.5** (it's grouped with the Zustand slices that own each key). For now, create an empty file or stub — section 6.6.5 will fill it in.
 
 ### 6.4 — `shared/lib/storage/index.ts`
 
-- [ ] Create by copying **`deps/storage.ts`** → `apps/naiton/src/shared/lib/storage/index.ts`. This is a typed wrapper around `localStorage` exposing `get(key)`, `set(key, value)`, `remove(key)` with SSR-safe `isBrowser` guard. Used by `api.ts`, auth store, and meta store.
+- [x] Create by copying **`deps/storage.ts`** → `apps/naiton/src/shared/lib/storage/index.ts`. This is a typed wrapper around `localStorage` exposing `get(key)`, `set(key, value)`, `remove(key)` with SSR-safe `isBrowser` guard. Used by `api.ts`, auth store, and meta store.
 
 ### 6.5 — `shared/lib/utils/axiosErrorHandler/axiosErrorHandler.ts`
 
-- [ ] Create a discriminated-union error wrapper used by `useCreateMutation`:
+- [x] Create a discriminated-union error wrapper used by `useCreateMutation`:
 
 ```ts
 import axios from 'axios';
@@ -715,7 +715,7 @@ src/shared/store/
 
 ### 6.6.1 — `shared/store/use-auth-store/use-auth-store.ts`
 
-- [ ] Create:
+- [x] Create:
 
 ```ts
 import { StateCreator } from 'zustand';
@@ -835,7 +835,7 @@ export const createAuthSlice: StateCreator<AuthState, [], [], AuthState> = (
 
 ### 6.6.2 — `shared/store/use-meta-store/use-meta-store.ts`
 
-- [ ] Create:
+- [x] Create:
 
 ```ts
 import { StateCreator } from 'zustand';
@@ -912,7 +912,7 @@ export const createMetaSlice: StateCreator<MetaState, [], [], MetaState> = (
 
 ### 6.6.3 — `shared/store/use-module-ui-store/use-module-ui-store.ts`
 
-- [ ] Create a slice for cross-module ephemeral UI flags (global spinners, command palette open, etc.):
+- [x] Create a slice for cross-module ephemeral UI flags (global spinners, command palette open, etc.):
 
 ```ts
 import { StateCreator } from 'zustand';
@@ -951,7 +951,7 @@ export const createModuleUiSlice: StateCreator<
 
 ### 6.6.4 — `shared/store/index.ts` (bound store)
 
-- [ ] Create:
+- [x] Create:
 
 ```ts
 import { create } from 'zustand';
@@ -1028,7 +1028,7 @@ export const useModuleUi = () =>
 
 ### 6.6.5 — Extend `localstorage.const.ts` for store keys
 
-- [ ] Add to `src/shared/const/localstorage.const.ts`:
+- [x] Add to `src/shared/const/localstorage.const.ts`:
 
 ```ts
 export const ACCESSTOKEN_LOCALSTORAGE_KEY = 'naiton-access-token';
@@ -1080,14 +1080,14 @@ useEffect(() => {
 
 ### 6.6.8 — Tests
 
-- [ ] `use-auth-store.test.ts` — assert `login()` sets `isAuthenticated` + writes token; `reset()` clears localStorage.
-- [ ] `use-meta-store.test.ts` — assert `setLng('ru')` persists to localStorage and updates state.
-- [ ] `use-module-ui-store.test.ts` — assert `resetUi()` returns to initial state.
-- [ ] Run tests with Vitest pattern (Phase 11).
+- [x] `use-auth-store.test.ts` — assert `login()` sets `isAuthenticated` + writes token; `reset()` clears localStorage.
+- [x] `use-meta-store.test.ts` — assert `setLng('ru')` persists to localStorage and updates state.
+- [x] `use-module-ui-store.test.ts` — assert `resetUi()` returns to initial state.
+- [x] Run tests with Vitest pattern (Phase 11).
 
 ### 6.7 — `shared/const/router.const.ts`
 
-- [ ] Create enums + `getRoute*()` helpers for Naiton modules:
+- [x] Create enums + `getRoute*()` helpers for Naiton modules:
 
 ```ts
 export enum AppRoutes {
@@ -1127,7 +1127,7 @@ export const getRouteFms = () => 'fms';
 
 ### 6.8 — `shared/const/endpoints.const.ts`
 
-- [ ] Create (mock-API endpoints):
+- [x] Create (mock-API endpoints):
 
 ```ts
 export const endpoints = {
@@ -1143,7 +1143,7 @@ export const endpoints = {
 
 ### 6.9 — `shared/api/api.ts` (verbatim, adapted)
 
-- [ ] Create `apps/naiton/src/shared/api/api.ts` (same interceptor & subscription logic as dashboard, routed through `envConfig.API_ROOT`):
+- [x] Create `apps/naiton/src/shared/api/api.ts` (same interceptor & subscription logic as dashboard, routed through `envConfig.API_ROOT`):
 
 ```ts
 import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
@@ -1220,7 +1220,7 @@ request.interceptors.response.use(
 
 ### 6.10 — `shared/api/api-helper-hooks/useFetchQueries.ts` (verbatim)
 
-- [ ] Create:
+- [x] Create:
 
 ```ts
 import {
@@ -1307,7 +1307,7 @@ export const useFetchQueries = <T>(options: QueryFetchProps<T>) => {
 
 ### 6.11 — `shared/api/api-helper-hooks/useCreateMutation.ts` (verbatim)
 
-- [ ] Create:
+- [x] Create:
 
 ```ts
 import { useMutation, UseMutationResult } from '@tanstack/react-query';
@@ -1434,7 +1434,7 @@ export function useCreateMutation<
 
 ### 6.12 — `shared/api/api-helper-hooks/useEditMutation.ts` (verbatim)
 
-- [ ] Create:
+- [x] Create:
 
 ```ts
 import { useMutation, UseMutationResult } from '@tanstack/react-query';
@@ -1513,7 +1513,7 @@ export function useEditMutation<TRequestBody, TResponseData>({
 
 ### 6.13 — `shared/api/api-helper-hooks/useDeleteMutation.ts` (verbatim)
 
-- [ ] Create:
+- [x] Create:
 
 ```ts
 import { useMutation, UseMutationResult } from '@tanstack/react-query';
@@ -1618,7 +1618,7 @@ export function useDeleteMutation<
 
 ### 6.14 — `shared/api/index.ts` (barrel)
 
-- [ ] Create:
+- [x] Create:
 
 ```ts
 export { useFetchQueries } from './api-helper-hooks/useFetchQueries';
@@ -1630,7 +1630,7 @@ export { request, apiSubscribe } from './api';
 
 ### 6.15 — `shared/hooks/useToastNotif/useToastNotif.ts` (verbatim)
 
-- [ ] Create:
+- [x] Create:
 
 ```ts
 import { useCallback } from 'react';
@@ -1680,7 +1680,7 @@ export function useToastNotif() {
 
 ### 6.16 — `shared/hooks/useRHForm/useRHForm.ts` (verbatim, adapted)
 
-- [ ] Create:
+- [x] Create:
 
 ```ts
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -1854,21 +1854,39 @@ export function useRhForm<
 
 ### 6.17 — `shared/hooks/useRoutingObjects/useRoutingObjects.ts`
 
-- [ ] Create by copying **`deps/useRoutingObjects.ts`** → `apps/naiton/src/shared/hooks/useRoutingObjects/useRoutingObjects.ts`. Wraps `useNavigate`, `useLocation` into a single hook returning `{ pathname, navigate, location, goBack, goTo }`.
+- [x] Create by copying **`deps/useRoutingObjects.ts`** → `apps/naiton/src/shared/hooks/useRoutingObjects/useRoutingObjects.ts`. Wraps `useNavigate`, `useLocation` into a single hook returning `{ pathname, navigate, location, goBack, goTo }`.
 
 ### 6.18 — `shared/lib/utils/getAbsolutePath/getAbsolutePath.ts`
 
-- [ ] Create by copying **`deps/getAbsolutePath.ts`** → `apps/naiton/src/shared/lib/utils/getAbsolutePath/getAbsolutePath.ts`. Prefixes relative paths with `/app/`.
+- [x] Create by copying **`deps/getAbsolutePath.ts`** → `apps/naiton/src/shared/lib/utils/getAbsolutePath/getAbsolutePath.ts`. Prefixes relative paths with `/app/`.
 
 ### 6.19 — i18n scaffold
 
-- [ ] Create `src/shared/config/i18n/i18n.ts` (react-i18next + HTTP backend + language detector, fallback `uz`, namespaces `common`, `auth`, `sales`, `crm`).
-- [ ] Create `public/locales/{uz,ru}/{common,auth,sales,crm}.json` with seed keys.
+- [x] Create `src/shared/config/i18n/i18n.ts` (react-i18next + HTTP backend + language detector, fallback `uz`, namespaces `common`, `auth`, `sales`, `crm`).
+- [x] Create `public/locales/{uz,ru}/{common,auth,sales,crm}.json` with seed keys.
 
 **Verification**
 
 - `pnpm --filter naiton check-types` exits 0.
 - `import { useFetchQueries } from '@/shared/api'` resolves.
+
+### Files changed
+
+- `apps/naiton/src/shared/types/requests.types.ts` — canonical request/response, auth, company, subscription, and product type contracts for the shared layer.
+- `apps/naiton/src/shared/types/notification.types.ts` and `src/shared/hooks/useToastNotif/useToastNotif.ts` — normalized Sonner toast option types plus a reusable `showToast` helper.
+- `apps/naiton/src/shared/const/{localstorage.const.ts,router.const.ts,endpoints.const.ts}` — added authoritative localStorage keys, route helpers, and mock-ready API endpoint constants.
+- `apps/naiton/src/shared/lib/storage/index.ts` and `src/shared/lib/utils/{axiosErrorHandler,getAbsolutePath}/...` — added SSR-safe storage access plus shared error/path utilities.
+- `apps/naiton/src/shared/store/index.ts` — composed a single Zustand bound store with development-only devtools and selector helpers (`useAuth`, `useMeta`, `useModuleUi`).
+- `apps/naiton/src/shared/store/use-auth-store/{use-auth-store.ts,use-auth-store.test.ts}` — added persisted auth state with login/reset flows and localStorage coverage.
+- `apps/naiton/src/shared/store/use-meta-store/{use-meta-store.ts,use-meta-store.test.ts}` — added language/theme/sidebar meta state with persistence and test coverage.
+- `apps/naiton/src/shared/store/use-module-ui-store/{use-module-ui-store.ts,use-module-ui-store.test.ts}` — added ephemeral cross-module UI state and reset coverage.
+- `apps/naiton/src/shared/api/api.ts` and `src/shared/api/index.ts` — added the axios singleton, header synchronization entry point, redirects, and the shared API barrel.
+- `apps/naiton/src/shared/api/api-helper-hooks/{useFetchQueries.ts,useCreateMutation.ts,useEditMutation.ts,useDeleteMutation.ts}` — added TanStack Query helpers matching the dashboard pattern.
+- `apps/naiton/src/shared/hooks/{useRHForm,useRoutingObjects}/...` — added the shared RHF submission helper and routing helper hook for future features/pages.
+- `apps/naiton/src/shared/config/i18n/i18n.ts` and `apps/naiton/public/locales/{uz,ru}/{common,auth,sales,crm}.json` — scaffolded i18n initialization and seed translations.
+- `apps/naiton/src/main.tsx` — initializes i18n once at app bootstrap.
+- `apps/naiton/vitest.config.ts` and `apps/naiton/vitest.integration.config.mts` — added `@`/`@/config` alias resolution for unit and integration tests.
+- `6.6.6 PublicProvider wiring` — intentionally deferred to Phase 8.1 because `PublicProvider.tsx` is introduced there; `apiSubscribe` is ready to be connected then.
 
 ---
 

@@ -8,6 +8,7 @@ import { z } from "zod";
 import { useCreateMutation } from "@/shared/api/api-helper-hooks/useCreateMutation";
 import { useFetchQueries } from "@/shared/api/api-helper-hooks/useFetchQueries";
 import { endpoints } from "@/shared/const/endpoints.const";
+import { useToastNotif } from "@/shared/hooks/useToastNotif/useToastNotif";
 import type {
   CreateCrmLeadRequest,
   CrmLead,
@@ -78,6 +79,7 @@ export default function CrmPage() {
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const deferredSearch = useDeferredValue(searchValue);
   const queryClient = useQueryClient();
+  const { showToast } = useToastNotif();
   const {
     register,
     control,
@@ -103,11 +105,15 @@ export default function CrmPage() {
 
   const createLeadMutation = useCreateMutation<CreateCrmLeadRequest, PostRequestResponse<CrmLead>>({
     url: endpoints.CRM_LEADS,
-    onSuccess: () => {
+    onSuccess: (response) => {
       void queryClient.invalidateQueries({
         predicate: (query) =>
           typeof query.queryKey[0] === "string" &&
           query.queryKey[0].startsWith(endpoints.CRM_LEADS),
+      });
+      showToast({
+        message: typeof response.message === "string" ? response.message : "CRM lead created",
+        type: "success",
       });
       reset({
         name: "",

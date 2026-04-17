@@ -8,6 +8,7 @@ import { z } from "zod";
 import { useCreateMutation } from "@/shared/api/api-helper-hooks/useCreateMutation";
 import { useFetchQueries } from "@/shared/api/api-helper-hooks/useFetchQueries";
 import { endpoints } from "@/shared/const/endpoints.const";
+import { useToastNotif } from "@/shared/hooks/useToastNotif/useToastNotif";
 import type {
   CreateSalesOrderRequest,
   GetRequestResponse,
@@ -82,6 +83,7 @@ export default function SalesPage() {
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const deferredSearch = useDeferredValue(searchValue);
   const queryClient = useQueryClient();
+  const { showToast } = useToastNotif();
   const {
     register,
     control,
@@ -109,11 +111,15 @@ export default function SalesPage() {
     PostRequestResponse<SalesOrder>
   >({
     url: endpoints.SALES_ORDERS,
-    onSuccess: () => {
+    onSuccess: (response) => {
       void queryClient.invalidateQueries({
         predicate: (query) =>
           typeof query.queryKey[0] === "string" &&
           query.queryKey[0].startsWith(endpoints.SALES_ORDERS),
+      });
+      showToast({
+        message: typeof response.message === "string" ? response.message : "Sales order created",
+        type: "success",
       });
       reset({
         customer: "",

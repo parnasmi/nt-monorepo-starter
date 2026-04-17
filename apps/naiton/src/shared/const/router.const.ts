@@ -1,33 +1,43 @@
-export enum AppRoutes {
-  DASHBOARD = "dashboard",
-  SALES = "sales",
-  CRM = "crm",
-  WMS = "wms",
-  PROCUREMENT = "procurement",
-  PRODUCTION = "production",
-  ACCOUNTING = "accounting",
-  HRM = "hrm",
-  FMS = "fms",
-  USER_PROFILE = "user-profile",
-  LOGOUT = "logout",
-}
+export const AppRoutes = {
+  DASHBOARD: "dashboard",
+  SALES: "sales",
+  CRM: "crm",
+  WMS: "wms",
+  PROCUREMENT: "procurement",
+  PRODUCTION: "production",
+  ACCOUNTING: "accounting",
+  HRM: "hrm",
+  FMS: "fms",
+  USER_PROFILE: "user-profile",
+  LOGOUT: "logout",
+} as const;
 
-export enum AuthRoutesEnum {
-  LOGIN = "login",
-  REGISTER = "register",
-}
+export type AppRoute = (typeof AppRoutes)[keyof typeof AppRoutes];
 
-export const getAppsRoute = () => "/app";
-export const getRouteAuth = () => "/auth";
-export const getRouteAuthLogin = () => "/auth/login";
-export const getRouteForbidden = () => "/forbidden";
-export const getRouteLogout = () => "logout";
-export const getRouteDashboard = () => "dashboard";
-export const getRouteSales = () => "sales";
-export const getRouteCrm = () => "crm";
-export const getRouteWms = () => "wms";
-export const getRouteProcurement = () => "procurement";
-export const getRouteProduction = () => "production";
-export const getRouteAccounting = () => "accounting";
-export const getRouteHrm = () => "hrm";
-export const getRouteFms = () => "fms";
+export const AuthRoutes = {
+  LOGIN: "login",
+  REGISTER: "register",
+} as const;
+
+export type AuthRoute = (typeof AuthRoutes)[keyof typeof AuthRoutes];
+
+const BaseRoutes = {
+  APP: "/app",
+  AUTH: "/auth",
+  FORBIDDEN: "/forbidden",
+} as const;
+
+export const getAppsRoute = () => BaseRoutes.APP;
+export const getRouteAuth = () => BaseRoutes.AUTH;
+export const getRouteAuthLogin = () => `${BaseRoutes.AUTH}/${AuthRoutes.LOGIN}`;
+export const getRouteForbidden = () => BaseRoutes.FORBIDDEN;
+export const getRouteLogout = () => AppRoutes.LOGOUT;
+export const getRouteDashboard = () => AppRoutes.DASHBOARD;
+export const getRouteSales = () => AppRoutes.SALES;
+export const getRouteCrm = () => AppRoutes.CRM;
+export const getRouteWms = () => AppRoutes.WMS;
+export const getRouteProcurement = () => AppRoutes.PROCUREMENT;
+export const getRouteProduction = () => AppRoutes.PRODUCTION;
+export const getRouteAccounting = () => AppRoutes.ACCOUNTING;
+export const getRouteHrm = () => AppRoutes.HRM;
+export const getRouteFms = () => AppRoutes.FMS;

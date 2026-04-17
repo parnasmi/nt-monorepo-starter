@@ -106,7 +106,7 @@ export function AppNavbar() {
           />
         </div>
 
-        <nav className="hidden min-w-0 flex-1 items-center justify-center gap-1 overflow-x-auto xl:flex">
+        <nav className="hidden min-w-0 flex-1 items-center justify-start gap-1 overflow-x-auto xl:flex">
           {visibleModules.map((moduleItem) => (
             <NavLink
               key={moduleItem.key}

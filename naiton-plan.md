@@ -2208,7 +2208,7 @@ export default function AppRouter() {
 
 ### 11.1 — Unit tests
 
-- [ ] `vitest.config.ts`:
+- [x] `vitest.config.ts`:
   ```ts
   import { defineConfig } from 'vitest/config';
   import viteReact from '@vitejs/plugin-react';
@@ -2230,15 +2230,15 @@ export default function AppRouter() {
     },
   });
   ```
-- [ ] `src/test/setup.ts`:
+- [x] `src/test/setup.ts`:
   ```ts
   import '@testing-library/jest-dom/vitest';
   ```
-- [ ] Write sample unit test: `src/shared/lib/utils/axiosErrorHandler/axiosErrorHandler.test.ts`.
+- [x] Write sample unit test: `src/shared/lib/utils/axiosErrorHandler/axiosErrorHandler.test.ts`.
 
 ### 11.2 — Integration tests
 
-- [ ] `vitest.integration.config.mts`:
+- [x] `vitest.integration.config.mts`:
   ```ts
   import { defineConfig } from 'vitest/config';
   import viteReact from '@vitejs/plugin-react';
@@ -2254,7 +2254,11 @@ export default function AppRouter() {
     define: {
       __IS_DEV__: JSON.stringify(true),
       __PROJECT__: JSON.stringify('frontend'),
-      'import.meta.env.VITE_APP_VERSION': JSON.stringify('1.0.0'),
+      'import.meta.env.VITE_PUBLIC_API_BASE_URL': JSON.stringify(
+        'http://localhost:3000/api',
+      ),
+      'import.meta.env.VITE_PUBLIC_APP_VERSION': JSON.stringify('1.0.0-test'),
+      'import.meta.env.VITE_USE_MSW': JSON.stringify('false'),
     },
     test: {
       globals: true,
@@ -2265,15 +2269,15 @@ export default function AppRouter() {
     },
   });
   ```
-- [ ] `tests/integration/setup.ts` — reference implementation in **`deps/integration-setup.ts`**. Copy and adapt. Key contents:
+- [x] `tests/integration/setup.ts` — reference implementation in **`deps/integration-setup.ts`**. Copy and adapt. Key contents:
   - Polyfill `ResizeObserver` for Radix UI.
   - Suppress `act()` warnings from third-party libs.
   - Mock `react-i18next` (returns keys as-is), `sonner` (toast spies), `nuqs` (query string parsers).
-- [ ] Sample integration test: `tests/integration/features/auth/LoginForm.test.tsx` — fills form, asserts redirect via `MemoryRouter`.
+- [x] Sample integration test: `tests/integration/features/auth/LoginForm.test.tsx` — fills form, asserts redirect via `MemoryRouter`.
 
 ### 11.3 — E2E tests (Playwright)
 
-- [ ] `playwright.config.ts`:
+- [x] `playwright.config.ts`:
   ```ts
   import { defineConfig, devices } from '@playwright/test';
   export default defineConfig({
@@ -2300,21 +2304,40 @@ export default function AppRouter() {
       },
     ],
     webServer: {
-      command: 'pnpm dev',
+      command: 'pnpm dev:real',
       url: 'http://localhost:5175',
       reuseExistingServer: !process.env.CI,
       timeout: 30_000,
     },
   });
   ```
-- [ ] `tests/e2e/global-setup.ts` — logs in via UI and writes `tests/e2e/.auth/user.json`.
-- [ ] `tests/e2e/smoke.spec.ts` — golden path: Login → Dashboard → Sales → Create Order → CRM → Logout.
+- [x] `tests/e2e/global-setup.ts` — logs in via UI and writes `tests/e2e/.auth/user.json`.
+- [x] `tests/e2e/smoke.spec.ts` — golden path: Login → Dashboard → Sales → Create Order → CRM → Logout.
 
 **Verification**
 
 - `pnpm --filter naiton test:run` — all unit tests pass.
 - `pnpm --filter naiton test:integration` — all integration tests pass.
 - `pnpm --filter naiton exec playwright install chromium` then `pnpm --filter naiton test:e2e` — smoke passes.
+
+### Files changed
+
+- `apps/naiton/vitest.config.ts` — added React/SVGR plugins, alias array resolution, unit setup file, and focused unit-test include rules.
+- `apps/naiton/src/test/setup.ts` — bootstraps Vitest DOM assertions with `@testing-library/jest-dom/vitest`.
+- `apps/naiton/src/shared/lib/utils/axiosErrorHandler/axiosErrorHandler.test.ts` — covers Axios vs unknown error branching.
+- `apps/naiton/vitest.integration.config.mts` — added integration-only setup, env defines, and JSX/SVG handling for RTL tests.
+- `apps/naiton/tests/integration/setup.ts` — adapted the reference setup with `ResizeObserver`, warning suppression, and `react-i18next`/`sonner`/`nuqs` mocks.
+- `apps/naiton/tests/integration/features/auth/LoginForm.test.tsx` — verifies login submission, auth-store updates, and router redirect with `MemoryRouter`.
+- `apps/naiton/playwright.config.ts` — configured setup/chromium projects, screenshots/traces, and a local `dev:real` web server for Playwright.
+- `apps/naiton/tests/e2e/global-setup.ts` — authenticates through the login form and saves browser storage state for reused sessions.
+- `apps/naiton/tests/e2e/smoke.spec.ts` — exercises the browser golden path across dashboard, Sales, CRM, order creation, and logout.
+- `apps/naiton/tests/e2e/support/mockApi.ts` — provides deterministic Playwright network fixtures for auth, profile, sales orders, and CRM leads.
+- `apps/naiton/tests/e2e/.auth/.gitignore` — keeps generated Playwright auth state out of git.
+- `apps/naiton/package.json` — made `dev:mock` use a same-origin `/api` base URL so MSW-backed local development can resolve API calls reliably.
+- `apps/naiton/src/shared/api/mocks/handlers.ts` — switched MSW handlers to absolute API URL matching so mocked requests align with the configured API root.
+- `apps/naiton/src/app/layouts/OuterLayout.tsx` — moved `SidebarProvider` above the navbar and routed shell to prevent authenticated-page crashes.
+- `apps/naiton/src/app/layouts/InnerLayout.tsx` — simplified the inner shell so `AppSidebar`/`SidebarInset` consume the shared provider from `OuterLayout`.
+- `apps/naiton/src/widgets/app-navbar/ui/AppNavbar/AppNavbar.tsx` — left-aligned the module rail so early modules stay visible/clickable at desktop widths.
 
 ---
 

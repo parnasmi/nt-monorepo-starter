@@ -2168,25 +2168,35 @@ export default function AppRouter() {
 
 ### Tasks
 
-- [ ] `src/pages/dashboard/`:
+- [x] `src/pages/dashboard/`:
   - Landing page: KPI cards (Total Sales, New Leads, Open Orders, etc. — static numbers).
   - Uses `@repo/ui-kit` cards.
-- [ ] `src/pages/sales/`:
+- [x] `src/pages/sales/`:
   - `ui/SalesPage.tsx` fetches `/v1/sales/orders` via `useFetchQueries`.
   - Renders `<DataTable>` (from ui-kit) with columns: `id`, `customer`, `amount`, `status`, `createdAt`.
   - "New Order" button opens shadcn `<Dialog>` with RHF+Zod form hitting `POST /v1/sales/orders` (MSW handler returns 201).
-- [ ] `src/pages/crm/`:
+- [x] `src/pages/crm/`:
   - Similar pattern to sales for leads list.
-- [ ] `src/pages/wms/`, `src/pages/procurement/`, `src/pages/production/`, `src/pages/accounting/`, `src/pages/hrm/`, `src/pages/fms/`:
+- [x] `src/pages/wms/`, `src/pages/procurement/`, `src/pages/production/`, `src/pages/accounting/`, `src/pages/hrm/`, `src/pages/fms/`:
   - Each contains `ui/<Module>Page.tsx` with a simple placeholder ("Coming soon") + module-specific sidebar group.
-- [ ] Add `<NavLink>` for each module in `AppNavbar`.
-- [ ] Add module-specific items to `AppSidebar` based on current route (use `useLocation` + memoised derivation).
+- [x] Add `<NavLink>` for each module in `AppNavbar`.
+- [x] Add module-specific items to `AppSidebar` based on current route (use `useLocation` + memoised derivation).
 
 **Verification**
 
 - Network tab: navigating to Sales vs CRM fetches separate chunk files `sales-<hash>.js` and `crm-<hash>.js`.
 - React DevTools Profiler: `OuterLayout` + `AppNavbar` + `InnerLayout` + `AppSidebar` show as "did not render" on intra-module navigation.
 - Sales DataTable paginates and shows 50 mock rows.
+
+### Files changed
+
+- `packages/ui-kit/src/shadcn/ui/card.tsx` — added a reusable shadcn-style Card primitive so dashboard KPI panels can use the shared UI kit instead of page-local shells.
+- `apps/naiton/src/pages/dashboard/ui/DashboardPage.tsx` — replaced the placeholder dashboard with static KPI cards and activity panels aligned to the uploaded admin references.
+- `apps/naiton/src/pages/sales/ui/SalesPage.tsx` — switched Sales from hardcoded rows to `useFetchQueries` + `DataTable`, with client-side search, pagination, and a RHF + Zod "New order" dialog.
+- `apps/naiton/src/pages/crm/ui/CrmPage.tsx` — switched CRM to a mock-backed leads table with the same query/mutation dialog pattern used in Sales.
+- `apps/naiton/src/shared/api/mocks/handlers.ts` — extended MSW with mutable POST handlers for sales orders and CRM leads while preserving 50-row GET pagination.
+- `apps/naiton/src/shared/types/requests.types.ts` — added typed sales/crm entities, create request payloads, and shared pagination metadata for module pages.
+- `apps/naiton/src/widgets/app-sidebar/ui/AppSidebar/AppSidebar.tsx` — tightened route-to-module derivation and nested-route active matching for module-specific sidebar navigation.
 
 ---
 

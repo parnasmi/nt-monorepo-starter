@@ -162,14 +162,12 @@ const sidebarConfigByModule: Record<string, SidebarConfig> = {
 };
 
 const baseConfig = sidebarConfigByModule.dashboard;
+const getCurrentModule = (pathname: string) => pathname.split("/")[2] || "dashboard";
 
 function SidebarBody() {
   const location = useLocation();
 
-  const currentModule = useMemo(() => {
-    const segment = location.pathname.split("/")[2];
-    return segment || "dashboard";
-  }, [location.pathname]);
+  const currentModule = useMemo(() => getCurrentModule(location.pathname), [location.pathname]);
 
   const moduleConfig = useMemo(
     () => sidebarConfigByModule[currentModule] ?? baseConfig,
@@ -206,7 +204,10 @@ function SidebarBody() {
           <SidebarGroupContent>
             <SidebarMenu>
               {moduleConfig.items.map((item) => {
-                const isActive = Boolean(item.to && location.pathname === item.to);
+                const isActive = Boolean(
+                  item.to &&
+                  (location.pathname === item.to || location.pathname.startsWith(`${item.to}/`)),
+                );
                 const content = (
                   <>
                     <item.icon className="h-4 w-4" />
@@ -241,9 +242,7 @@ function SidebarBody() {
       <SidebarFooter>
         <div className="rounded-2xl border border-white/8 bg-white/6 p-3 text-sm text-sidebar-foreground/75">
           <p className="font-medium text-sidebar-foreground">Suite shell</p>
-          <p className="mt-1">
-            Layouts are persistent. Module data flows arrive in the next phase.
-          </p>
+          <p className="mt-1">Module navigation now tracks the active route for each workspace.</p>
         </div>
       </SidebarFooter>
       <SidebarRail />

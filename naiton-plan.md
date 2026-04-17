@@ -2349,31 +2349,47 @@ export default function AppRouter() {
 
 ### Tasks
 
-- [ ] Run `pnpm install` at workspace root — clean resolve.
-- [ ] Run `pnpm lint` — exits 0.
-- [ ] Run `pnpm format` — exits 0 (oxfmt or Prettier fallback).
-- [ ] Run `pnpm check-types` — exits 0.
-- [ ] Run `pnpm build` — dist generated for `apps/naiton` and `packages/ui-kit`.
-- [ ] Run `pnpm --filter naiton test:run` — passes.
-- [ ] Run `pnpm --filter naiton test:integration` — passes.
-- [ ] Run `pnpm --filter naiton test:e2e` — passes.
-- [ ] Manual golden path:
-  - [ ] `pnpm --filter naiton dev` → `http://localhost:5175`
-  - [ ] Open `/` → redirects to `/auth/login`.
-  - [ ] Submit login → redirects to `/app/dashboard`.
-  - [ ] Click Sales in Navbar → loads `sales-<hash>.js` (Network tab). Navbar/Sidebar do not remount.
-  - [ ] Click CRM → loads `crm-<hash>.js`. Navbar/Sidebar do not remount.
-  - [ ] Create new sales order via dialog → toast shows success.
-  - [ ] Click Logout → returns to `/auth/login` with cleared state.
-- [ ] Build preview: `pnpm --filter naiton build && pnpm --filter naiton preview` → loads without runtime errors, chunks observed.
+- [x] Run `pnpm install` at workspace root — clean resolve.
+- [x] Run `pnpm lint` — exits 0.
+- [x] Run `pnpm format` — exits 0 (oxfmt or Prettier fallback).
+- [x] Run `pnpm check-types` — exits 0.
+- [x] Run `pnpm build` — dist generated for `apps/naiton` and `packages/ui-kit`.
+- [x] Run `pnpm --filter naiton test:run` — passes.
+- [x] Run `pnpm --filter naiton test:integration` — passes.
+- [x] Run `pnpm --filter naiton test:e2e` — passes.
+- [x] Manual golden path:
+  - [x] `pnpm --filter naiton dev` → `http://localhost:5175`
+  - [x] Open `/` → redirects to `/auth/login`.
+  - [x] Submit login → redirects to `/app/dashboard`.
+  - [x] Click Sales in Navbar → loads the lazy Sales module; the built preview served `sales-B2JtURyq.js`, and Navbar/Sidebar DOM nodes remained mounted.
+  - [x] Click CRM → loads the lazy CRM module; the built preview served `crm-CWW3WjQo.js`, and Navbar/Sidebar DOM nodes remained mounted.
+  - [x] Create new sales order via dialog → toast shows success.
+  - [x] Click Logout → returns to `/auth/login` with cleared state.
+- [x] Build preview: `pnpm --filter naiton build && pnpm --filter naiton preview` → loads without runtime errors, chunks observed.
 - [ ] React DevTools Profiler confirms zero re-render of persistent layout shells across module switching.
 - [ ] Lighthouse FCP under 1.5 s on local dev build.
+
+Verification notes:
+
+- Added success toasts to the Sales and CRM create flows so the golden path matches the brief during browser validation.
+- Strengthened the Playwright smoke test to clear saved auth state, assert `/ -> /auth/login`, log in through the real form, verify lazy Sales/CRM module requests, confirm persistent `header` and `[data-sidebar="sidebar"]` nodes stay mounted across module switching, assert the sales success toast, and confirm logout clears stored auth keys.
+- Reused the same Playwright suite against both `pnpm dev:real` and `pnpm preview --port 4175` by making `playwright.config.ts` accept `PLAYWRIGHT_BASE_URL` / `PLAYWRIGHT_WEB_SERVER_COMMAND` overrides.
+- The two remaining unchecked items require GUI tooling that is not available in this terminal-only environment: React DevTools Profiler and Lighthouse CLI/Chrome were not present.
 
 ### Done Criteria
 
 - All checkboxes in Phases 1–12 are ✅.
 - Stakeholder demo-able golden path: Login → Dashboard → Sales → Order → logout.
 - Architecture enforces FSD import rules, nested persistent layouts, lazy-loaded modules, mock API.
+
+### Files changed
+
+- `apps/naiton/src/pages/sales/ui/SalesPage.tsx` — now shows a success toast after a sales order is created and the orders query is invalidated.
+- `apps/naiton/src/pages/crm/ui/CrmPage.tsx` — now shows a success toast after a CRM lead is created for parity with Sales.
+- `apps/naiton/tests/e2e/smoke.spec.ts` — expanded the golden-path browser test to verify unauthenticated redirect, login, lazy module requests, persistent shell mounting, success toast, and logout state clearing.
+- `apps/naiton/playwright.config.ts` — added environment overrides so the same E2E suite can target either the dev server or the built preview server.
+- `naiton-plan.md` — recorded Phase 12 verification outcomes, remaining GUI-only follow-ups, and the files changed in this phase.
+- `memory.md` — updated the running handoff notes with the final verification work completed in Phase 12.
 
 ---
 

@@ -182,3 +182,14 @@ Verification completed:
 - `pnpm --filter naiton test:integration`
 - `pnpm --filter naiton exec playwright install chromium`
 - `pnpm --filter naiton test:e2e`
+
+### Phase 12 — Final Verification & Golden Path
+
+Wrapped the PoC with end-to-end verification and a few last-mile fixes so the golden path now matches the brief more closely:
+
+- Re-ran the full required verification suite successfully: `pnpm install`, `pnpm lint`, `pnpm format`, `pnpm check-types`, `pnpm build`, `pnpm --filter naiton test:run`, `pnpm --filter naiton test:integration`, and `pnpm --filter naiton test:e2e`.
+- Added success toasts to both `SalesPage` and `CrmPage` create dialogs so successful mutations now provide explicit user feedback during the demo flow.
+- Expanded `apps/naiton/tests/e2e/smoke.spec.ts` so it clears saved auth state first, proves `/` redirects to `/auth/login`, logs in through the real form, verifies Sales and CRM lazy-load requests, checks that the persistent navbar/sidebar DOM nodes are reused across module switching, asserts the sales success toast, and confirms logout clears auth-related localStorage keys.
+- Updated `apps/naiton/playwright.config.ts` to accept `PLAYWRIGHT_BASE_URL` and `PLAYWRIGHT_WEB_SERVER_COMMAND`, which let the same Playwright suite verify both the dev server and the built preview without duplicating config.
+- Verified the built preview with Playwright as well. The preview run loaded without runtime errors and observed the hashed lazy chunks `sales-B2JtURyq.js` and `crm-CWW3WjQo.js`.
+- Remaining manual-only follow-up: React DevTools Profiler and Lighthouse were not available in this terminal environment, so those two checklist items in `naiton-plan.md` remain intentionally unchecked even though the underlying navigation/no-remount behavior is now covered by browser automation.

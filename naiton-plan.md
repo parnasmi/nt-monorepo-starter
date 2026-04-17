@@ -1898,14 +1898,14 @@ export function useRhForm<
 
 ### Tasks
 
-- [ ] Create `src/shared/api/mocks/handlers.ts`:
+- [x] Create `src/shared/api/mocks/handlers.ts`:
   - `POST /v1/auth/login` → returns `{ access_token, refresh_token, allowed: ['sales','crm',...] }` after 600 ms.
   - `GET /v1/profile` → returns user profile after 400 ms.
   - `GET /v1/sales/orders` → returns paginated list of 50 mock orders.
   - `GET /v1/crm/leads` → returns paginated list of 50 mock leads.
-- [ ] Create `src/shared/api/mocks/browser.ts` — `setupWorker(...handlers)`.
-- [ ] Run `pnpm exec msw init public/ --save` to generate `mockServiceWorker.js`.
-- [ ] In `src/main.tsx`, conditionally start MSW when `import.meta.env.DEV`:
+- [x] Create `src/shared/api/mocks/browser.ts` — `setupWorker(...handlers)`.
+- [x] Run `pnpm exec msw init public/ --save` to generate `mockServiceWorker.js`.
+- [x] In `src/main.tsx`, conditionally start MSW when `import.meta.env.DEV`:
   ```ts
   if (import.meta.env.DEV) {
     const { worker } = await import('@/shared/api/mocks/browser');
@@ -1916,6 +1916,15 @@ export function useRhForm<
 **Verification**
 
 - `pnpm --filter naiton dev` — Network tab shows `mockServiceWorker.js` served and requests to `/v1/*` intercepted.
+
+### Files changed
+
+- `apps/naiton/src/shared/api/mocks/handlers.ts` — added deterministic MSW handlers for login, profile, sales orders, and CRM leads, including pagination helpers and API-base-path normalization for the current `/api`-prefixed env config.
+- `apps/naiton/src/shared/api/mocks/browser.ts` — added the browser worker bootstrap with `setupWorker(...handlers)`.
+- `apps/naiton/src/main.tsx` — wrapped app startup in an async bootstrap so MSW starts in development before React mounts.
+- `apps/naiton/public/mockServiceWorker.js` — generated MSW service worker asset served by Vite from `public/`.
+- `apps/naiton/package.json` — added `msw` as a dev dependency and recorded the worker directory for future `msw init` runs.
+- `pnpm-lock.yaml` — updated the lockfile for the new MSW dependency graph.
 
 ---
 

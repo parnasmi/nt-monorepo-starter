@@ -90,3 +90,20 @@ Verification completed:
 - `pnpm --filter naiton format`
 - `pnpm --filter naiton check-types`
 - `pnpm --filter naiton exec vitest run src/shared/store/use-auth-store/use-auth-store.test.ts src/shared/store/use-meta-store/use-meta-store.test.ts src/shared/store/use-module-ui-store/use-module-ui-store.test.ts`
+
+### Phase 7 — Mock API Layer (MSW) ✅
+
+Added the offline mock API layer for the upcoming auth and module pages:
+
+- Installed `msw`, generated `apps/naiton/public/mockServiceWorker.js`, and recorded the worker directory in `apps/naiton/package.json`.
+- Added `src/shared/api/mocks/handlers.ts` with deterministic delayed handlers for login, profile, sales orders, and CRM leads.
+- Added `src/shared/api/mocks/browser.ts` and updated `src/main.tsx` to start the worker only in development before rendering React.
+- Important implementation detail: handlers normalize the current `envConfig.API_ROOT` path, so they match the existing dev base URL `http://localhost:3000/api` instead of assuming a bare `/v1/*` root.
+- Follow-up improvement: MSW is now toggleable via `VITE_USE_MSW`, with `pnpm --filter naiton dev:mock` enabling it and `pnpm --filter naiton dev:real` explicitly disabling/stopping it in dev.
+
+Verification completed:
+
+- `pnpm --filter naiton format`
+- `pnpm --filter naiton check-types`
+- `pnpm --filter naiton build`
+- `pnpm --filter naiton dev`

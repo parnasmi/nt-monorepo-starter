@@ -1936,46 +1936,46 @@ export function useRhForm<
 
 ### 8.1 — Providers
 
-- [ ] `src/app/providers/publicProvider/PublicProvider.tsx` — reference implementation in **`deps/PublicProvider.tsx`**. Key responsibilities:
+- [x] `src/app/providers/publicProvider/PublicProvider.tsx` — reference implementation in **`deps/PublicProvider.tsx`**. Key responsibilities:
   - Creates `QueryClient` (retry off, 1-minute stale time).
   - Wraps children in `<QueryClientProvider>` + `<Toaster position="top-right" />` + `<ReactQueryDevtools>`.
   - Subscribes to Zustand via `useBoundStore.subscribe((state) => apiSubscribe(state))` at **module level** (outside React tree).
   - Redirects authenticated users away from login page.
 
-- [ ] `src/app/providers/authProvider/AuthProvider.tsx`:
+- [x] `src/app/providers/authProvider/AuthProvider.tsx`:
   - Fetches `/v1/profile` on mount via `useFetchQueries`.
   - Populates `useBoundStore` with user + allowed products.
   - Renders `<Outlet />` once loaded.
 
-- [ ] `src/app/providers/router/components/RequireAuth.tsx` — reference implementation in **`deps/RequireAuth.tsx`**. Key logic:
+- [x] `src/app/providers/router/components/RequireAuth.tsx` — reference implementation in **`deps/RequireAuth.tsx`**. Key logic:
   - Reads `isAuthenticated` + `allowedProducts` from `useBoundStore`.
   - If unauth → `<Navigate to={getRouteAuth()} state={{ from: location }} />`.
   - If `availableIn` prop given but user lacks product → `<Navigate to={getRouteForbidden()} />`.
   - Otherwise renders `children`.
 
-- [ ] `src/app/providers/router/components/ScrollContainer/ScrollContainer.tsx` — reference implementation in **`deps/ScrollContainer.tsx`**. Simple div with `h-[calc(100vh-96px)] overflow-auto` for inner mode.
+- [x] `src/app/providers/router/components/ScrollContainer/ScrollContainer.tsx` — reference implementation in **`deps/ScrollContainer.tsx`**. Simple div with `h-[calc(100vh-96px)] overflow-auto` for inner mode.
 
 ### 8.2 — Layouts
 
-- [ ] `src/app/layouts/AuthLayout.tsx`:
+- [x] `src/app/layouts/AuthLayout.tsx`:
   - Zero chrome; centered card on gradient background; renders `<Outlet />`.
 
-- [ ] `src/app/layouts/OuterLayout.tsx` (SuiteShell):
+- [x] `src/app/layouts/OuterLayout.tsx` (SuiteShell):
   - `<AppNavbar />` (persistent) + `<Outlet />`.
   - Navbar lists top-level modules with `<NavLink>` (React Router v7).
 
-- [ ] `src/app/layouts/InnerLayout.tsx` (DomainShell):
+- [x] `src/app/layouts/InnerLayout.tsx` (DomainShell):
   - `<SidebarProvider>` from `@repo/ui-kit/shadcn/sidebar`.
   - `<AppSidebar />` (persistent, module-specific items) + `<Outlet />`.
 
 ### 8.3 — Widgets
 
-- [ ] `src/widgets/app-navbar/ui/AppNavbar/AppNavbar.tsx` — top bar with module switcher (`NavLink` to `/sales`, `/crm`, etc.), profile dropdown, language switcher.
-- [ ] `src/widgets/app-sidebar/ui/AppSidebar/AppSidebar.tsx` — reads current top-level module from URL and renders module-specific nav items. Uses `useMemo` + `React.memo` to guarantee no re-render across inner-page navigation.
+- [x] `src/widgets/app-navbar/ui/AppNavbar/AppNavbar.tsx` — top bar with module switcher (`NavLink` to `/sales`, `/crm`, etc.), profile dropdown, language switcher.
+- [x] `src/widgets/app-sidebar/ui/AppSidebar/AppSidebar.tsx` — reads current top-level module from URL and renders module-specific nav items. Uses `useMemo` + `React.memo` to guarantee no re-render across inner-page navigation.
 
 ### 8.4 — Routes config
 
-- [ ] `src/app/providers/router/config/routes.tsx`:
+- [x] `src/app/providers/router/config/routes.tsx`:
   ```tsx
   import { lazy } from 'react';
   import { AppRoutes, AllowedProducts } from '@/shared/types/requests.types';
@@ -2000,7 +2000,7 @@ export function useRhForm<
 
 ### 8.5 — `AppRouter.tsx` (verbatim pattern adapted)
 
-- [ ] `src/app/providers/router/components/AppRouter/AppRouter.tsx`:
+- [x] `src/app/providers/router/components/AppRouter/AppRouter.tsx`:
 
 ```tsx
 import { Suspense, useCallback } from 'react';
@@ -2077,7 +2077,7 @@ export default function AppRouter() {
 
 ### 8.6 — Wire `App.tsx`
 
-- [ ] Replace placeholder `App.tsx`:
+- [x] Replace placeholder `App.tsx`:
 
   ```tsx
   import { BrowserRouter } from 'react-router';
@@ -2102,6 +2102,21 @@ export default function AppRouter() {
 - `pnpm --filter naiton dev` — navigating to `/` redirects to `/auth/login`.
 - Navigating to `/app/sales` or `/app/crm` loads lazily (separate chunk in DevTools Network tab).
 - React DevTools Profiler: `AppNavbar` and `AppSidebar` do NOT re-render when moving between `/app/sales` and `/app/crm`.
+
+### Files changed
+
+- `apps/naiton/src/App.tsx` and `apps/naiton/src/main.tsx` — moved `BrowserRouter` + `PublicProvider` into `App` and kept MSW bootstrap isolated in `main.tsx`.
+- `apps/naiton/src/app/providers/publicProvider/PublicProvider.tsx` — added TanStack Query provider, sonner toaster, React Query Devtools, store-to-axios subscription, and login-route redirect for authenticated users.
+- `apps/naiton/src/app/providers/authProvider/AuthProvider.tsx` — fetches `/v1/profile`, hydrates auth store user/product/company data, and gates protected routes behind a loader while profile bootstraps.
+- `apps/naiton/src/app/providers/router/components/{AppRouter,RequireAuth,ScrollContainer}` and `src/app/providers/router/config/routes.tsx` — created the full route tree with lazy module pages, auth guard wiring, scroll shell, forbidden/not-found fallbacks, and nested persistent layouts.
+- `apps/naiton/src/app/layouts/{AuthLayout,OuterLayout,InnerLayout}.tsx` — added the three-layer layout engine: auth split-screen, persistent top suite shell, and persistent sidebar domain shell.
+- `apps/naiton/src/widgets/app-navbar/**/*` — built the green suite navbar with module navigation, search, language switcher, action icons, and profile menu.
+- `apps/naiton/src/widgets/app-sidebar/**/*` — built the memoized module-aware sidebar with per-module nav groups and collapse support via the shared sidebar provider.
+- `apps/naiton/src/pages/auth/**/*` — added static login/register route targets styled from the references; Phase 9 should replace the login placeholder body with the real `LoginForm`.
+- `apps/naiton/src/pages/{dashboard,sales,crm,accounting,fms,wms,procurement,production,hrm}/**/*` — added lazy route targets and styled module shells so the layout engine has real destinations before live feature work lands.
+- `apps/naiton/src/pages/{forbidden,notfound}/**/*` — added dedicated fallback experiences for guard failures and unmatched routes.
+- `apps/naiton/src/app/styles/index.css` — replaced the default theme with Naiton-specific green enterprise tokens, shell surfaces, grid/map helpers, and auth background styling.
+- `packages/ui-kit/package.json` and `packages/ui-kit/src/**/*` (import-path-only edits) — normalized shared-package exports and internal imports to relative paths so the app can consume UI-kit source files cleanly in TypeScript and Vite.
 
 ---
 

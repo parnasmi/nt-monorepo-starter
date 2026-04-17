@@ -7,8 +7,7 @@ export function AppRouter() {
         </p>
         <h1 className="mt-4 text-3xl font-semibold">Phase 4 Scaffold</h1>
         <p className="text-muted-foreground mt-3 text-sm">
-          Vite, React Router v7, workspace UI kit, aliases, and env config are
-          wired up.
+          Vite, React Router v7, workspace UI kit, aliases, and env config are wired up.
         </p>
       </div>
     </main>

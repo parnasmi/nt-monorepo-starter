@@ -1,14 +1,14 @@
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
-import { BrowserRouter } from 'react-router';
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router";
 
-import App from './App';
-import '@/app/styles/index.css';
+import App from "./App";
+import "@/app/styles/index.css";
 
-const container = document.getElementById('root');
+const container = document.getElementById("root");
 
 if (container === null) {
-  throw new Error('Root container #root was not found.');
+  throw new Error("Root container #root was not found.");
 }
 
 createRoot(container).render(

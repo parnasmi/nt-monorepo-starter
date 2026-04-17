@@ -4,9 +4,9 @@
 //       Either works — ExternalToast is the options type for toast() calls.
 //       This file shows the dashboard's original pattern for reference.
 
-import { ToastT } from 'sonner';
+import { ToastT } from "sonner";
 
-export type ToastType = 'success' | 'info' | 'warning' | 'error';
+export type ToastType = "success" | "info" | "warning" | "error";
 
 export interface ShowToastOptions {
   type?: ToastType;
@@ -16,5 +16,5 @@ export interface ShowToastOptions {
 
 export type SonnerToastOptions = Omit<
   ToastT,
-  'id' | 'type' | 'title' | 'jsx' | 'delete' | 'promise'
+  "id" | "type" | "title" | "jsx" | "delete" | "promise"
 >;

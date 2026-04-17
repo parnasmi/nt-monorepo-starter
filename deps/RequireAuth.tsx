@@ -3,11 +3,11 @@
 // Adapt: use useBoundStore directly instead of useAuth/useProfile hooks,
 //        replace getRouteDocuments with getRouteForbidden for missing products.
 
-import { JSX, useMemo } from 'react';
-import { Navigate, useLocation } from 'react-router';
-import { getRouteAuth, getRouteForbidden } from '@/shared/const/router.const';
-import { useBoundStore } from '@/shared/store';
-import { AllowedProducts } from '@/shared/types/requests.types';
+import { JSX, useMemo } from "react";
+import { Navigate, useLocation } from "react-router";
+import { getRouteAuth, getRouteForbidden } from "@/shared/const/router.const";
+import { useBoundStore } from "@/shared/store";
+import { AllowedProducts } from "@/shared/types/requests.types";
 
 type RequireAuthProps = {
   children: JSX.Element;
@@ -34,9 +34,7 @@ export function RequireAuth({ children, availableIn }: RequireAuthProps) {
   }
 
   if (!hasRequiredProducts) {
-    return (
-      <Navigate to={getRouteForbidden()} state={{ from: location }} replace />
-    );
+    return <Navigate to={getRouteForbidden()} state={{ from: location }} replace />;
   }
 
   return children;

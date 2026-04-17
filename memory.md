@@ -72,3 +72,21 @@ Configured workspace-wide fast linting/formatting and pre-commit enforcement:
 - **Git hook enforcement**: added root `lint-staged` config plus `.husky/pre-commit` that runs `pnpm lint-staged`.
 - **Verification completed**: `pnpm lint` passes across `@repo/ui-kit` and `naiton`, `pnpm format` exits 0, and a staged invalid JS file correctly fails the pre-commit hook.
 - **Implementation note**: the plan’s older `@oxlint/oxfmt` package name was updated in practice to the current official `oxfmt` package.
+
+### Phase 6 — FSD Shared Layer (API, Hooks, Types, Store, i18n) ✅
+
+Built the `apps/naiton/src/shared/` foundation used by upcoming auth, layout, and feature phases:
+
+- **Types and constants**: added `requests.types.ts`, `notification.types.ts`, `localstorage.const.ts`, `router.const.ts`, and `endpoints.const.ts`.
+- **Utilities**: added SSR-safe `storage`, `axiosErrorHandler`, and `getAbsolutePath`.
+- **Zustand store**: created a single bound store with `auth`, `meta`, and `module-ui` slices, development-only devtools, selector hooks, localStorage hydration/persistence, and unit tests for each slice.
+- **API layer**: added `shared/api/api.ts`, barrel exports, and helper hooks for fetch/create/edit/delete patterns. `apiSubscribe` is ready for `PublicProvider` wiring in Phase 8.
+- **Shared hooks**: added `useToastNotif`, `useRhForm`, and `useRoutingObjects`.
+- **i18n**: scaffolded `shared/config/i18n/i18n.ts`, bootstrapped it in `src/main.tsx`, and added seed locale JSON files under `public/locales/uz` and `public/locales/ru`.
+- **Test config**: updated both Vitest configs to resolve `@` and `@/config` aliases.
+
+Verification completed:
+
+- `pnpm --filter naiton format`
+- `pnpm --filter naiton check-types`
+- `pnpm --filter naiton exec vitest run src/shared/store/use-auth-store/use-auth-store.test.ts src/shared/store/use-meta-store/use-meta-store.test.ts src/shared/store/use-module-ui-store/use-module-ui-store.test.ts`

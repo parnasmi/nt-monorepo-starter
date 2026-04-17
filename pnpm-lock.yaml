@@ -116,6 +116,12 @@ importers:
         specifier: ^5.0.12
         version: 5.0.12(react@19.2.5)
     devDependencies:
+      cross-env:
+        specifier: ^10.1.0
+        version: 10.1.0
+      env-cmd:
+        specifier: ^11.0.0
+        version: 11.0.0
       msw:
         specifier: ^2.13.4
         version: 2.13.4(typescript@5.8.3)
@@ -239,6 +245,24 @@ packages:
       }
     engines: { node: '>=6.9.0' }
     dev: false
+
+  /@commander-js/extra-typings@13.1.0(commander@13.1.0):
+    resolution:
+      {
+        integrity: sha512-q5P52BYb1hwVWE6dtID7VvuJWrlfbCv4klj7BjUUOqMz4jbSZD4C9fJ9lRjL2jnBGTg+gDDlaXN51rkWcLk4fg==,
+      }
+    peerDependencies:
+      commander: ~13.1.0
+    dependencies:
+      commander: 13.1.0
+    dev: true
+
+  /@epic-web/invariant@1.0.0:
+    resolution:
+      {
+        integrity: sha512-lrTPqgvfFQtR/eY/qkIzp98OGdNJu0m5ji3q/nJI8v3SXkRKEnWiOxMmbvcSoAIzv/cGiuvRy57k4suKQSAdwA==,
+      }
+    dev: true
 
   /@floating-ui/core@1.7.5:
     resolution:
@@ -2490,6 +2514,14 @@ packages:
       delayed-stream: 1.0.0
     dev: false
 
+  /commander@13.1.0:
+    resolution:
+      {
+        integrity: sha512-/rFeCpNJQbhSZjGVwO9RFV3xPqbnERS8MmIQzCtD/zl6gpJuV/bMLuN92oG3F7d8oDEHHRrujSXNUr8fpjntKw==,
+      }
+    engines: { node: '>=18' }
+    dev: true
+
   /commander@14.0.3:
     resolution:
       {
@@ -2505,6 +2537,18 @@ packages:
       }
     engines: { node: '>=18' }
 
+  /cross-env@10.1.0:
+    resolution:
+      {
+        integrity: sha512-GsYosgnACZTADcmEyJctkJIoqAhHjttw7RsFrVoJNXbsWWqaq6Ym+7kZjq6mS45O0jij6vtiReppKQEtqWy6Dw==,
+      }
+    engines: { node: '>=20' }
+    hasBin: true
+    dependencies:
+      '@epic-web/invariant': 1.0.0
+      cross-spawn: 7.0.6
+    dev: true
+
   /cross-fetch@4.1.0:
     resolution:
       {
@@ -2515,6 +2559,18 @@ packages:
     transitivePeerDependencies:
       - encoding
     dev: false
+
+  /cross-spawn@7.0.6:
+    resolution:
+      {
+        integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==,
+      }
+    engines: { node: '>= 8' }
+    dependencies:
+      path-key: 3.1.1
+      shebang-command: 2.0.0
+      which: 2.0.2
+    dev: true
 
   /csstype@3.2.3:
     resolution:
@@ -2588,6 +2644,19 @@ packages:
       graceful-fs: 4.2.11
       tapable: 2.3.2
     dev: false
+
+  /env-cmd@11.0.0:
+    resolution:
+      {
+        integrity: sha512-gnG7H1PlwPqsGhFJNTv68lsDGyQdK+U9DwLVitcj1+wGq7LeOBgUzZd2puZ710bHcH9NfNeGWe2sbw7pdvAqDw==,
+      }
+    engines: { node: '>=20.10.0' }
+    hasBin: true
+    dependencies:
+      '@commander-js/extra-typings': 13.1.0(commander@13.1.0)
+      commander: 13.1.0
+      cross-spawn: 7.0.6
+    dev: true
 
   /environment@1.1.0:
     resolution:
@@ -2900,6 +2969,13 @@ packages:
     resolution:
       {
         integrity: sha512-Vg4o6/fqPxIjtxgUH5QLJhwZ7gW5diGCVlXpuUfELC62CuxM1iHcRe51f2W1FDy04Ai4KJkagKjx3XaqyfRKXw==,
+      }
+    dev: true
+
+  /isexe@2.0.0:
+    resolution:
+      {
+        integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==,
       }
     dev: true
 
@@ -3364,6 +3440,14 @@ packages:
       '@oxlint/binding-win32-x64-msvc': 1.60.0
     dev: true
 
+  /path-key@3.1.1:
+    resolution:
+      {
+        integrity: sha512-ojmeN0qd+y0jszEtoY48r0Peq5dwMEkIlCOu6Q5f41lfkswXuKtYrhgoTpLnyIcHm24Uhqx+5Tqm2InSwLhE6Q==,
+      }
+    engines: { node: '>=8' }
+    dev: true
+
   /path-to-regexp@6.3.0:
     resolution:
       {
@@ -3677,6 +3761,24 @@ packages:
       {
         integrity: sha512-kjnC1DXBHcxaOaOXBHBeRtltsDG2nUiUni+jP92M9gYdW12rsmx92UsfpH7o5tDRs7I1ZZPSQJQGv3UaRfCiuw==,
       }
+    dev: true
+
+  /shebang-command@2.0.0:
+    resolution:
+      {
+        integrity: sha512-kHxr2zZpYtdmrN1qDjrrX/Z1rR1kG8Dx+gkpK1G4eXmvXswmcE1hTWBWYUzlraYw1/yZp6YuDY77YtvbN0dmDA==,
+      }
+    engines: { node: '>=8' }
+    dependencies:
+      shebang-regex: 3.0.0
+    dev: true
+
+  /shebang-regex@3.0.0:
+    resolution:
+      {
+        integrity: sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==,
+      }
+    engines: { node: '>=8' }
     dev: true
 
   /signal-exit@4.1.0:
@@ -4063,6 +4165,17 @@ packages:
       tr46: 0.0.3
       webidl-conversions: 3.0.1
     dev: false
+
+  /which@2.0.2:
+    resolution:
+      {
+        integrity: sha512-BLI3Tl1TW3Pvl70l3yq3Y64i+awpwXqsGBYWkkqMtnbXgrMD+yj7rhW0kuEDxzJaYXGjEW5ogapKNMEKNMjibA==,
+      }
+    engines: { node: '>= 8' }
+    hasBin: true
+    dependencies:
+      isexe: 2.0.0
+    dev: true
 
   /wrap-ansi@7.0.0:
     resolution:

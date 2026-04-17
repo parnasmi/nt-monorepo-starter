@@ -15,7 +15,13 @@ if (container === null) {
 const bootstrap = async (): Promise<void> => {
   if (import.meta.env.DEV) {
     const { worker } = await import("@/shared/api/mocks/browser");
-    await worker.start({ onUnhandledRequest: "bypass" });
+    const shouldUseMsw = import.meta.env.VITE_USE_MSW === "true";
+
+    if (shouldUseMsw) {
+      await worker.start({ onUnhandledRequest: "bypass" });
+    } else {
+      worker.stop();
+    }
   }
 
   createRoot(container).render(

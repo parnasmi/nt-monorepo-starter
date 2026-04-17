@@ -112,9 +112,7 @@ The `deps/` folder alongside this plan contains battle-tested reference implemen
 │       ├── vitest.config.ts
 │       └── vitest.integration.config.mts
 ├── packages/
-│   ├── ui-kit/                       # Tailwind v4 + shadcn components
-│   ├── eslint-config/                # (optional — we use oxlint)
-│   └── typescript-config/            # base.json, react-library.json, vite.json
+│   └── ui-kit/                       # Tailwind v4 + shadcn components
 ├── .prettierrc.json
 ├── .prettierignore
 ├── oxlint.json
@@ -212,30 +210,9 @@ The `deps/` folder alongside this plan contains battle-tested reference implemen
 
 ## Phase 2 — Shared Config Packages
 
-**Goal**: Create `packages/typescript-config` and `packages/eslint-config` skeletons so apps can extend them.
+**Decision**: Skipped — no shared `typescript-config` or `eslint-config` packages. Each app owns its own `tsconfig` files and `oxlint.json`. This keeps config co-located with the app and avoids indirection for a single-app monorepo.
 
-**Prereqs**: Phase 1 complete.
-
-### Tasks
-
-- [ ] Create `packages/typescript-config/package.json`:
-  ```json
-  {
-    "name": "@repo/typescript-config",
-    "version": "0.0.0",
-    "private": true,
-    "files": ["base.json", "react-library.json", "vite.json"]
-  }
-  ```
-- [ ] Create `packages/typescript-config/base.json` (strict, ES2022, bundler resolution).
-- [ ] Create `packages/typescript-config/vite.json` — extends `base.json`, adds `jsx: react-jsx`, `moduleResolution: bundler`, `types: ["vite/client", "vitest/globals"]`.
-- [ ] Create `packages/typescript-config/react-library.json` — extends `base.json`, adds `declaration: true`, `emitDeclarationOnly: true`.
-- [ ] (Optional — kept for future migration) Create `packages/eslint-config/package.json` with re-exports of `eslint`, `typescript-eslint`, `eslint-plugin-react-hooks`. We will not wire eslint into any app since oxlint is preferred; this package exists only as a fallback.
-
-**Verification**
-
-- `pnpm install` re-links workspaces without error.
-- Both packages appear under `pnpm list -r --depth -1`.
+**Status**: ✅ Intentionally omitted.
 
 ---
 
@@ -247,7 +224,7 @@ The `deps/` folder alongside this plan contains battle-tested reference implemen
 
 ### Tasks
 
-- [ ] Create `packages/ui-kit/package.json` (name `@repo/ui-kit`, private, `tsc -b` build). Mirror the `exports` map pattern:
+- [x] Create `packages/ui-kit/package.json` (name `@repo/ui-kit`, private, `tsc -b` build). Mirror the `exports` map pattern:
   ```json
   {
     "name": "@repo/ui-kit",
@@ -274,30 +251,50 @@ The `deps/` folder alongside this plan contains battle-tested reference implemen
     }
   }
   ```
-- [ ] Install dependencies: `react@latest`, `react-dom@latest`, `react-router@latest`, `react-hook-form@latest`, `@hookform/resolvers@latest`, `zod@latest`, `react-i18next@latest`, `tailwindcss@latest`, `@tailwindcss/postcss@latest`, `clsx`, `tailwind-merge`, `class-variance-authority`, `tw-animate-css`, `lucide-react`, `@tanstack/react-table`, and Radix UI primitives (`@radix-ui/react-dialog`, `...-dropdown-menu`, `...-select`, `...-checkbox`, `...-label`, `...-scroll-area`, `...-separator`, `...-tabs`, `...-tooltip`, `...-slot`, `...-avatar`, `...-accordion`, `...-radio-group`, `...-collapsible`).
-- [ ] Create `packages/ui-kit/postcss.config.mjs`:
+- [x] Install dependencies: `react@latest`, `react-dom@latest`, `react-router@latest`, `react-hook-form@latest`, `@hookform/resolvers@latest`, `zod@latest`, `react-i18next@latest`, `tailwindcss@latest`, `@tailwindcss/postcss@latest`, `clsx`, `tailwind-merge`, `class-variance-authority`, `tw-animate-css`, `lucide-react`, `@tanstack/react-table`, and Radix UI primitives (`@radix-ui/react-dialog`, `...-dropdown-menu`, `...-select`, `...-checkbox`, `...-label`, `...-scroll-area`, `...-separator`, `...-tabs`, `...-tooltip`, `...-slot`, `...-avatar`, `...-accordion`, `...-radio-group`, `...-collapsible`).
+- [x] Create `packages/ui-kit/postcss.config.mjs`:
   ```js
   export const postcssConfig = {
     plugins: { '@tailwindcss/postcss': {} },
   };
   ```
-- [ ] Create `src/styles/base-variables.css` (CSS custom properties: colors, radius, font sizes — define `--background`, `--foreground`, `--primary`, etc.).
-- [ ] Create `src/styles/theme.css` (`@theme` block with Naiton brand tokens).
-- [ ] Create `src/styles/base-shadcn.css` (shadcn defaults: `html`, `body`, `:root` fallbacks).
-- [ ] Create `src/styles/index.css` importing `base-variables.css`, `base-shadcn.css`, `theme.css`, and `@import "tailwindcss";`.
-- [ ] Create `src/lib/utils.ts` with `cn()` helper (clsx + tailwind-merge).
-- [ ] Scaffold shadcn components via `pnpm dlx shadcn@latest add button input label dialog dropdown-menu select checkbox radio-group scroll-area separator sheet sidebar table tabs tooltip form skeleton spinner badge accordion alert` — output to `src/shadcn/ui/`.
-- [ ] Create `src/shared/ui/PageLoader.tsx` — reference implementation in **`deps/PageLoader.tsx`**. Adapt the Spinner import to match your shadcn output.
-- [ ] Create `src/shared/ui/Stack.tsx` (flex column primitive).
-- [ ] Create `src/shared/ui/DataTable.tsx` (headless `@tanstack/react-table` + shadcn Table).
-- [ ] Create `src/shared/ui/ErrorBoundaryWrapper.tsx` — reference implementation in **`deps/ErrorBoundaryWrapper.tsx`**. Uses `react-error-boundary` with `resetKeys` on `location.pathname`.
-- [ ] Create `src/types/css-modules.d.ts` and `src/types/svg.d.ts` for SVG-as-React-component typing.
+- [x] Create `src/styles/base-variables.css` (CSS custom properties: colors, radius, font sizes — define `--background`, `--foreground`, `--primary`, etc.).
+- [x] Create `src/styles/theme.css` (`@theme` block with Naiton brand tokens).
+- [x] Create `src/styles/base-shadcn.css` (shadcn defaults: `html`, `body`, `:root` fallbacks).
+- [x] Create `src/styles/index.css` importing `base-variables.css`, `base-shadcn.css`, `theme.css`, and `@import "tailwindcss";`.
+- [x] Create `src/lib/utils.ts` with `cn()` helper (clsx + tailwind-merge).
+- [x] Scaffold shadcn components via `pnpm dlx shadcn@latest add button input label dialog dropdown-menu select checkbox radio-group scroll-area separator sheet sidebar table tabs tooltip form skeleton spinner badge accordion alert` — output to `src/shadcn/ui/`.
+- [x] Create `src/shared/ui/PageLoader.tsx` — reference implementation in **`deps/PageLoader.tsx`**. Adapt the Spinner import to match your shadcn output.
+- [x] Create `src/shared/ui/Stack.tsx` (flex column primitive).
+- [x] Create `src/shared/ui/DataTable.tsx` (headless `@tanstack/react-table` + shadcn Table).
+- [x] Create `src/shared/ui/ErrorBoundaryWrapper.tsx` — reference implementation in **`deps/ErrorBoundaryWrapper.tsx`**. Uses `react-error-boundary` with `resetKeys` on `location.pathname`.
+- [x] Create `src/types/css-modules.d.ts` and `src/types/svg.d.ts` for SVG-as-React-component typing.
 
 **Verification**
 
-- `pnpm --filter @repo/ui-kit build` exits 0.
-- `pnpm --filter @repo/ui-kit check-types` exits 0.
+- `pnpm --filter @repo/ui-kit build` exits 0. ✅
+- `pnpm --filter @repo/ui-kit check-types` exits 0. ✅
 - Importing `@repo/ui-kit/shadcn/button` from a test script resolves.
+
+### Files changed
+
+- `packages/ui-kit/package.json` — workspace package manifest: name `@repo/ui-kit`, exports map for CSS/shadcn/shared, tsc build scripts.
+- `packages/ui-kit/tsconfig.json` — TypeScript config with `@/*` → `./src/*` path alias; bundler module resolution; strict mode.
+- `packages/ui-kit/postcss.config.mjs` — PostCSS config exporting `@tailwindcss/postcss` plugin.
+- `packages/ui-kit/components.json` — shadcn CLI config: default style, CSS variables, aliases pointing to `@/shadcn/ui` and `@/lib/utils`.
+- `packages/ui-kit/src/styles/base-variables.css` — CSS custom properties for all design tokens (colors, radius, bg-loader-overlay) in `:root` and `.dark`.
+- `packages/ui-kit/src/styles/theme.css` — Tailwind v4 `@theme` block mapping CSS vars to `--color-*` and `--radius-*` tokens.
+- `packages/ui-kit/src/styles/base-shadcn.css` — Base `html`/`body` resets using the design tokens.
+- `packages/ui-kit/src/styles/index.css` — Root CSS entry: imports tailwindcss, base-variables, base-shadcn, theme; extended by shadcn CLI with sidebar vars and accordion animations.
+- `packages/ui-kit/src/lib/utils.ts` — `cn()` helper combining `clsx` + `tailwind-merge`.
+- `packages/ui-kit/src/shadcn/ui/*.tsx` — 23 shadcn components: accordion, alert, avatar, badge, button, checkbox, dialog, dropdown-menu, form, input, label, radio-group, scroll-area, select, separator, sheet, sidebar, skeleton, spinner (extended with `size`/`show` props), table, tabs, tooltip.
+- `packages/ui-kit/src/hooks/use-mobile.tsx` — `useIsMobile` hook required by sidebar component.
+- `packages/ui-kit/src/shared/ui/PageLoader.tsx` — Full-screen overlay loader using the Spinner component.
+- `packages/ui-kit/src/shared/ui/Stack.tsx` — Flex-column primitive with configurable `gap`.
+- `packages/ui-kit/src/shared/ui/DataTable.tsx` — Headless TanStack Table v8 + shadcn Table with pagination controls.
+- `packages/ui-kit/src/shared/ui/ErrorBoundaryWrapper.tsx` — react-error-boundary wrapper with `resetKeys=[location.pathname]` and translated fallback UI.
+- `packages/ui-kit/src/types/css-modules.d.ts` — Module declarations for `*.module.css` and `*.module.scss`.
+- `packages/ui-kit/src/types/svg.d.ts` — SVG-as-React-component type declarations.
 
 ---
 
@@ -354,7 +351,6 @@ The `deps/` folder alongside this plan contains battle-tested reference implemen
 - [ ] Create `tsconfig.app.json`:
   ```json
   {
-    "extends": "@repo/typescript-config/vite.json",
     "compilerOptions": {
       "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
       "target": "ES2022",

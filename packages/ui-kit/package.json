@@ -1,0 +1,61 @@
+{
+  "name": "@repo/ui-kit",
+  "version": "0.0.0",
+  "private": true,
+  "exports": {
+    "./tailwind-postcss": "./postcss.config.mjs",
+    "./base-variables.css": "./src/styles/base-variables.css",
+    "./base-shadcn.css": "./src/styles/base-shadcn.css",
+    "./index.css": "./src/styles/index.css",
+    "./theme.css": "./src/styles/theme.css",
+    "./shadcn/*": "./src/shadcn/ui/*.tsx",
+    "./shared/*": "./src/shared/*",
+    "./shared/ui/*": "./src/shared/ui/*.tsx",
+    "./shared/lib/*": "./src/shared/lib/*.ts",
+    "./shared/icons/*": "./src/shared/assets/icons/*.tsx",
+    "./lib/*": "./src/shared/lib/*.ts"
+  },
+  "scripts": {
+    "lint": "oxlint .",
+    "check-types": "tsc --noEmit",
+    "build": "tsc -b",
+    "dev": "tsc --watch --preserveWatchOutput"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^5.2.2",
+    "@radix-ui/react-accordion": "^1.2.12",
+    "@radix-ui/react-avatar": "^1.1.11",
+    "@radix-ui/react-checkbox": "^1.3.3",
+    "@radix-ui/react-collapsible": "^1.1.12",
+    "@radix-ui/react-dialog": "^1.1.15",
+    "@radix-ui/react-dropdown-menu": "^2.1.16",
+    "@radix-ui/react-label": "^2.1.8",
+    "@radix-ui/react-radio-group": "^1.3.8",
+    "@radix-ui/react-scroll-area": "^1.2.10",
+    "@radix-ui/react-select": "^2.2.6",
+    "@radix-ui/react-separator": "^1.1.8",
+    "@radix-ui/react-slot": "^1.2.4",
+    "@radix-ui/react-tabs": "^1.1.13",
+    "@radix-ui/react-tooltip": "^1.2.8",
+    "@tailwindcss/postcss": "^4.2.2",
+    "@tanstack/react-table": "^8.21.3",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.8.0",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "react-error-boundary": "^6.1.1",
+    "react-hook-form": "^7.72.1",
+    "react-i18next": "^17.0.4",
+    "react-router": "^7.14.1",
+    "tailwind-merge": "^3.5.0",
+    "tailwindcss": "^4.2.2",
+    "tw-animate-css": "^1.4.0",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/node": "^25.6.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3"
+  }
+}

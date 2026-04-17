@@ -2128,21 +2128,35 @@ export default function AppRouter() {
 
 ### Tasks
 
-- [ ] Create `src/features/auth/model/authStore.ts` (already a slice inside `shared/store` — here expose selector hooks).
-- [ ] Create `src/features/auth/ui/LoginForm/LoginForm.tsx`:
+- [x] Create `src/features/auth/model/authStore.ts` (already a slice inside `shared/store` — here expose selector hooks).
+- [x] Create `src/features/auth/ui/LoginForm/LoginForm.tsx`:
   - Zod schema (`phone`, `password` required).
   - Uses `useRhForm` pointing at `endpoints.LOGIN`.
   - On success: write `access_token` to localStorage + `useBoundStore.setState({ accessToken, isAuthenticated: true, allowedProducts })`.
   - `navigate(getAppsRoute() + '/dashboard')`.
-- [ ] Create `src/pages/auth/ui/LoginPage.tsx` that renders `<LoginForm />`.
-- [ ] Create logout route: `getRouteLogout()` handler that clears localStorage + store and redirects to login.
-- [ ] Seed translations for `auth.json` in `uz` and `ru`.
+- [x] Create `src/pages/auth/ui/LoginPage.tsx` that renders `<LoginForm />`.
+- [x] Create logout route: `getRouteLogout()` handler that clears localStorage + store and redirects to login.
+- [x] Seed translations for `auth.json` in `uz` and `ru`.
 
 **Verification**
 
 - Fill form with valid mock credentials → redirects to `/app/dashboard`.
 - Hitting `/app/sales` without login → redirects to `/auth/login`.
 - Clicking logout → clears state and returns to `/auth/login`.
+
+### Files changed
+
+- `apps/naiton/src/features/auth/model/authStore.ts` — feature-scoped auth selector/action hooks backed by the shared Zustand store.
+- `apps/naiton/src/features/auth/ui/LoginForm/LoginForm.tsx` — real login form with Zod validation, `useRhForm`, MSW-backed submit flow, and post-login redirect.
+- `apps/naiton/src/features/auth/ui/LogoutRoute/LogoutRoute.tsx` — logout handler route that clears React Query state, resets auth storage/store, and returns users to `/auth/login`.
+- `apps/naiton/src/features/auth/index.ts` — barrel export for auth hooks and route UI.
+- `apps/naiton/src/pages/auth/ui/LoginPage.tsx` — replaced the placeholder auth card with the real feature-level login form.
+- `apps/naiton/src/pages/auth/ui/RegisterPage.tsx` — refreshed deferred-registration copy so it stays accurate after Phase 9.
+- `apps/naiton/src/app/providers/router/components/AppRouter/AppRouter.tsx` — registered the `/app/logout` route inside the authenticated app shell.
+- `apps/naiton/src/widgets/app-navbar/ui/AppNavbar/AppNavbar.tsx` — wired the profile dropdown logout action to the new logout route.
+- `apps/naiton/src/widgets/app-sidebar/ui/AppSidebar/AppSidebar.tsx` — updated stale Phase 8 footer copy to reflect the current shell state.
+- `apps/naiton/public/locales/uz/auth.json` — expanded Uzbek auth translations for phone/password labels, submit states, validation, and legal copy.
+- `apps/naiton/public/locales/ru/auth.json` — expanded Russian auth translations for phone/password labels, submit states, validation, and legal copy.
 
 ---
 

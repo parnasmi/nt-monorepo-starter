@@ -127,3 +127,20 @@ Verification completed:
 - `pnpm --filter naiton format`
 - `pnpm --filter naiton lint`
 - `pnpm --filter naiton build`
+
+### Phase 9 — Auth Feature & Login Flow ✅
+
+Completed the login flow on top of the Phase 8 shell:
+
+- Added `src/features/auth/` with feature-level auth selectors/actions, a validated `LoginForm`, and a logout route component.
+- Replaced the placeholder login screen with a real RHF + Zod form that posts to the MSW login endpoint, stores the session through the shared auth slice, sets the CSRF token, and redirects to `/app/dashboard`.
+- Registered `/app/logout` in the router and wired the navbar profile menu to it so logout clears both Zustand auth state and React Query cache before returning to `/auth/login`.
+- Expanded `public/locales/{uz,ru}/auth.json` with the strings required by the live login UI and validation states.
+- Refreshed leftover placeholder copy in the register page and sidebar footer so the app no longer references Phase 8 as “next”.
+
+Verification completed:
+
+- `pnpm --filter naiton format`
+- `pnpm --filter naiton check-types`
+- `pnpm --filter naiton lint`
+- `pnpm --filter naiton build`

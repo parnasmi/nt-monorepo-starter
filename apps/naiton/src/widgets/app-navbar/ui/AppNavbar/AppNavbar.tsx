@@ -3,6 +3,7 @@ import {
   ChevronDown,
   CircleHelp,
   Globe,
+  LogOut,
   MonitorCog,
   Search,
   Settings,
@@ -13,7 +14,7 @@ import { useMemo } from "react";
 import { NavLink, useLocation } from "react-router";
 import { useTranslation } from "react-i18next";
 
-import { getAppsRoute } from "@/shared/const/router.const";
+import { getAppsRoute, getRouteLogout } from "@/shared/const/router.const";
 import { useBoundStore } from "@/shared/store";
 import type { AllowedProducts } from "@/shared/types/requests.types";
 import { Avatar, AvatarFallback, AvatarImage } from "@repo/ui-kit/shadcn/avatar";
@@ -189,7 +190,16 @@ export function AppNavbar() {
                 <NavLink to={`${getAppsRoute()}/dashboard`}>Workspace overview</NavLink>
               </DropdownMenuItem>
               <DropdownMenuItem disabled>Profile center arrives after auth flow</DropdownMenuItem>
-              <DropdownMenuItem disabled>Logout will be wired in Phase 9</DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem asChild>
+                <NavLink
+                  className="flex items-center gap-2"
+                  to={`${getAppsRoute()}/${getRouteLogout()}`}
+                >
+                  <LogOut className="h-4 w-4" />
+                  Logout
+                </NavLink>
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
 

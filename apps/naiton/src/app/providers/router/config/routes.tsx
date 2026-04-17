@@ -1,8 +1,10 @@
 import { lazy } from "react";
 
 import {
+  type AppRoute,
   AppRoutes,
-  AuthRoutesEnum,
+  type AuthRoute,
+  AuthRoutes,
   getRouteAccounting,
   getRouteCrm,
   getRouteDashboard,
@@ -32,7 +34,9 @@ export type AppRoutesProps = {
   availableIn?: AllowedProducts[];
 };
 
-export const routes: Record<string, AppRoutesProps> = {
+type ModuleRoute = Exclude<AppRoute, typeof AppRoutes.USER_PROFILE | typeof AppRoutes.LOGOUT>;
+
+export const routes: Record<ModuleRoute, AppRoutesProps> = {
   [AppRoutes.DASHBOARD]: {
     path: getRouteDashboard(),
     element: <DashboardPage />,
@@ -88,13 +92,13 @@ export const routes: Record<string, AppRoutesProps> = {
   },
 };
 
-export const authRoutes: Record<AuthRoutesEnum, AppRoutesProps> = {
-  [AuthRoutesEnum.LOGIN]: {
-    path: AuthRoutesEnum.LOGIN,
+export const authRoutes: Record<AuthRoute, AppRoutesProps> = {
+  [AuthRoutes.LOGIN]: {
+    path: AuthRoutes.LOGIN,
     element: <></>,
   },
-  [AuthRoutesEnum.REGISTER]: {
-    path: AuthRoutesEnum.REGISTER,
+  [AuthRoutes.REGISTER]: {
+    path: AuthRoutes.REGISTER,
     element: <></>,
   },
 };

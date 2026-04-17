@@ -13,6 +13,8 @@ export type GetRequestResponse<T> = {
   };
 };
 
+export type PaginationMeta = NonNullable<GetRequestResponse<unknown>["meta"]>;
+
 export type AuthRoutes = "login" | "register" | "invitation" | "myid";
 
 export type TCompanyInfo = {
@@ -93,4 +95,39 @@ export type LoginResponse = {
 export type SubscriptionMeta = {
   allowed: AllowedProducts[];
   start_pay_flow: boolean;
+};
+
+export type SalesOrderStatus = "draft" | "confirmed" | "fulfilled";
+
+export type SalesOrder = {
+  id: string;
+  customer: string;
+  amount: number;
+  status: SalesOrderStatus;
+  createdAt: string;
+};
+
+export type CreateSalesOrderRequest = {
+  customer: string;
+  amount: number;
+  status: SalesOrderStatus;
+};
+
+export type CrmLeadStage = "new" | "qualified" | "proposal";
+export type CrmLeadSource = "website" | "referral" | "campaign";
+
+export type CrmLead = {
+  id: string;
+  name: string;
+  company: string;
+  stage: CrmLeadStage;
+  source: CrmLeadSource;
+  createdAt: string;
+};
+
+export type CreateCrmLeadRequest = {
+  name: string;
+  company: string;
+  stage: CrmLeadStage;
+  source: CrmLeadSource;
 };

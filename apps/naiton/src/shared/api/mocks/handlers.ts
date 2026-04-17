@@ -1,24 +1,15 @@
 import { envConfig } from "@/config/env/env.config";
 import { endpoints } from "@/shared/const/endpoints.const";
-import type { AllowedProducts, AuthRoutes, TCompanyInfo } from "@/shared/types/requests.types";
+import type {
+  AllowedProducts,
+  AuthRoutes,
+  CrmLead,
+  CreateCrmLeadRequest,
+  CreateSalesOrderRequest,
+  SalesOrder,
+  TCompanyInfo,
+} from "@/shared/types/requests.types";
 import { delay, http, HttpResponse } from "msw";
-
-type MockSalesOrder = {
-  id: string;
-  customer: string;
-  amount: number;
-  status: "draft" | "confirmed" | "fulfilled";
-  createdAt: string;
-};
-
-type MockCrmLead = {
-  id: string;
-  name: string;
-  company: string;
-  stage: "new" | "qualified" | "proposal";
-  source: "website" | "referral" | "campaign";
-  createdAt: string;
-};
 
 type PaginationMeta = {
   count: number;
@@ -60,9 +51,9 @@ const mockProfile = {
   companyInfo,
 };
 
-const mockOrders: MockSalesOrder[] = Array.from({ length: 50 }, (_, index) => {
+const mockOrders: SalesOrder[] = Array.from({ length: 50 }, (_, index) => {
   const orderNumber = index + 1;
-  const statuses: MockSalesOrder["status"][] = ["draft", "confirmed", "fulfilled"];
+  const statuses: SalesOrder["status"][] = ["draft", "confirmed", "fulfilled"];
 
   return {
     id: `SO-${String(orderNumber).padStart(4, "0")}`,
@@ -73,10 +64,10 @@ const mockOrders: MockSalesOrder[] = Array.from({ length: 50 }, (_, index) => {
   };
 });
 
-const mockLeads: MockCrmLead[] = Array.from({ length: 50 }, (_, index) => {
+const mockLeads: CrmLead[] = Array.from({ length: 50 }, (_, index) => {
   const leadNumber = index + 1;
-  const stages: MockCrmLead["stage"][] = ["new", "qualified", "proposal"];
-  const sources: MockCrmLead["source"][] = ["website", "referral", "campaign"];
+  const stages: CrmLead["stage"][] = ["new", "qualified", "proposal"];
+  const sources: CrmLead["source"][] = ["website", "referral", "campaign"];
 
   return {
     id: `LD-${String(leadNumber).padStart(4, "0")}`,
@@ -185,6 +176,31 @@ export const handlers = [
     });
   }),
 
+  http.post(buildApiPath(endpoints.SALES_ORDERS), async ({ request }) => {
+    await delay(450);
+
+    const payload = (await request.json()) as CreateSalesOrderRequest;
+    const createdOrder: SalesOrder = {
+      id: `SO-${String(mockOrders.length + 1).padStart(4, "0")}`,
+      customer: payload.customer,
+      amount: payload.amount,
+      status: payload.status,
+      createdAt: new Date().toISOString(),
+    };
+
+    mockOrders.unshift(createdOrder);
+
+    return HttpResponse.json(
+      {
+        success: true,
+        message: "Order created",
+        data: createdOrder,
+        meta: [],
+      },
+      { status: 201 },
+    );
+  }),
+
   http.get(buildApiPath(endpoints.CRM_LEADS), async ({ request }) => {
     await delay(500);
 
@@ -196,5 +212,31 @@ export const handlers = [
       data,
       meta,
     });
+  }),
+
+  http.post(buildApiPath(endpoints.CRM_LEADS), async ({ request }) => {
+    await delay(450);
+
+    const payload = (await request.json()) as CreateCrmLeadRequest;
+    const createdLead: CrmLead = {
+      id: `LD-${String(mockLeads.length + 1).padStart(4, "0")}`,
+      name: payload.name,
+      company: payload.company,
+      stage: payload.stage,
+      source: payload.source,
+      createdAt: new Date().toISOString(),
+    };
+
+    mockLeads.unshift(createdLead);
+
+    return HttpResponse.json(
+      {
+        success: true,
+        message: "Lead created",
+        data: createdLead,
+        meta: [],
+      },
+      { status: 201 },
+    );
   }),
 ];

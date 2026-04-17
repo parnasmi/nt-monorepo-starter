@@ -144,3 +144,23 @@ Verification completed:
 - `pnpm --filter naiton check-types`
 - `pnpm --filter naiton lint`
 - `pnpm --filter naiton build`
+
+### Phase 10 — Module Pages (Dashboard, Sales, CRM) ✅
+
+Completed the first real module workspaces on top of the persistent shell:
+
+- Added a reusable `Card` primitive to `@repo/ui-kit` and rebuilt the dashboard as a static KPI landing page using shared card components instead of local-only shells.
+- Reworked `SalesPage` to fetch 50 mock orders from `/v1/sales/orders` through `useFetchQueries`, render them in `DataTable`, support client-side search, and create orders through a RHF + Zod dialog backed by `useCreateMutation`.
+- Reworked `CrmPage` with the same query/mutation pattern for `/v1/crm/leads`, including a lead creation dialog and client-side filtering over 50 mock rows.
+- Extended the MSW handlers so sales orders and CRM leads now support both list and create flows, with newly created rows returned as `201` responses and inserted back into the refreshed tables.
+- Updated sidebar route matching so module-specific navigation stays active for nested routes as the workspace grows.
+
+Verification completed:
+
+- `pnpm --filter @repo/ui-kit format`
+- `pnpm --filter @repo/ui-kit check-types`
+- `pnpm --filter @repo/ui-kit build`
+- `pnpm --filter naiton format`
+- `pnpm --filter naiton check-types`
+- `pnpm --filter naiton lint`
+- `pnpm --filter naiton build`

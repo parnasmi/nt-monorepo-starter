@@ -112,9 +112,7 @@ The `deps/` folder alongside this plan contains battle-tested reference implemen
 │       ├── vitest.config.ts
 │       └── vitest.integration.config.mts
 ├── packages/
-│   ├── ui-kit/                       # Tailwind v4 + shadcn components
-│   ├── eslint-config/                # (optional — we use oxlint)
-│   └── typescript-config/            # base.json, react-library.json, vite.json
+│   └── ui-kit/                       # Tailwind v4 + shadcn components
 ├── .prettierrc.json
 ├── .prettierignore
 ├── oxlint.json
@@ -212,30 +210,9 @@ The `deps/` folder alongside this plan contains battle-tested reference implemen
 
 ## Phase 2 — Shared Config Packages
 
-**Goal**: Create `packages/typescript-config` and `packages/eslint-config` skeletons so apps can extend them.
+**Decision**: Skipped — no shared `typescript-config` or `eslint-config` packages. Each app owns its own `tsconfig` files and `oxlint.json`. This keeps config co-located with the app and avoids indirection for a single-app monorepo.
 
-**Prereqs**: Phase 1 complete.
-
-### Tasks
-
-- [ ] Create `packages/typescript-config/package.json`:
-  ```json
-  {
-    "name": "@repo/typescript-config",
-    "version": "0.0.0",
-    "private": true,
-    "files": ["base.json", "react-library.json", "vite.json"]
-  }
-  ```
-- [ ] Create `packages/typescript-config/base.json` (strict, ES2022, bundler resolution).
-- [ ] Create `packages/typescript-config/vite.json` — extends `base.json`, adds `jsx: react-jsx`, `moduleResolution: bundler`, `types: ["vite/client", "vitest/globals"]`.
-- [ ] Create `packages/typescript-config/react-library.json` — extends `base.json`, adds `declaration: true`, `emitDeclarationOnly: true`.
-- [ ] (Optional — kept for future migration) Create `packages/eslint-config/package.json` with re-exports of `eslint`, `typescript-eslint`, `eslint-plugin-react-hooks`. We will not wire eslint into any app since oxlint is preferred; this package exists only as a fallback.
-
-**Verification**
-
-- `pnpm install` re-links workspaces without error.
-- Both packages appear under `pnpm list -r --depth -1`.
+**Status**: ✅ Intentionally omitted.
 
 ---
 
@@ -354,7 +331,6 @@ The `deps/` folder alongside this plan contains battle-tested reference implemen
 - [ ] Create `tsconfig.app.json`:
   ```json
   {
-    "extends": "@repo/typescript-config/vite.json",
     "compilerOptions": {
       "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
       "target": "ES2022",

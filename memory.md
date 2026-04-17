@@ -31,3 +31,7 @@ Initialized the pnpm + Turborepo workspace skeleton:
 - `turbo.json` with build, dev, lint, check-types, test pipelines
 - Prettier configured with `prettier-plugin-tailwindcss` and `cva` support
 - Dev dependencies: turbo, prettier, husky, lint-staged, typescript@5.8
+
+### Phase 2 — Shared Config Packages ⛔ Skipped
+
+No shared `typescript-config` or `eslint-config` packages. Each app owns its own `tsconfig` files and `oxlint.json` directly. Config is co-located with `apps/naiton`; no `packages/typescript-config` or `packages/eslint-config` exist in the repo.

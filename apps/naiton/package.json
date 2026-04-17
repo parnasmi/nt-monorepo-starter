@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host --port 5175",
-    "dev:mock": "cross-env VITE_USE_MSW=true vite --host --port 5175",
+    "dev:mock": "cross-env VITE_PUBLIC_API_BASE_URL=/api VITE_USE_MSW=true vite --host --port 5175",
     "dev:real": "cross-env VITE_USE_MSW=false vite --host --port 5175",
     "build": "vite build",
     "build:ts": "tsc -b && vite build",

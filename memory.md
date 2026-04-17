@@ -164,3 +164,21 @@ Verification completed:
 - `pnpm --filter naiton check-types`
 - `pnpm --filter naiton lint`
 - `pnpm --filter naiton build`
+
+### Phase 11 — Testing Setup ✅
+
+Completed the full testing pyramid for `apps/naiton` and tightened a few authenticated-shell issues uncovered during browser verification:
+
+- Added dedicated unit/integration Vitest configs with React/SVGR plugins, DOM setup files, and an adapted integration harness for RTL (`ResizeObserver`, warning suppression, `react-i18next`/`sonner`/`nuqs` mocks).
+- Added a sample unit test for `axiosErrorHandler` and an integration test for `LoginForm` that verifies request payload normalization, auth-store updates, and redirect behavior.
+- Added Playwright setup and smoke coverage with saved auth state plus route-based API fixtures for auth/profile/sales/CRM so E2E can run against `dev:real` without relying on the browser MSW worker.
+- Fixed authenticated-shell regressions uncovered by Playwright: `SidebarProvider` now wraps `AppNavbar`, the navbar module rail is left-aligned so Sales/CRM remain clickable, and MSW handlers now match absolute API roots while `dev:mock` uses `/api` for same-origin local mocking.
+
+Verification completed:
+
+- `pnpm --filter naiton format`
+- `pnpm --filter naiton check-types`
+- `pnpm --filter naiton test:run`
+- `pnpm --filter naiton test:integration`
+- `pnpm --filter naiton exec playwright install chromium`
+- `pnpm --filter naiton test:e2e`

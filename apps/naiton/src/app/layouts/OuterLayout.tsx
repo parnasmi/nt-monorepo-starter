@@ -1,14 +1,25 @@
 import { Outlet } from "react-router";
 
+import { useBoundStore } from "@/shared/store";
 import { AppNavbar } from "@/widgets/app-navbar";
+import { SidebarProvider } from "@repo/ui-kit/shadcn/sidebar";
 
 export function OuterLayout() {
+  const isSidebarCollapsed = useBoundStore((state) => state.isSidebarCollapsed);
+  const setIsSidebarCollapsed = useBoundStore((state) => state.setIsSidebarCollapsed);
+
   return (
-    <div className="min-h-screen bg-transparent">
-      <AppNavbar />
-      <div className="pt-[72px]">
-        <Outlet />
+    <SidebarProvider
+      defaultOpen={!isSidebarCollapsed}
+      onOpenChange={(isOpen) => setIsSidebarCollapsed(!isOpen)}
+      open={!isSidebarCollapsed}
+    >
+      <div className="min-h-screen bg-transparent">
+        <AppNavbar />
+        <div className="pt-[72px]">
+          <Outlet />
+        </div>
       </div>
-    </div>
+    </SidebarProvider>
   );
 }

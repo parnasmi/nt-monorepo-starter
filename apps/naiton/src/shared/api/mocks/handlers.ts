@@ -79,22 +79,17 @@ const mockLeads: CrmLead[] = Array.from({ length: 50 }, (_, index) => {
   };
 });
 
-const getApiBasePath = (): string => {
+const getApiBaseUrl = (): string => {
   const fallbackOrigin =
     typeof window === "undefined" ? "http://localhost" : window.location.origin;
-  const pathname = new URL(envConfig.API_ROOT, fallbackOrigin).pathname.replace(/\/$/, "");
 
-  return pathname === "/" ? "" : pathname;
+  return new URL(envConfig.API_ROOT, fallbackOrigin).toString().replace(/\/$/, "");
 };
 
-const apiBasePath = getApiBasePath();
+const apiBaseUrl = getApiBaseUrl();
 
-const buildApiPath = (endpoint: string): string => {
-  if (apiBasePath.length === 0) {
-    return endpoint;
-  }
-
-  return `${apiBasePath}${endpoint}`;
+const buildApiUrl = (endpoint: string): string => {
+  return new URL(endpoint.replace(/^\//, ""), `${apiBaseUrl}/`).toString();
 };
 
 const readPositiveInteger = (value: string | null, fallbackValue: number): number => {
@@ -132,7 +127,7 @@ const paginate = <T>(collection: T[], url: URL): { data: T[]; meta: PaginationMe
 };
 
 export const handlers = [
-  http.post(buildApiPath(endpoints.LOGIN), async () => {
+  http.post(buildApiUrl(endpoints.LOGIN), async () => {
     await delay(600);
 
     return HttpResponse.json({
@@ -152,7 +147,7 @@ export const handlers = [
     });
   }),
 
-  http.get(buildApiPath(endpoints.PROFILE), async () => {
+  http.get(buildApiUrl(endpoints.PROFILE), async () => {
     await delay(400);
 
     return HttpResponse.json({
@@ -163,7 +158,7 @@ export const handlers = [
     });
   }),
 
-  http.get(buildApiPath(endpoints.SALES_ORDERS), async ({ request }) => {
+  http.get(buildApiUrl(endpoints.SALES_ORDERS), async ({ request }) => {
     await delay(500);
 
     const { data, meta } = paginate(mockOrders, new URL(request.url));
@@ -176,7 +171,7 @@ export const handlers = [
     });
   }),
 
-  http.post(buildApiPath(endpoints.SALES_ORDERS), async ({ request }) => {
+  http.post(buildApiUrl(endpoints.SALES_ORDERS), async ({ request }) => {
     await delay(450);
 
     const payload = (await request.json()) as CreateSalesOrderRequest;
@@ -201,7 +196,7 @@ export const handlers = [
     );
   }),
 
-  http.get(buildApiPath(endpoints.CRM_LEADS), async ({ request }) => {
+  http.get(buildApiUrl(endpoints.CRM_LEADS), async ({ request }) => {
     await delay(500);
 
     const { data, meta } = paginate(mockLeads, new URL(request.url));
@@ -214,7 +209,7 @@ export const handlers = [
     });
   }),
 
-  http.post(buildApiPath(endpoints.CRM_LEADS), async ({ request }) => {
+  http.post(buildApiUrl(endpoints.CRM_LEADS), async ({ request }) => {
     await delay(450);
 
     const payload = (await request.json()) as CreateCrmLeadRequest;

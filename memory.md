@@ -107,3 +107,23 @@ Verification completed:
 - `pnpm --filter naiton check-types`
 - `pnpm --filter naiton build`
 - `pnpm --filter naiton dev`
+
+### Phase 8 — Layout Engine + Router v7 ✅
+
+Wired the real shell and routing system for the Naiton PoC:
+
+- Added `PublicProvider` and `AuthProvider` so TanStack Query, axios header sync, profile hydration, and auth-route redirects now sit above the app router.
+- Replaced the placeholder router with nested persistent layouts: `AuthLayout` for `/auth/*`, `OuterLayout` for the suite navbar, and `InnerLayout` for the module sidebar.
+- Added `RequireAuth`, `ScrollContainer`, lazy `routes.tsx`, and `AppRouter` so `/` redirects to `/auth/login` and top-level modules load as separate chunks.
+- Built the reference-inspired shell UI: green suite navbar, module-aware sidebar, styled auth screen, and support pages for forbidden/not-found.
+- Added initial lazy page targets for dashboard, sales, CRM, accounting, FMS, WMS, procurement, production, and HRM. These are layout/demo shells; Phase 9 should replace the auth placeholder with the real login flow, and Phase 10 should wire live module data/forms.
+- Normalized internal `@repo/ui-kit` import paths to relative imports so the app can consume the shared package source directly without alias-resolution issues.
+
+Verification completed:
+
+- `pnpm --filter @repo/ui-kit check-types`
+- `pnpm --filter @repo/ui-kit format`
+- `pnpm --filter naiton check-types`
+- `pnpm --filter naiton format`
+- `pnpm --filter naiton lint`
+- `pnpm --filter naiton build`

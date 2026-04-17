@@ -11,9 +11,9 @@
     "./shadcn/*": "./src/shadcn/ui/*.tsx",
     "./shared/*": "./src/shared/*",
     "./shared/ui/*": "./src/shared/ui/*.tsx",
-    "./shared/lib/*": "./src/shared/lib/*.ts",
+    "./shared/lib/*": "./src/lib/*.ts",
     "./shared/icons/*": "./src/shared/assets/icons/*.tsx",
-    "./lib/*": "./src/shared/lib/*.ts"
+    "./lib/*": "./src/lib/*.ts"
   },
   "scripts": {
     "lint": "oxlint .",

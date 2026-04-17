@@ -12,20 +12,18 @@ export function RegisterPage() {
         Company onboarding
       </h1>
       <p className="mt-2 text-sm leading-6 text-slate-500">
-        Registration screens are intentionally deferred so Phase 8 stays focused on the routing and
-        persistent layout engine.
+        Registration screens are intentionally deferred while the PoC focuses on login, routing, and
+        persistent shell behavior.
       </p>
       <div className="mt-6 rounded-2xl border border-emerald-100 bg-emerald-50/80 p-4 text-sm text-emerald-900">
         <div className="flex items-center gap-2 font-semibold">
           <Sparkles className="h-4 w-4" />
-          Next up
+          Planned next
         </div>
-        <p className="mt-2">
-          Phase 9 wires the real auth flow with RHF, Zod, MSW login, and route persistence.
-        </p>
+        <p className="mt-2">Company onboarding will be introduced in a later phase.</p>
       </div>
       <Button className="mt-6 w-full rounded-xl" disabled>
-        Registration will be enabled next phase
+        Registration stays disabled in this phase
       </Button>
     </section>
   );

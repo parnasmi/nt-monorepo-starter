@@ -240,9 +240,9 @@ function SidebarBody() {
 
       <SidebarFooter>
         <div className="rounded-2xl border border-white/8 bg-white/6 p-3 text-sm text-sidebar-foreground/75">
-          <p className="font-medium text-sidebar-foreground">Phase 8 shell</p>
+          <p className="font-medium text-sidebar-foreground">Suite shell</p>
           <p className="mt-1">
-            Layouts and route persistence are live. Forms and API flows land next.
+            Layouts are persistent. Module data flows arrive in the next phase.
           </p>
         </div>
       </SidebarFooter>

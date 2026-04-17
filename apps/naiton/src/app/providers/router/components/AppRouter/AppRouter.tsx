@@ -5,6 +5,7 @@ import { AuthProvider } from "@/app/providers/authProvider/AuthProvider";
 import { AuthLayout } from "@/app/layouts/AuthLayout";
 import { InnerLayout } from "@/app/layouts/InnerLayout";
 import { OuterLayout } from "@/app/layouts/OuterLayout";
+import { LogoutRoute } from "@/features/auth";
 import { AuthLoginPage, RegisterPage } from "@/pages/auth";
 import { ForbiddenPage } from "@/pages/forbidden";
 import { NotFoundPage } from "@/pages/notfound";
@@ -13,6 +14,7 @@ import {
   getRouteAuth,
   getRouteAuthLogin,
   getRouteForbidden,
+  getRouteLogout,
 } from "@/shared/const/router.const";
 import { PageLoader } from "@repo/ui-kit/shared/ui/PageLoader";
 import { authRoutes, routes as routePaths, type AppRoutesProps } from "../../config/routes";
@@ -65,6 +67,7 @@ export default function AppRouter() {
               }
               index
             />
+            <Route element={<LogoutRoute />} path={getRouteLogout()} />
             {Object.values(routePaths).map(renderWithWrapper)}
           </Route>
         </Route>

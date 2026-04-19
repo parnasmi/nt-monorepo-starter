@@ -5,7 +5,6 @@ import { AuthProvider } from "@/app/providers/authProvider/AuthProvider";
 import { AuthLayout } from "@/app/layouts/AuthLayout";
 import { InnerLayout } from "@/app/layouts/InnerLayout";
 import { OuterLayout } from "@/app/layouts/OuterLayout";
-import { LogoutRoute } from "@/features/auth";
 import { AuthLoginPage, RegisterPage } from "@/pages/auth";
 import { ForbiddenPage } from "@/pages/forbidden";
 import { NotFoundPage } from "@/pages/notfound";
@@ -70,7 +69,6 @@ export default function AppRouter() {
               }
               index
             />
-            <Route element={<LogoutRoute />} path={getRouteLogout()} />
             {Object.values(routePaths).map(renderWithWrapper)}
           </Route>
         </Route>

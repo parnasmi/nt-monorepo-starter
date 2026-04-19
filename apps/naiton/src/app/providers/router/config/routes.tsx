@@ -2,7 +2,7 @@ import { Navigate } from "react-router";
 
 import {
   AppRoutes,
-  AuthRoutesEnum,
+  AuthRoutes,
   getAppsRoute,
   getRouteAccountingOverview,
   getRouteAccountingLogistics,
@@ -35,6 +35,7 @@ import { ProductionPage, ProductionOrdersPage } from "@/pages/production";
 import { AccountingPage, LogisticsPage } from "@/pages/accounting";
 import { HrmPage, RecruitmentPage } from "@/pages/hrm";
 import { FmsPage, FmsDashboardPage } from "@/pages/fms";
+import { LogoutRoute } from "@/features/auth";
 
 export type AppRoutesProps = {
   path: string;
@@ -43,7 +44,7 @@ export type AppRoutesProps = {
   availableIn?: AllowedProducts[];
 };
 
-export const routes: Record<string, AppRoutesProps> = {
+export const routes: Record<AppRoutes, AppRoutesProps> = {
   // Dashboard
   [AppRoutes.DASHBOARD_ROOT]: {
     path: `${getAppsRoute()}/dashboard`,
@@ -212,14 +213,26 @@ export const routes: Record<string, AppRoutesProps> = {
     authOnly: true,
     availableIn: ["fms"],
   },
+
+  // Other
+  [AppRoutes.LOGOUT]: {
+    path: "/app/logout", // Using string directly here as it's a special route, or getRouteLogout()
+    element: <LogoutRoute />,
+    authOnly: true,
+  },
+  [AppRoutes.USER_PROFILE]: {
+    path: "/app/user-profile",
+    element: <div>User Profile Coming Soon</div>,
+    authOnly: true,
+  },
 };
 
-export const authRoutes: Record<AuthRoutesEnum, AppRoutesProps> = {
-  [AuthRoutesEnum.LOGIN]: {
+export const authRoutes: Record<AuthRoutes, AppRoutesProps> = {
+  [AuthRoutes.LOGIN]: {
     path: getPathLogin(),
     element: <></>,
   },
-  [AuthRoutesEnum.REGISTER]: {
+  [AuthRoutes.REGISTER]: {
     path: getPathRegister(),
     element: <></>,
   },

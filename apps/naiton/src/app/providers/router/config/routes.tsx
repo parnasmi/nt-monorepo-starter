@@ -44,14 +44,27 @@ export type AppRoutesProps = {
 };
 
 export const routes: Record<string, AppRoutesProps> = {
+  // Dashboard
+  [AppRoutes.DASHBOARD_ROOT]: {
+    path: `${getAppsRoute()}/dashboard`,
+    element: <Navigate replace to={getRouteDashboardOverview()} />,
+    authOnly: true,
+  },
   [AppRoutes.DASHBOARD]: {
     path: getRouteDashboardOverview(),
     element: <DashboardPage />,
     authOnly: true,
   },
-  dashboard_revenue: {
+  [AppRoutes.DASHBOARD_REVENUE]: {
     path: getRouteDashboardRevenue(),
     element: <RevenuePage />,
+    authOnly: true,
+  },
+
+  // Sales
+  [AppRoutes.SALES_ROOT]: {
+    path: `${getAppsRoute()}/sales`,
+    element: <Navigate replace to={getRouteSalesOrders()} />,
     authOnly: true,
   },
   [AppRoutes.SALES]: {
@@ -60,11 +73,18 @@ export const routes: Record<string, AppRoutesProps> = {
     authOnly: true,
     availableIn: ["sales"],
   },
-  sales_offers: {
+  [AppRoutes.SALES_OFFERS]: {
     path: getRouteSalesOffers(),
     element: <OffersPage />,
     authOnly: true,
     availableIn: ["sales"],
+  },
+
+  // CRM
+  [AppRoutes.CRM_ROOT]: {
+    path: `${getAppsRoute()}/crm`,
+    element: <Navigate replace to={getRouteCrmCompany()} />,
+    authOnly: true,
   },
   [AppRoutes.CRM]: {
     path: getRouteCrmCompany(),
@@ -72,11 +92,18 @@ export const routes: Record<string, AppRoutesProps> = {
     authOnly: true,
     availableIn: ["crm"],
   },
-  crm_tasks: {
+  [AppRoutes.CRM_TASKS]: {
     path: getRouteCrmTasks(),
     element: <TasksPage />,
     authOnly: true,
     availableIn: ["crm"],
+  },
+
+  // WMS
+  [AppRoutes.WMS_ROOT]: {
+    path: `${getAppsRoute()}/wms`,
+    element: <Navigate replace to={getRouteWmsInventory()} />,
+    authOnly: true,
   },
   [AppRoutes.WMS]: {
     path: getRouteWmsInventory(),
@@ -84,11 +111,18 @@ export const routes: Record<string, AppRoutesProps> = {
     authOnly: true,
     availableIn: ["wms"],
   },
-  wms_zones: {
+  [AppRoutes.WMS_ZONES]: {
     path: getRouteWmsZones(),
     element: <ZonesPage />,
     authOnly: true,
     availableIn: ["wms"],
+  },
+
+  // Procurement
+  [AppRoutes.PROCUREMENT_ROOT]: {
+    path: `${getAppsRoute()}/procurement`,
+    element: <Navigate replace to={getRouteProcurementRequests()} />,
+    authOnly: true,
   },
   [AppRoutes.PROCUREMENT]: {
     path: getRouteProcurementRequests(),
@@ -96,11 +130,18 @@ export const routes: Record<string, AppRoutesProps> = {
     authOnly: true,
     availableIn: ["procurement"],
   },
-  procurement_suppliers: {
+  [AppRoutes.PROCUREMENT_SUPPLIERS]: {
     path: getRouteProcurementSuppliers(),
     element: <SuppliersPage />,
     authOnly: true,
     availableIn: ["procurement"],
+  },
+
+  // Production
+  [AppRoutes.PRODUCTION_ROOT]: {
+    path: `${getAppsRoute()}/production`,
+    element: <Navigate replace to={getRouteProductionLines()} />,
+    authOnly: true,
   },
   [AppRoutes.PRODUCTION]: {
     path: getRouteProductionLines(),
@@ -108,11 +149,18 @@ export const routes: Record<string, AppRoutesProps> = {
     authOnly: true,
     availableIn: ["production"],
   },
-  production_orders: {
+  [AppRoutes.PRODUCTION_ORDERS]: {
     path: getRouteProductionOrders(),
     element: <ProductionOrdersPage />,
     authOnly: true,
     availableIn: ["production"],
+  },
+
+  // Accounting
+  [AppRoutes.ACCOUNTING_ROOT]: {
+    path: `${getAppsRoute()}/accounting`,
+    element: <Navigate replace to={getRouteAccountingOverview()} />,
+    authOnly: true,
   },
   [AppRoutes.ACCOUNTING]: {
     path: getRouteAccountingOverview(),
@@ -120,11 +168,18 @@ export const routes: Record<string, AppRoutesProps> = {
     authOnly: true,
     availableIn: ["accounting"],
   },
-  accounting_logistics: {
+  [AppRoutes.ACCOUNTING_LOGISTICS]: {
     path: getRouteAccountingLogistics(),
     element: <LogisticsPage />,
     authOnly: true,
     availableIn: ["accounting"],
+  },
+
+  // HRM
+  [AppRoutes.HRM_ROOT]: {
+    path: `${getAppsRoute()}/hrm`,
+    element: <Navigate replace to={getRouteHrmHeadcount()} />,
+    authOnly: true,
   },
   [AppRoutes.HRM]: {
     path: getRouteHrmHeadcount(),
@@ -132,11 +187,18 @@ export const routes: Record<string, AppRoutesProps> = {
     authOnly: true,
     availableIn: ["hrm"],
   },
-  hrm_recruitment: {
+  [AppRoutes.HRM_RECRUITMENT]: {
     path: getRouteHrmRecruitment(),
     element: <RecruitmentPage />,
     authOnly: true,
     availableIn: ["hrm"],
+  },
+
+  // FMS
+  [AppRoutes.FMS_ROOT]: {
+    path: `${getAppsRoute()}/fms`,
+    element: <Navigate replace to={getRouteFmsMap()} />,
+    authOnly: true,
   },
   [AppRoutes.FMS]: {
     path: getRouteFmsMap(),
@@ -144,58 +206,11 @@ export const routes: Record<string, AppRoutesProps> = {
     authOnly: true,
     availableIn: ["fms"],
   },
-  fms_dashboard: {
+  [AppRoutes.FMS_DASHBOARD]: {
     path: getRouteFmsDashboard(),
     element: <FmsDashboardPage />,
     authOnly: true,
     availableIn: ["fms"],
-  },
-
-  // Module root redirects
-  dashboard_root: {
-    path: `${getAppsRoute()}/dashboard`,
-    element: <Navigate replace to={getRouteDashboardOverview()} />,
-    authOnly: true,
-  },
-  sales_root: {
-    path: `${getAppsRoute()}/sales`,
-    element: <Navigate replace to={getRouteSalesOrders()} />,
-    authOnly: true,
-  },
-  crm_root: {
-    path: `${getAppsRoute()}/crm`,
-    element: <Navigate replace to={getRouteCrmCompany()} />,
-    authOnly: true,
-  },
-  wms_root: {
-    path: `${getAppsRoute()}/wms`,
-    element: <Navigate replace to={getRouteWmsInventory()} />,
-    authOnly: true,
-  },
-  procurement_root: {
-    path: `${getAppsRoute()}/procurement`,
-    element: <Navigate replace to={getRouteProcurementRequests()} />,
-    authOnly: true,
-  },
-  production_root: {
-    path: `${getAppsRoute()}/production`,
-    element: <Navigate replace to={getRouteProductionLines()} />,
-    authOnly: true,
-  },
-  accounting_root: {
-    path: `${getAppsRoute()}/accounting`,
-    element: <Navigate replace to={getRouteAccountingOverview()} />,
-    authOnly: true,
-  },
-  hrm_root: {
-    path: `${getAppsRoute()}/hrm`,
-    element: <Navigate replace to={getRouteHrmHeadcount()} />,
-    authOnly: true,
-  },
-  fms_root: {
-    path: `${getAppsRoute()}/fms`,
-    element: <Navigate replace to={getRouteFmsMap()} />,
-    authOnly: true,
   },
 };
 

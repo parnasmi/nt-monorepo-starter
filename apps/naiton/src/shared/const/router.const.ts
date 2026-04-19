@@ -1,4 +1,5 @@
 export enum AppRoutes {
+  // Main pages (Default views)
   DASHBOARD = "dashboard",
   SALES = "sales",
   CRM = "crm",
@@ -8,6 +9,30 @@ export enum AppRoutes {
   ACCOUNTING = "accounting",
   HRM = "hrm",
   FMS = "fms",
+
+  // Module roots
+  DASHBOARD_ROOT = "dashboard_root",
+  SALES_ROOT = "sales_root",
+  CRM_ROOT = "crm_root",
+  WMS_ROOT = "wms_root",
+  PROCUREMENT_ROOT = "procurement_root",
+  PRODUCTION_ROOT = "production_root",
+  ACCOUNTING_ROOT = "accounting_root",
+  HRM_ROOT = "hrm_root",
+  FMS_ROOT = "fms_root",
+
+  // Specialized pages
+  DASHBOARD_REVENUE = "dashboard_revenue",
+  SALES_OFFERS = "sales_offers",
+  CRM_TASKS = "crm_tasks",
+  WMS_ZONES = "wms_zones",
+  PROCUREMENT_SUPPLIERS = "procurement_suppliers",
+  PRODUCTION_ORDERS = "production_orders",
+  ACCOUNTING_LOGISTICS = "accounting_logistics",
+  HRM_RECRUITMENT = "hrm_recruitment",
+  FMS_DASHBOARD = "fms_dashboard",
+
+  // Other
   USER_PROFILE = "user-profile",
   LOGOUT = "logout",
 }

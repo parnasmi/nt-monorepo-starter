@@ -28,11 +28,8 @@ import { getAppsRoute } from "@/shared/const/router.const";
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarHeader,
   SidebarMenu,
   SidebarMenuBadge,
   SidebarMenuButton,
@@ -173,58 +170,64 @@ function SidebarBody() {
   );
 
   return (
-    <aside className="fixed inset-y-0 left-0 z-30 flex w-[88px] flex-col pt-[72px] pb-4 bg-[#334155] text-slate-300 shadow-[2px_0_10px_rgba(0,0,0,0.1)]">
-      <ul className="flex flex-1 flex-col gap-2 mt-4">
-        {moduleConfig.items.map((item) => {
-          const isActive = Boolean(
-            item.to &&
-            (location.pathname === item.to || location.pathname.startsWith(`${item.to}/`)),
-          );
+    <Sidebar className="border-r-0 pt-[72px] !z-30">
+      <SidebarContent className="mt-4 gap-0">
+        <SidebarGroup className="p-0">
+          <SidebarGroupContent>
+            <SidebarMenu className="gap-2">
+              {moduleConfig.items.map((item) => {
+                const isActive = Boolean(
+                  item.to &&
+                  (location.pathname === item.to || location.pathname.startsWith(`${item.to}/`)),
+                );
 
-          return (
-            <li key={item.label} className="w-full relative">
-              {item.to ? (
-                <NavLink
-                  className={cn(
-                    "flex flex-col items-center justify-center h-[76px] ml-2.5 rounded-l-xl transition-all duration-200 z-40 relative",
-                    isActive
-                      ? "bg-[#f1f5f9] text-slate-900 shadow-[-2px_0_5px_rgba(0,0,0,0.05)]"
-                      : "text-slate-400 hover:text-white hover:bg-white/10 rounded-r-xl mr-2.5",
-                  )}
-                  to={item.to}
-                >
-                  <item.icon
-                    className={cn(
-                      "h-6 w-6 transition-colors",
-                      isActive ? "text-emerald-600" : "text-slate-400 group-hover:text-white",
+                return (
+                  <SidebarMenuItem key={item.label}>
+                    {item.to ? (
+                      <SidebarMenuButton
+                        asChild
+                        tooltip={item.label}
+                        className={cn(
+                          "h-[76px] flex-col items-center justify-center gap-0 rounded-l-xl p-0 ml-2.5",
+                          isActive
+                            ? "rounded-r-none bg-[#f1f5f9] text-slate-900 shadow-[-2px_0_5px_rgba(0,0,0,0.05)] hover:bg-[#f1f5f9] hover:text-slate-900"
+                            : "text-slate-400 hover:text-white hover:bg-white/10 rounded-r-xl mr-2.5",
+                        )}
+                      >
+                        <NavLink to={item.to}>
+                          <item.icon
+                            className={cn(
+                              "!h-6 !w-6 transition-colors",
+                              isActive ? "!text-emerald-600" : "text-slate-400",
+                            )}
+                          />
+                          <span className="mt-1.5 text-[10px] font-medium tracking-wide text-center px-1 leading-tight">
+                            {item.label}
+                          </span>
+                        </NavLink>
+                      </SidebarMenuButton>
+                    ) : (
+                      <SidebarMenuButton className="h-[76px] flex-col items-center justify-center gap-0 rounded-xl opacity-60 cursor-default ml-2.5 mr-2.5 p-0 hover:bg-transparent hover:text-inherit">
+                        <item.icon className="!h-6 !w-6 text-slate-500" />
+                        <span className="mt-1.5 text-[10px] font-medium tracking-wide text-slate-500 text-center px-1 leading-tight">
+                          {item.label}
+                        </span>
+                      </SidebarMenuButton>
                     )}
-                  />
-                  <span className="mt-1.5 text-[10px] font-medium tracking-wide text-center px-1 leading-tight">
-                    {item.label}
-                  </span>
-                  {item.badge && !isActive && (
-                    <span className="absolute right-3 top-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-orange-500 px-1 text-[9px] font-bold text-white">
-                      {item.badge}
-                    </span>
-                  )}
-                </NavLink>
-              ) : (
-                <div
-                  className={cn(
-                    "flex flex-col items-center justify-center h-[76px] ml-2.5 rounded-xl opacity-60 cursor-default mr-2.5",
-                  )}
-                >
-                  <item.icon className="h-6 w-6 text-slate-500" />
-                  <span className="mt-1.5 text-[10px] font-medium tracking-wide text-slate-500 text-center px-1 leading-tight">
-                    {item.label}
-                  </span>
-                </div>
-              )}
-            </li>
-          );
-        })}
-      </ul>
-    </aside>
+                    {item.badge && !isActive && (
+                      <SidebarMenuBadge className="right-3 top-1.5 h-4 min-w-4 rounded-full bg-orange-500 px-1 text-[9px] font-bold text-white">
+                        {item.badge}
+                      </SidebarMenuBadge>
+                    )}
+                  </SidebarMenuItem>
+                );
+              })}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
+      <SidebarRail />
+    </Sidebar>
   );
 }
 

@@ -19,7 +19,7 @@
   --input: 220 24% 92%;
   --ring: 147 76% 36%;
   --radius: 1rem;
-  --sidebar: hsl(216 21% 38%);
+  --sidebar: hsl(215 25% 27%);
   --sidebar-foreground: hsl(210 40% 98%);
   --sidebar-primary: hsl(147 76% 36%);
   --sidebar-primary-foreground: hsl(0 0% 100%);
@@ -27,6 +27,10 @@
   --sidebar-accent-foreground: hsl(210 40% 98%);
   --sidebar-border: hsl(214 23% 31%);
   --sidebar-ring: hsl(147 76% 36%);
+}
+
+[data-sidebar="sidebar"] {
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
 }
 
 html {

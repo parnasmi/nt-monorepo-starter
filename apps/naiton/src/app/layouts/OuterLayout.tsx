@@ -13,6 +13,7 @@ export function OuterLayout() {
       defaultOpen={!isSidebarCollapsed}
       onOpenChange={(isOpen) => setIsSidebarCollapsed(!isOpen)}
       open={!isSidebarCollapsed}
+      style={{ "--sidebar-width": "88px" } as React.CSSProperties}
     >
       <AppNavbar />
       <Outlet />

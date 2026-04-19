@@ -16,9 +16,11 @@ import {
   getRouteDashboard,
   getRouteForbidden,
   getRouteLogout,
+  getPathLogin,
+  getPathRegister,
 } from "@/shared/const/router.const";
 import { PageLoader } from "@repo/ui-kit/shared/ui/PageLoader";
-import { authRoutes, routes as routePaths, type AppRoutesProps } from "../../config/routes";
+import { routes as routePaths, type AppRoutesProps } from "../../config/routes";
 import { RequireAuth } from "../RequireAuth";
 import { ScrollContainer } from "../ScrollContainer/ScrollContainer";
 
@@ -51,8 +53,8 @@ export default function AppRouter() {
 
       <Route element={<AuthLayout />} path={getRouteAuth()}>
         <Route element={<Navigate replace to={getRouteAuthLogin()} />} index />
-        <Route element={<AuthLoginPage />} path={authRoutes.login.path} />
-        <Route element={<RegisterPage />} path={authRoutes.register.path} />
+        <Route element={<AuthLoginPage />} path={getPathLogin()} />
+        <Route element={<RegisterPage />} path={getPathRegister()} />
       </Route>
 
       <Route element={<OuterLayout />} path={getAppsRoute()}>

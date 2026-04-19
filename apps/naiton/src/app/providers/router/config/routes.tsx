@@ -1,6 +1,9 @@
+import { Navigate } from "react-router";
+
 import {
   AppRoutes,
   AuthRoutesEnum,
+  getAppsRoute,
   getRouteAccountingOverview,
   getRouteAccountingLogistics,
   getRouteCrmCompany,
@@ -146,6 +149,53 @@ export const routes: Record<string, AppRoutesProps> = {
     element: <FmsDashboardPage />,
     authOnly: true,
     availableIn: ["fms"],
+  },
+
+  // Module root redirects
+  dashboard_root: {
+    path: `${getAppsRoute()}/dashboard`,
+    element: <Navigate replace to={getRouteDashboardOverview()} />,
+    authOnly: true,
+  },
+  sales_root: {
+    path: `${getAppsRoute()}/sales`,
+    element: <Navigate replace to={getRouteSalesOrders()} />,
+    authOnly: true,
+  },
+  crm_root: {
+    path: `${getAppsRoute()}/crm`,
+    element: <Navigate replace to={getRouteCrmCompany()} />,
+    authOnly: true,
+  },
+  wms_root: {
+    path: `${getAppsRoute()}/wms`,
+    element: <Navigate replace to={getRouteWmsInventory()} />,
+    authOnly: true,
+  },
+  procurement_root: {
+    path: `${getAppsRoute()}/procurement`,
+    element: <Navigate replace to={getRouteProcurementRequests()} />,
+    authOnly: true,
+  },
+  production_root: {
+    path: `${getAppsRoute()}/production`,
+    element: <Navigate replace to={getRouteProductionLines()} />,
+    authOnly: true,
+  },
+  accounting_root: {
+    path: `${getAppsRoute()}/accounting`,
+    element: <Navigate replace to={getRouteAccountingOverview()} />,
+    authOnly: true,
+  },
+  hrm_root: {
+    path: `${getAppsRoute()}/hrm`,
+    element: <Navigate replace to={getRouteHrmHeadcount()} />,
+    authOnly: true,
+  },
+  fms_root: {
+    path: `${getAppsRoute()}/fms`,
+    element: <Navigate replace to={getRouteFmsMap()} />,
+    authOnly: true,
   },
 };
 

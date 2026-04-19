@@ -11,19 +11,11 @@ import { ForbiddenPage } from "@/pages/forbidden";
 import { NotFoundPage } from "@/pages/notfound";
 import {
   getAppsRoute,
-  getRouteAccountingOverview,
   getRouteAuth,
   getRouteAuthLogin,
-  getRouteCrmCompany,
   getRouteDashboardOverview,
-  getRouteFmsMap,
   getRouteForbidden,
-  getRouteHrmHeadcount,
   getRouteLogout,
-  getRouteProcurementRequests,
-  getRouteProductionLines,
-  getRouteSalesOrders,
-  getRouteWmsInventory,
   getPathLogin,
   getPathRegister,
 } from "@/shared/const/router.const";
@@ -79,42 +71,6 @@ export default function AppRouter() {
               index
             />
             <Route element={<LogoutRoute />} path={getRouteLogout()} />
-            <Route
-              element={<Navigate replace to={getRouteDashboardOverview()} />}
-              path={`${getAppsRoute()}/dashboard`}
-            />
-            <Route
-              element={<Navigate replace to={getRouteSalesOrders()} />}
-              path={`${getAppsRoute()}/sales`}
-            />
-            <Route
-              element={<Navigate replace to={getRouteCrmCompany()} />}
-              path={`${getAppsRoute()}/crm`}
-            />
-            <Route
-              element={<Navigate replace to={getRouteWmsInventory()} />}
-              path={`${getAppsRoute()}/wms`}
-            />
-            <Route
-              element={<Navigate replace to={getRouteProcurementRequests()} />}
-              path={`${getAppsRoute()}/procurement`}
-            />
-            <Route
-              element={<Navigate replace to={getRouteProductionLines()} />}
-              path={`${getAppsRoute()}/production`}
-            />
-            <Route
-              element={<Navigate replace to={getRouteAccountingOverview()} />}
-              path={`${getAppsRoute()}/accounting`}
-            />
-            <Route
-              element={<Navigate replace to={getRouteHrmHeadcount()} />}
-              path={`${getAppsRoute()}/hrm`}
-            />
-            <Route
-              element={<Navigate replace to={getRouteFmsMap()} />}
-              path={`${getAppsRoute()}/fms`}
-            />
             {Object.values(routePaths).map(renderWithWrapper)}
           </Route>
         </Route>

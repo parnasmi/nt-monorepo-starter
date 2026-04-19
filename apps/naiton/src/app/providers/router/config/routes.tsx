@@ -1,5 +1,3 @@
-import { lazy } from "react";
-
 import {
   AppRoutes,
   AuthRoutesEnum,
@@ -14,25 +12,15 @@ import {
   getRouteWms,
 } from "@/shared/const/router.const";
 import type { AllowedProducts } from "@/shared/types/requests.types";
-
-const DashboardPage = lazy(() => import("@/pages/dashboard"));
-const RevenuePage = lazy(() => import("@/pages/dashboard/revenue"));
-const SalesPage = lazy(() => import("@/pages/sales"));
-const OffersPage = lazy(() => import("@/pages/sales/offers"));
-const CrmPage = lazy(() => import("@/pages/crm"));
-const TasksPage = lazy(() => import("@/pages/crm/tasks"));
-const WmsPage = lazy(() => import("@/pages/wms"));
-const ZonesPage = lazy(() => import("@/pages/wms/zones"));
-const ProcurementPage = lazy(() => import("@/pages/procurement"));
-const SuppliersPage = lazy(() => import("@/pages/procurement/suppliers"));
-const ProductionPage = lazy(() => import("@/pages/production"));
-const ProductionOrdersPage = lazy(() => import("@/pages/production/orders"));
-const AccountingPage = lazy(() => import("@/pages/accounting"));
-const LogisticsPage = lazy(() => import("@/pages/accounting/logistics"));
-const HrmPage = lazy(() => import("@/pages/hrm"));
-const RecruitmentPage = lazy(() => import("@/pages/hrm/recruitment"));
-const FmsPage = lazy(() => import("@/pages/fms"));
-const FmsDashboardPage = lazy(() => import("@/pages/fms/dashboard"));
+import { DashboardPage, RevenuePage } from "@/pages/dashboard";
+import { SalesPage, OffersPage } from "@/pages/sales";
+import { CrmPage, TasksPage } from "@/pages/crm";
+import { WmsPage, ZonesPage } from "@/pages/wms";
+import { ProcurementPage, SuppliersPage } from "@/pages/procurement";
+import { ProductionPage, ProductionOrdersPage } from "@/pages/production";
+import { AccountingPage, LogisticsPage } from "@/pages/accounting";
+import { HrmPage, RecruitmentPage } from "@/pages/hrm";
+import { FmsPage, FmsDashboardPage } from "@/pages/fms";
 
 export type AppRoutesProps = {
   path: string;

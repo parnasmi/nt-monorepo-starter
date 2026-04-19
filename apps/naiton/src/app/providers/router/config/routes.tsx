@@ -2,14 +2,25 @@ import {
   AppRoutes,
   AuthRoutesEnum,
   getRouteAccounting,
+  getRouteAccountingLogistics,
   getRouteCrm,
+  getRouteCrmTasks,
   getRouteDashboard,
+  getRouteDashboardRevenue,
   getRouteFms,
+  getRouteFmsDashboard,
   getRouteHrm,
+  getRouteHrmRecruitment,
   getRouteProcurement,
+  getRouteProcurementSuppliers,
   getRouteProduction,
+  getRouteProductionOrders,
   getRouteSales,
+  getRouteSalesOffers,
   getRouteWms,
+  getRouteWmsZones,
+  getPathLogin,
+  getPathRegister,
 } from "@/shared/const/router.const";
 import type { AllowedProducts } from "@/shared/types/requests.types";
 import { DashboardPage, RevenuePage } from "@/pages/dashboard";
@@ -36,7 +47,7 @@ export const routes: Record<string, AppRoutesProps> = {
     authOnly: true,
   },
   dashboard_revenue: {
-    path: "dashboard/revenue",
+    path: getRouteDashboardRevenue(),
     element: <RevenuePage />,
     authOnly: true,
   },
@@ -47,7 +58,7 @@ export const routes: Record<string, AppRoutesProps> = {
     availableIn: ["sales"],
   },
   sales_offers: {
-    path: "sales/offers",
+    path: getRouteSalesOffers(),
     element: <OffersPage />,
     authOnly: true,
     availableIn: ["sales"],
@@ -59,7 +70,7 @@ export const routes: Record<string, AppRoutesProps> = {
     availableIn: ["crm"],
   },
   crm_tasks: {
-    path: "crm/tasks",
+    path: getRouteCrmTasks(),
     element: <TasksPage />,
     authOnly: true,
     availableIn: ["crm"],
@@ -71,7 +82,7 @@ export const routes: Record<string, AppRoutesProps> = {
     availableIn: ["wms"],
   },
   wms_zones: {
-    path: "wms/zones",
+    path: getRouteWmsZones(),
     element: <ZonesPage />,
     authOnly: true,
     availableIn: ["wms"],
@@ -83,7 +94,7 @@ export const routes: Record<string, AppRoutesProps> = {
     availableIn: ["procurement"],
   },
   procurement_suppliers: {
-    path: "procurement/suppliers",
+    path: getRouteProcurementSuppliers(),
     element: <SuppliersPage />,
     authOnly: true,
     availableIn: ["procurement"],
@@ -95,7 +106,7 @@ export const routes: Record<string, AppRoutesProps> = {
     availableIn: ["production"],
   },
   production_orders: {
-    path: "production/orders",
+    path: getRouteProductionOrders(),
     element: <ProductionOrdersPage />,
     authOnly: true,
     availableIn: ["production"],
@@ -107,7 +118,7 @@ export const routes: Record<string, AppRoutesProps> = {
     availableIn: ["accounting"],
   },
   accounting_logistics: {
-    path: "accounting/logistics",
+    path: getRouteAccountingLogistics(),
     element: <LogisticsPage />,
     authOnly: true,
     availableIn: ["accounting"],
@@ -119,7 +130,7 @@ export const routes: Record<string, AppRoutesProps> = {
     availableIn: ["hrm"],
   },
   hrm_recruitment: {
-    path: "hrm/recruitment",
+    path: getRouteHrmRecruitment(),
     element: <RecruitmentPage />,
     authOnly: true,
     availableIn: ["hrm"],
@@ -131,7 +142,7 @@ export const routes: Record<string, AppRoutesProps> = {
     availableIn: ["fms"],
   },
   fms_dashboard: {
-    path: "fms/dashboard",
+    path: getRouteFmsDashboard(),
     element: <FmsDashboardPage />,
     authOnly: true,
     availableIn: ["fms"],
@@ -140,11 +151,11 @@ export const routes: Record<string, AppRoutesProps> = {
 
 export const authRoutes: Record<AuthRoutesEnum, AppRoutesProps> = {
   [AuthRoutesEnum.LOGIN]: {
-    path: AuthRoutesEnum.LOGIN,
+    path: getPathLogin(),
     element: <></>,
   },
   [AuthRoutesEnum.REGISTER]: {
-    path: AuthRoutesEnum.REGISTER,
+    path: getPathRegister(),
     element: <></>,
   },
 };

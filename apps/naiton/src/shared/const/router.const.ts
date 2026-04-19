@@ -20,14 +20,40 @@ export enum AuthRoutesEnum {
 export const getAppsRoute = () => "/app";
 export const getRouteAuth = () => "/auth";
 export const getRouteAuthLogin = () => "/auth/login";
+export const getRouteAuthRegister = () => "/auth/register";
 export const getRouteForbidden = () => "/forbidden";
-export const getRouteLogout = () => "logout";
-export const getRouteDashboard = () => "dashboard";
-export const getRouteSales = () => "sales";
-export const getRouteCrm = () => "crm";
-export const getRouteWms = () => "wms";
-export const getRouteProcurement = () => "procurement";
-export const getRouteProduction = () => "production";
-export const getRouteAccounting = () => "accounting";
-export const getRouteHrm = () => "hrm";
-export const getRouteFms = () => "fms";
+
+// App routes (Absolute)
+export const getRouteDashboard = () => `${getAppsRoute()}/dashboard`;
+export const getRouteDashboardRevenue = () => `${getRouteDashboard()}/revenue`;
+
+export const getRouteSales = () => `${getAppsRoute()}/sales`;
+export const getRouteSalesOffers = () => `${getRouteSales()}/offers`;
+
+export const getRouteCrm = () => `${getAppsRoute()}/crm`;
+export const getRouteCrmTasks = () => `${getRouteCrm()}/tasks`;
+
+export const getRouteWms = () => `${getAppsRoute()}/wms`;
+export const getRouteWmsZones = () => `${getRouteWms()}/zones`;
+
+export const getRouteProcurement = () => `${getAppsRoute()}/procurement`;
+export const getRouteProcurementSuppliers = () => `${getRouteProcurement()}/suppliers`;
+
+export const getRouteProduction = () => `${getAppsRoute()}/production`;
+export const getRouteProductionOrders = () => `${getRouteProduction()}/orders`;
+
+export const getRouteAccounting = () => `${getAppsRoute()}/accounting`;
+export const getRouteAccountingLogistics = () => `${getRouteAccounting()}/logistics`;
+
+export const getRouteHrm = () => `${getAppsRoute()}/hrm`;
+export const getRouteHrmRecruitment = () => `${getRouteHrm()}/recruitment`;
+
+export const getRouteFms = () => `${getAppsRoute()}/fms`;
+export const getRouteFmsDashboard = () => `${getRouteFms()}/dashboard`;
+
+export const getRouteUserProfile = () => `${getAppsRoute()}/user-profile`;
+export const getRouteLogout = () => `${getAppsRoute()}/logout`;
+
+// Relative paths (Internal use)
+export const getPathLogin = () => "login";
+export const getPathRegister = () => "register";

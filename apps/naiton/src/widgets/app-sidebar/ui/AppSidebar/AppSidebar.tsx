@@ -24,7 +24,26 @@ import {
 import { memo, type ComponentType, useMemo } from "react";
 import { NavLink, useLocation } from "react-router";
 
-import { getAppsRoute } from "@/shared/const/router.const";
+import {
+  getRouteAccounting,
+  getRouteAccountingLogistics,
+  getRouteCrm,
+  getRouteCrmTasks,
+  getRouteDashboard,
+  getRouteDashboardRevenue,
+  getRouteFms,
+  getRouteFmsDashboard,
+  getRouteHrm,
+  getRouteHrmRecruitment,
+  getRouteProcurement,
+  getRouteProcurementSuppliers,
+  getRouteProduction,
+  getRouteProductionOrders,
+  getRouteSales,
+  getRouteSalesOffers,
+  getRouteWms,
+  getRouteWmsZones,
+} from "@/shared/const/router.const";
 import {
   Sidebar,
   SidebarContent,
@@ -56,11 +75,11 @@ const sidebarConfigByModule: Record<string, SidebarConfig> = {
     heading: "Workspace",
     accent: "from-emerald-500/20 to-sky-500/10",
     items: [
-      { label: "Overview", icon: LayoutDashboard, to: `${getAppsRoute()}/dashboard` },
+      { label: "Overview", icon: LayoutDashboard, to: getRouteDashboard() },
       {
         label: "Revenue",
         icon: BadgeDollarSign,
-        to: `${getAppsRoute()}/dashboard/revenue`,
+        to: getRouteDashboardRevenue(),
         badge: "4",
       },
       { label: "Operations", icon: ClipboardList, badge: "7" },
@@ -71,8 +90,8 @@ const sidebarConfigByModule: Record<string, SidebarConfig> = {
     heading: "Sales",
     accent: "from-sky-500/20 to-cyan-500/10",
     items: [
-      { label: "Offers", icon: FileText, to: `${getAppsRoute()}/sales/offers`, badge: "9" },
-      { label: "Orders", icon: ShoppingCart, to: `${getAppsRoute()}/sales`, badge: "18" },
+      { label: "Offers", icon: FileText, to: getRouteSalesOffers(), badge: "9" },
+      { label: "Orders", icon: ShoppingCart, to: getRouteSales(), badge: "18" },
       { label: "Subscriptions", icon: BadgeDollarSign, badge: "3" },
     ],
   },
@@ -80,8 +99,8 @@ const sidebarConfigByModule: Record<string, SidebarConfig> = {
     heading: "CRM",
     accent: "from-emerald-500/20 to-green-500/10",
     items: [
-      { label: "Company", icon: Building2, to: `${getAppsRoute()}/crm`, badge: "18" },
-      { label: "Tasks", icon: ClipboardList, to: `${getAppsRoute()}/crm/tasks`, badge: "11" },
+      { label: "Company", icon: Building2, to: getRouteCrm(), badge: "18" },
+      { label: "Tasks", icon: ClipboardList, to: getRouteCrmTasks(), badge: "11" },
       { label: "Third tab", icon: Users, badge: "4" },
     ],
   },
@@ -89,8 +108,8 @@ const sidebarConfigByModule: Record<string, SidebarConfig> = {
     heading: "Fleet",
     accent: "from-orange-500/20 to-sky-500/10",
     items: [
-      { label: "Map", icon: Map, to: `${getAppsRoute()}/fms` },
-      { label: "Dashboard", icon: LayoutDashboard, to: `${getAppsRoute()}/fms/dashboard` },
+      { label: "Map", icon: Map, to: getRouteFms() },
+      { label: "Dashboard", icon: LayoutDashboard, to: getRouteFmsDashboard() },
       { label: "Chat", icon: MessageSquare, badge: "6" },
       { label: "Maintenance", icon: Wrench, badge: "4" },
       { label: "Transport", icon: Truck, badge: "10" },
@@ -106,8 +125,8 @@ const sidebarConfigByModule: Record<string, SidebarConfig> = {
     heading: "Admin",
     accent: "from-violet-500/20 to-slate-500/10",
     items: [
-      { label: "Accounting", icon: BadgeDollarSign, to: `${getAppsRoute()}/accounting` },
-      { label: "Logistics", icon: Truck, to: `${getAppsRoute()}/accounting/logistics` },
+      { label: "Accounting", icon: BadgeDollarSign, to: getRouteAccounting() },
+      { label: "Logistics", icon: Truck, to: getRouteAccountingLogistics() },
       { label: "CRM", icon: Users },
       { label: "HRM", icon: UserRoundCog },
       { label: "Email", icon: Mail },
@@ -125,8 +144,8 @@ const sidebarConfigByModule: Record<string, SidebarConfig> = {
     heading: "Warehouse",
     accent: "from-amber-500/20 to-emerald-500/10",
     items: [
-      { label: "Inventory flow", icon: Boxes, to: `${getAppsRoute()}/wms` },
-      { label: "Zones", icon: House, to: `${getAppsRoute()}/wms/zones`, badge: "12" },
+      { label: "Inventory flow", icon: Boxes, to: getRouteWms() },
+      { label: "Zones", icon: House, to: getRouteWmsZones(), badge: "12" },
       { label: "Transfers", icon: Route, badge: "8" },
       { label: "Quality checks", icon: Shield, badge: "3" },
     ],
@@ -135,11 +154,11 @@ const sidebarConfigByModule: Record<string, SidebarConfig> = {
     heading: "Procurement",
     accent: "from-cyan-500/20 to-emerald-500/10",
     items: [
-      { label: "Requests", icon: ClipboardList, to: `${getAppsRoute()}/procurement` },
+      { label: "Requests", icon: ClipboardList, to: getRouteProcurement() },
       {
         label: "Suppliers",
         icon: Building2,
-        to: `${getAppsRoute()}/procurement/suppliers`,
+        to: getRouteProcurementSuppliers(),
         badge: "24",
       },
       { label: "Contracts", icon: FileText, badge: "7" },
@@ -150,11 +169,11 @@ const sidebarConfigByModule: Record<string, SidebarConfig> = {
     heading: "Production",
     accent: "from-indigo-500/20 to-emerald-500/10",
     items: [
-      { label: "Lines", icon: Wrench, to: `${getAppsRoute()}/production` },
+      { label: "Lines", icon: Wrench, to: getRouteProduction() },
       {
         label: "Orders",
         icon: ClipboardList,
-        to: `${getAppsRoute()}/production/orders`,
+        to: getRouteProductionOrders(),
         badge: "32",
       },
       { label: "Capacity", icon: CircleGauge, badge: "87%" },
@@ -165,11 +184,11 @@ const sidebarConfigByModule: Record<string, SidebarConfig> = {
     heading: "People",
     accent: "from-pink-500/20 to-orange-500/10",
     items: [
-      { label: "Headcount", icon: Users, to: `${getAppsRoute()}/hrm`, badge: "1245" },
+      { label: "Headcount", icon: Users, to: getRouteHrm(), badge: "1245" },
       {
         label: "Recruitment",
         icon: UserRoundCog,
-        to: `${getAppsRoute()}/hrm/recruitment`,
+        to: getRouteHrmRecruitment(),
         badge: "9",
       },
       { label: "Payroll", icon: BadgeDollarSign },

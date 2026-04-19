@@ -13,6 +13,7 @@ import {
   getAppsRoute,
   getRouteAuth,
   getRouteAuthLogin,
+  getRouteDashboard,
   getRouteForbidden,
   getRouteLogout,
 } from "@/shared/const/router.const";
@@ -61,7 +62,7 @@ export default function AppRouter() {
               element={
                 <ScrollContainer>
                   <RequireAuth>
-                    <Navigate replace to="dashboard" />
+                    <Navigate replace to={getRouteDashboard()} />
                   </RequireAuth>
                 </ScrollContainer>
               }

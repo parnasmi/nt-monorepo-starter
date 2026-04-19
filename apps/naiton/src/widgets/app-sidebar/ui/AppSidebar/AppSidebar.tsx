@@ -166,87 +166,65 @@ const getCurrentModule = (pathname: string) => pathname.split("/")[2] || "dashbo
 
 function SidebarBody() {
   const location = useLocation();
-
   const currentModule = useMemo(() => getCurrentModule(location.pathname), [location.pathname]);
-
   const moduleConfig = useMemo(
     () => sidebarConfigByModule[currentModule] ?? baseConfig,
     [currentModule],
   );
 
   return (
-    <Sidebar
-      className="top-[72px] h-[calc(100vh-72px)] border-r border-sidebar-border/60"
-      collapsible="icon"
-    >
-      <SidebarHeader className="border-b border-sidebar-border/70 bg-gradient-to-b from-white/8 to-transparent">
-        <div
-          className={cn(
-            "rounded-2xl border border-white/8 bg-gradient-to-br p-4",
-            moduleConfig.accent,
-          )}
-        >
-          <p className="text-xs font-semibold tracking-[0.24em] text-sidebar-foreground/65 uppercase">
-            {moduleConfig.heading}
-          </p>
-          <p className="mt-1 text-lg font-semibold text-sidebar-foreground">
-            {moduleConfig.heading} module
-          </p>
-          <p className="mt-1 text-sm text-sidebar-foreground/72">
-            Persistent domain navigation for the current workspace.
-          </p>
-        </div>
-      </SidebarHeader>
+    <aside className="fixed inset-y-0 left-0 z-30 flex w-[88px] flex-col pt-[72px] pb-4 bg-[#334155] text-slate-300 shadow-[2px_0_10px_rgba(0,0,0,0.1)]">
+      <ul className="flex flex-1 flex-col gap-2 mt-4">
+        {moduleConfig.items.map((item) => {
+          const isActive = Boolean(
+            item.to &&
+            (location.pathname === item.to || location.pathname.startsWith(`${item.to}/`)),
+          );
 
-      <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupLabel>Navigation</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {moduleConfig.items.map((item) => {
-                const isActive = Boolean(
-                  item.to &&
-                  (location.pathname === item.to || location.pathname.startsWith(`${item.to}/`)),
-                );
-                const content = (
-                  <>
-                    <item.icon className="h-4 w-4" />
-                    <span>{item.label}</span>
-                  </>
-                );
-
-                return (
-                  <SidebarMenuItem key={item.label}>
-                    {item.to ? (
-                      <SidebarMenuButton asChild isActive={isActive} tooltip={item.label}>
-                        <NavLink to={item.to}>{content}</NavLink>
-                      </SidebarMenuButton>
-                    ) : (
-                      <SidebarMenuButton
-                        aria-disabled="true"
-                        className="cursor-default opacity-80"
-                        tooltip={item.label}
-                      >
-                        {content}
-                      </SidebarMenuButton>
+          return (
+            <li key={item.label} className="w-full relative">
+              {item.to ? (
+                <NavLink
+                  className={cn(
+                    "flex flex-col items-center justify-center h-[76px] ml-2.5 rounded-l-xl transition-all duration-200 z-40 relative",
+                    isActive
+                      ? "bg-[#f1f5f9] text-slate-900 shadow-[-2px_0_5px_rgba(0,0,0,0.05)]"
+                      : "text-slate-400 hover:text-white hover:bg-white/10 rounded-r-xl mr-2.5",
+                  )}
+                  to={item.to}
+                >
+                  <item.icon
+                    className={cn(
+                      "h-6 w-6 transition-colors",
+                      isActive ? "text-emerald-600" : "text-slate-400 group-hover:text-white",
                     )}
-                    {item.badge ? <SidebarMenuBadge>{item.badge}</SidebarMenuBadge> : null}
-                  </SidebarMenuItem>
-                );
-              })}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-      </SidebarContent>
-
-      <SidebarFooter>
-        <div className="rounded-2xl border border-white/8 bg-white/6 p-3 text-sm text-sidebar-foreground/75">
-          <p className="font-medium text-sidebar-foreground">Suite shell</p>
-          <p className="mt-1">Module navigation now tracks the active route for each workspace.</p>
-        </div>
-      </SidebarFooter>
-      <SidebarRail />
-    </Sidebar>
+                  />
+                  <span className="mt-1.5 text-[10px] font-medium tracking-wide text-center px-1 leading-tight">
+                    {item.label}
+                  </span>
+                  {item.badge && !isActive && (
+                    <span className="absolute right-3 top-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-orange-500 px-1 text-[9px] font-bold text-white">
+                      {item.badge}
+                    </span>
+                  )}
+                </NavLink>
+              ) : (
+                <div
+                  className={cn(
+                    "flex flex-col items-center justify-center h-[76px] ml-2.5 rounded-xl opacity-60 cursor-default mr-2.5",
+                  )}
+                >
+                  <item.icon className="h-6 w-6 text-slate-500" />
+                  <span className="mt-1.5 text-[10px] font-medium tracking-wide text-slate-500 text-center px-1 leading-tight">
+                    {item.label}
+                  </span>
+                </div>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    </aside>
   );
 }
 

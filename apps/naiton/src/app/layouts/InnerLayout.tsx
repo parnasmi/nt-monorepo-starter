@@ -7,7 +7,7 @@ export function InnerLayout() {
   return (
     <>
       <AppSidebar />
-      <SidebarInset className="min-h-[calc(100vh-72px)] bg-transparent">
+      <SidebarInset className="min-h-[calc(100vh-72px)] bg-transparent pt-[72px] pl-[88px]">
         <Outlet />
       </SidebarInset>
     </>

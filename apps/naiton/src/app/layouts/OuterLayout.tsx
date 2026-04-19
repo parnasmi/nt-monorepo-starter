@@ -14,12 +14,8 @@ export function OuterLayout() {
       onOpenChange={(isOpen) => setIsSidebarCollapsed(!isOpen)}
       open={!isSidebarCollapsed}
     >
-      <div className="min-h-screen bg-transparent">
-        <AppNavbar />
-        <div className="pt-[72px]">
-          <Outlet />
-        </div>
-      </div>
+      <AppNavbar />
+      <Outlet />
     </SidebarProvider>
   );
 }

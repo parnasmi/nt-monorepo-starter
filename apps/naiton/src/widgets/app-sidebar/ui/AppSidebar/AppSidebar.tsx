@@ -25,23 +25,23 @@ import { memo, type ComponentType, useMemo } from "react";
 import { NavLink, useLocation } from "react-router";
 
 import {
-  getRouteAccounting,
+  getRouteAccountingOverview,
   getRouteAccountingLogistics,
-  getRouteCrm,
+  getRouteCrmCompany,
   getRouteCrmTasks,
-  getRouteDashboard,
+  getRouteDashboardOverview,
   getRouteDashboardRevenue,
-  getRouteFms,
+  getRouteFmsMap,
   getRouteFmsDashboard,
-  getRouteHrm,
+  getRouteHrmHeadcount,
   getRouteHrmRecruitment,
-  getRouteProcurement,
+  getRouteProcurementRequests,
   getRouteProcurementSuppliers,
-  getRouteProduction,
+  getRouteProductionLines,
   getRouteProductionOrders,
-  getRouteSales,
+  getRouteSalesOrders,
   getRouteSalesOffers,
-  getRouteWms,
+  getRouteWmsInventory,
   getRouteWmsZones,
 } from "@/shared/const/router.const";
 import {
@@ -75,7 +75,7 @@ const sidebarConfigByModule: Record<string, SidebarConfig> = {
     heading: "Workspace",
     accent: "from-emerald-500/20 to-sky-500/10",
     items: [
-      { label: "Overview", icon: LayoutDashboard, to: getRouteDashboard() },
+      { label: "Overview", icon: LayoutDashboard, to: getRouteDashboardOverview() },
       {
         label: "Revenue",
         icon: BadgeDollarSign,
@@ -91,7 +91,7 @@ const sidebarConfigByModule: Record<string, SidebarConfig> = {
     accent: "from-sky-500/20 to-cyan-500/10",
     items: [
       { label: "Offers", icon: FileText, to: getRouteSalesOffers(), badge: "9" },
-      { label: "Orders", icon: ShoppingCart, to: getRouteSales(), badge: "18" },
+      { label: "Orders", icon: ShoppingCart, to: getRouteSalesOrders(), badge: "18" },
       { label: "Subscriptions", icon: BadgeDollarSign, badge: "3" },
     ],
   },
@@ -99,7 +99,7 @@ const sidebarConfigByModule: Record<string, SidebarConfig> = {
     heading: "CRM",
     accent: "from-emerald-500/20 to-green-500/10",
     items: [
-      { label: "Company", icon: Building2, to: getRouteCrm(), badge: "18" },
+      { label: "Company", icon: Building2, to: getRouteCrmCompany(), badge: "18" },
       { label: "Tasks", icon: ClipboardList, to: getRouteCrmTasks(), badge: "11" },
       { label: "Third tab", icon: Users, badge: "4" },
     ],
@@ -108,7 +108,7 @@ const sidebarConfigByModule: Record<string, SidebarConfig> = {
     heading: "Fleet",
     accent: "from-orange-500/20 to-sky-500/10",
     items: [
-      { label: "Map", icon: Map, to: getRouteFms() },
+      { label: "Map", icon: Map, to: getRouteFmsMap() },
       { label: "Dashboard", icon: LayoutDashboard, to: getRouteFmsDashboard() },
       { label: "Chat", icon: MessageSquare, badge: "6" },
       { label: "Maintenance", icon: Wrench, badge: "4" },
@@ -125,7 +125,7 @@ const sidebarConfigByModule: Record<string, SidebarConfig> = {
     heading: "Admin",
     accent: "from-violet-500/20 to-slate-500/10",
     items: [
-      { label: "Accounting", icon: BadgeDollarSign, to: getRouteAccounting() },
+      { label: "Accounting", icon: BadgeDollarSign, to: getRouteAccountingOverview() },
       { label: "Logistics", icon: Truck, to: getRouteAccountingLogistics() },
       { label: "CRM", icon: Users },
       { label: "HRM", icon: UserRoundCog },
@@ -144,7 +144,7 @@ const sidebarConfigByModule: Record<string, SidebarConfig> = {
     heading: "Warehouse",
     accent: "from-amber-500/20 to-emerald-500/10",
     items: [
-      { label: "Inventory flow", icon: Boxes, to: getRouteWms() },
+      { label: "Inventory flow", icon: Boxes, to: getRouteWmsInventory() },
       { label: "Zones", icon: House, to: getRouteWmsZones(), badge: "12" },
       { label: "Transfers", icon: Route, badge: "8" },
       { label: "Quality checks", icon: Shield, badge: "3" },
@@ -154,7 +154,7 @@ const sidebarConfigByModule: Record<string, SidebarConfig> = {
     heading: "Procurement",
     accent: "from-cyan-500/20 to-emerald-500/10",
     items: [
-      { label: "Requests", icon: ClipboardList, to: getRouteProcurement() },
+      { label: "Requests", icon: ClipboardList, to: getRouteProcurementRequests() },
       {
         label: "Suppliers",
         icon: Building2,
@@ -169,7 +169,7 @@ const sidebarConfigByModule: Record<string, SidebarConfig> = {
     heading: "Production",
     accent: "from-indigo-500/20 to-emerald-500/10",
     items: [
-      { label: "Lines", icon: Wrench, to: getRouteProduction() },
+      { label: "Lines", icon: Wrench, to: getRouteProductionLines() },
       {
         label: "Orders",
         icon: ClipboardList,
@@ -184,7 +184,7 @@ const sidebarConfigByModule: Record<string, SidebarConfig> = {
     heading: "People",
     accent: "from-pink-500/20 to-orange-500/10",
     items: [
-      { label: "Headcount", icon: Users, to: getRouteHrm(), badge: "1245" },
+      { label: "Headcount", icon: Users, to: getRouteHrmHeadcount(), badge: "1245" },
       {
         label: "Recruitment",
         icon: UserRoundCog,

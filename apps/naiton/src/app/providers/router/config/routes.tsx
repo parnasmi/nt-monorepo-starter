@@ -1,23 +1,23 @@
 import {
   AppRoutes,
   AuthRoutesEnum,
-  getRouteAccounting,
+  getRouteAccountingOverview,
   getRouteAccountingLogistics,
-  getRouteCrm,
+  getRouteCrmCompany,
   getRouteCrmTasks,
-  getRouteDashboard,
+  getRouteDashboardOverview,
   getRouteDashboardRevenue,
-  getRouteFms,
+  getRouteFmsMap,
   getRouteFmsDashboard,
-  getRouteHrm,
+  getRouteHrmHeadcount,
   getRouteHrmRecruitment,
-  getRouteProcurement,
+  getRouteProcurementRequests,
   getRouteProcurementSuppliers,
-  getRouteProduction,
+  getRouteProductionLines,
   getRouteProductionOrders,
-  getRouteSales,
+  getRouteSalesOrders,
   getRouteSalesOffers,
-  getRouteWms,
+  getRouteWmsInventory,
   getRouteWmsZones,
   getPathLogin,
   getPathRegister,
@@ -42,7 +42,7 @@ export type AppRoutesProps = {
 
 export const routes: Record<string, AppRoutesProps> = {
   [AppRoutes.DASHBOARD]: {
-    path: getRouteDashboard(),
+    path: getRouteDashboardOverview(),
     element: <DashboardPage />,
     authOnly: true,
   },
@@ -52,7 +52,7 @@ export const routes: Record<string, AppRoutesProps> = {
     authOnly: true,
   },
   [AppRoutes.SALES]: {
-    path: getRouteSales(),
+    path: getRouteSalesOrders(),
     element: <SalesPage />,
     authOnly: true,
     availableIn: ["sales"],
@@ -64,7 +64,7 @@ export const routes: Record<string, AppRoutesProps> = {
     availableIn: ["sales"],
   },
   [AppRoutes.CRM]: {
-    path: getRouteCrm(),
+    path: getRouteCrmCompany(),
     element: <CrmPage />,
     authOnly: true,
     availableIn: ["crm"],
@@ -76,7 +76,7 @@ export const routes: Record<string, AppRoutesProps> = {
     availableIn: ["crm"],
   },
   [AppRoutes.WMS]: {
-    path: getRouteWms(),
+    path: getRouteWmsInventory(),
     element: <WmsPage />,
     authOnly: true,
     availableIn: ["wms"],
@@ -88,7 +88,7 @@ export const routes: Record<string, AppRoutesProps> = {
     availableIn: ["wms"],
   },
   [AppRoutes.PROCUREMENT]: {
-    path: getRouteProcurement(),
+    path: getRouteProcurementRequests(),
     element: <ProcurementPage />,
     authOnly: true,
     availableIn: ["procurement"],
@@ -100,7 +100,7 @@ export const routes: Record<string, AppRoutesProps> = {
     availableIn: ["procurement"],
   },
   [AppRoutes.PRODUCTION]: {
-    path: getRouteProduction(),
+    path: getRouteProductionLines(),
     element: <ProductionPage />,
     authOnly: true,
     availableIn: ["production"],
@@ -112,7 +112,7 @@ export const routes: Record<string, AppRoutesProps> = {
     availableIn: ["production"],
   },
   [AppRoutes.ACCOUNTING]: {
-    path: getRouteAccounting(),
+    path: getRouteAccountingOverview(),
     element: <AccountingPage />,
     authOnly: true,
     availableIn: ["accounting"],
@@ -124,7 +124,7 @@ export const routes: Record<string, AppRoutesProps> = {
     availableIn: ["accounting"],
   },
   [AppRoutes.HRM]: {
-    path: getRouteHrm(),
+    path: getRouteHrmHeadcount(),
     element: <HrmPage />,
     authOnly: true,
     availableIn: ["hrm"],
@@ -136,7 +136,7 @@ export const routes: Record<string, AppRoutesProps> = {
     availableIn: ["hrm"],
   },
   [AppRoutes.FMS]: {
-    path: getRouteFms(),
+    path: getRouteFmsMap(),
     element: <FmsPage />,
     authOnly: true,
     availableIn: ["fms"],

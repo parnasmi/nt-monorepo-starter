@@ -24,32 +24,32 @@ export const getRouteAuthRegister = () => "/auth/register";
 export const getRouteForbidden = () => "/forbidden";
 
 // App routes (Absolute)
-export const getRouteDashboard = () => `${getAppsRoute()}/dashboard`;
-export const getRouteDashboardRevenue = () => `${getRouteDashboard()}/revenue`;
+export const getRouteDashboardOverview = () => `${getAppsRoute()}/dashboard/overview`;
+export const getRouteDashboardRevenue = () => `${getAppsRoute()}/dashboard/revenue`;
 
-export const getRouteSales = () => `${getAppsRoute()}/sales`;
-export const getRouteSalesOffers = () => `${getRouteSales()}/offers`;
+export const getRouteSalesOrders = () => `${getAppsRoute()}/sales/orders`;
+export const getRouteSalesOffers = () => `${getAppsRoute()}/sales/offers`;
 
-export const getRouteCrm = () => `${getAppsRoute()}/crm`;
-export const getRouteCrmTasks = () => `${getRouteCrm()}/tasks`;
+export const getRouteCrmCompany = () => `${getAppsRoute()}/crm/company`;
+export const getRouteCrmTasks = () => `${getAppsRoute()}/crm/tasks`;
 
-export const getRouteWms = () => `${getAppsRoute()}/wms`;
-export const getRouteWmsZones = () => `${getRouteWms()}/zones`;
+export const getRouteWmsInventory = () => `${getAppsRoute()}/wms/inventory`;
+export const getRouteWmsZones = () => `${getAppsRoute()}/wms/zones`;
 
-export const getRouteProcurement = () => `${getAppsRoute()}/procurement`;
-export const getRouteProcurementSuppliers = () => `${getRouteProcurement()}/suppliers`;
+export const getRouteProcurementRequests = () => `${getAppsRoute()}/procurement/requests`;
+export const getRouteProcurementSuppliers = () => `${getAppsRoute()}/procurement/suppliers`;
 
-export const getRouteProduction = () => `${getAppsRoute()}/production`;
-export const getRouteProductionOrders = () => `${getRouteProduction()}/orders`;
+export const getRouteProductionLines = () => `${getAppsRoute()}/production/lines`;
+export const getRouteProductionOrders = () => `${getAppsRoute()}/production/orders`;
 
-export const getRouteAccounting = () => `${getAppsRoute()}/accounting`;
-export const getRouteAccountingLogistics = () => `${getRouteAccounting()}/logistics`;
+export const getRouteAccountingOverview = () => `${getAppsRoute()}/accounting/overview`;
+export const getRouteAccountingLogistics = () => `${getAppsRoute()}/accounting/logistics`;
 
-export const getRouteHrm = () => `${getAppsRoute()}/hrm`;
-export const getRouteHrmRecruitment = () => `${getRouteHrm()}/recruitment`;
+export const getRouteHrmHeadcount = () => `${getAppsRoute()}/hrm/headcount`;
+export const getRouteHrmRecruitment = () => `${getAppsRoute()}/hrm/recruitment`;
 
-export const getRouteFms = () => `${getAppsRoute()}/fms`;
-export const getRouteFmsDashboard = () => `${getRouteFms()}/dashboard`;
+export const getRouteFmsMap = () => `${getAppsRoute()}/fms/map`;
+export const getRouteFmsDashboard = () => `${getAppsRoute()}/fms/dashboard`;
 
 export const getRouteUserProfile = () => `${getAppsRoute()}/user-profile`;
 export const getRouteLogout = () => `${getAppsRoute()}/logout`;

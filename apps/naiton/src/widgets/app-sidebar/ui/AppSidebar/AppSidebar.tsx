@@ -24,15 +24,31 @@ import {
 import { memo, type ComponentType, useMemo } from "react";
 import { NavLink, useLocation } from "react-router";
 
-import { getAppsRoute } from "@/shared/const/router.const";
+import {
+  getRouteAccountingOverview,
+  getRouteAccountingLogistics,
+  getRouteCrmCompany,
+  getRouteCrmTasks,
+  getRouteDashboardOverview,
+  getRouteDashboardRevenue,
+  getRouteFmsMap,
+  getRouteFmsDashboard,
+  getRouteHrmHeadcount,
+  getRouteHrmRecruitment,
+  getRouteProcurementRequests,
+  getRouteProcurementSuppliers,
+  getRouteProductionLines,
+  getRouteProductionOrders,
+  getRouteSalesOrders,
+  getRouteSalesOffers,
+  getRouteWmsInventory,
+  getRouteWmsZones,
+} from "@/shared/const/router.const";
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarHeader,
   SidebarMenu,
   SidebarMenuBadge,
   SidebarMenuButton,
@@ -59,8 +75,13 @@ const sidebarConfigByModule: Record<string, SidebarConfig> = {
     heading: "Workspace",
     accent: "from-emerald-500/20 to-sky-500/10",
     items: [
-      { label: "Overview", icon: LayoutDashboard, to: `${getAppsRoute()}/dashboard` },
-      { label: "Revenue", icon: BadgeDollarSign, badge: "4" },
+      { label: "Overview", icon: LayoutDashboard, to: getRouteDashboardOverview() },
+      {
+        label: "Revenue",
+        icon: BadgeDollarSign,
+        to: getRouteDashboardRevenue(),
+        badge: "4",
+      },
       { label: "Operations", icon: ClipboardList, badge: "7" },
       { label: "Customers", icon: Users, badge: "12" },
     ],
@@ -69,8 +90,8 @@ const sidebarConfigByModule: Record<string, SidebarConfig> = {
     heading: "Sales",
     accent: "from-sky-500/20 to-cyan-500/10",
     items: [
-      { label: "Offers", icon: FileText, badge: "9" },
-      { label: "Orders", icon: ShoppingCart, to: `${getAppsRoute()}/sales`, badge: "18" },
+      { label: "Offers", icon: FileText, to: getRouteSalesOffers(), badge: "9" },
+      { label: "Orders", icon: ShoppingCart, to: getRouteSalesOrders(), badge: "18" },
       { label: "Subscriptions", icon: BadgeDollarSign, badge: "3" },
     ],
   },
@@ -78,8 +99,8 @@ const sidebarConfigByModule: Record<string, SidebarConfig> = {
     heading: "CRM",
     accent: "from-emerald-500/20 to-green-500/10",
     items: [
-      { label: "Company", icon: Building2, to: `${getAppsRoute()}/crm`, badge: "18" },
-      { label: "Tasks", icon: ClipboardList, badge: "11" },
+      { label: "Company", icon: Building2, to: getRouteCrmCompany(), badge: "18" },
+      { label: "Tasks", icon: ClipboardList, to: getRouteCrmTasks(), badge: "11" },
       { label: "Third tab", icon: Users, badge: "4" },
     ],
   },
@@ -87,8 +108,8 @@ const sidebarConfigByModule: Record<string, SidebarConfig> = {
     heading: "Fleet",
     accent: "from-orange-500/20 to-sky-500/10",
     items: [
-      { label: "Map", icon: Map, to: `${getAppsRoute()}/fms` },
-      { label: "Dashboard", icon: LayoutDashboard },
+      { label: "Map", icon: Map, to: getRouteFmsMap() },
+      { label: "Dashboard", icon: LayoutDashboard, to: getRouteFmsDashboard() },
       { label: "Chat", icon: MessageSquare, badge: "6" },
       { label: "Maintenance", icon: Wrench, badge: "4" },
       { label: "Transport", icon: Truck, badge: "10" },
@@ -104,8 +125,8 @@ const sidebarConfigByModule: Record<string, SidebarConfig> = {
     heading: "Admin",
     accent: "from-violet-500/20 to-slate-500/10",
     items: [
-      { label: "Accounting", icon: BadgeDollarSign, to: `${getAppsRoute()}/accounting` },
-      { label: "Logistics", icon: Truck },
+      { label: "Accounting", icon: BadgeDollarSign, to: getRouteAccountingOverview() },
+      { label: "Logistics", icon: Truck, to: getRouteAccountingLogistics() },
       { label: "CRM", icon: Users },
       { label: "HRM", icon: UserRoundCog },
       { label: "Email", icon: Mail },
@@ -123,8 +144,8 @@ const sidebarConfigByModule: Record<string, SidebarConfig> = {
     heading: "Warehouse",
     accent: "from-amber-500/20 to-emerald-500/10",
     items: [
-      { label: "Inventory flow", icon: Boxes, to: `${getAppsRoute()}/wms` },
-      { label: "Zones", icon: House, badge: "12" },
+      { label: "Inventory flow", icon: Boxes, to: getRouteWmsInventory() },
+      { label: "Zones", icon: House, to: getRouteWmsZones(), badge: "12" },
       { label: "Transfers", icon: Route, badge: "8" },
       { label: "Quality checks", icon: Shield, badge: "3" },
     ],
@@ -133,8 +154,13 @@ const sidebarConfigByModule: Record<string, SidebarConfig> = {
     heading: "Procurement",
     accent: "from-cyan-500/20 to-emerald-500/10",
     items: [
-      { label: "Requests", icon: ClipboardList, to: `${getAppsRoute()}/procurement` },
-      { label: "Suppliers", icon: Building2, badge: "24" },
+      { label: "Requests", icon: ClipboardList, to: getRouteProcurementRequests() },
+      {
+        label: "Suppliers",
+        icon: Building2,
+        to: getRouteProcurementSuppliers(),
+        badge: "24",
+      },
       { label: "Contracts", icon: FileText, badge: "7" },
       { label: "Spend map", icon: PackageSearch },
     ],
@@ -143,8 +169,13 @@ const sidebarConfigByModule: Record<string, SidebarConfig> = {
     heading: "Production",
     accent: "from-indigo-500/20 to-emerald-500/10",
     items: [
-      { label: "Lines", icon: Wrench, to: `${getAppsRoute()}/production` },
-      { label: "Orders", icon: ClipboardList, badge: "32" },
+      { label: "Lines", icon: Wrench, to: getRouteProductionLines() },
+      {
+        label: "Orders",
+        icon: ClipboardList,
+        to: getRouteProductionOrders(),
+        badge: "32",
+      },
       { label: "Capacity", icon: CircleGauge, badge: "87%" },
       { label: "Output", icon: Boxes },
     ],
@@ -153,8 +184,13 @@ const sidebarConfigByModule: Record<string, SidebarConfig> = {
     heading: "People",
     accent: "from-pink-500/20 to-orange-500/10",
     items: [
-      { label: "Headcount", icon: Users, to: `${getAppsRoute()}/hrm`, badge: "1245" },
-      { label: "Recruitment", icon: UserRoundCog, badge: "9" },
+      { label: "Headcount", icon: Users, to: getRouteHrmHeadcount(), badge: "1245" },
+      {
+        label: "Recruitment",
+        icon: UserRoundCog,
+        to: getRouteHrmRecruitment(),
+        badge: "9",
+      },
       { label: "Payroll", icon: BadgeDollarSign },
       { label: "Policies", icon: BookText },
     ],
@@ -166,71 +202,66 @@ const getCurrentModule = (pathname: string) => pathname.split("/")[2] || "dashbo
 
 function SidebarBody() {
   const location = useLocation();
-
   const currentModule = useMemo(() => getCurrentModule(location.pathname), [location.pathname]);
-
   const moduleConfig = useMemo(
     () => sidebarConfigByModule[currentModule] ?? baseConfig,
     [currentModule],
   );
 
-  return (
-    <Sidebar
-      className="top-[72px] h-[calc(100vh-72px)] border-r border-sidebar-border/60"
-      collapsible="icon"
-    >
-      <SidebarHeader className="border-b border-sidebar-border/70 bg-gradient-to-b from-white/8 to-transparent">
-        <div
-          className={cn(
-            "rounded-2xl border border-white/8 bg-gradient-to-br p-4",
-            moduleConfig.accent,
-          )}
-        >
-          <p className="text-xs font-semibold tracking-[0.24em] text-sidebar-foreground/65 uppercase">
-            {moduleConfig.heading}
-          </p>
-          <p className="mt-1 text-lg font-semibold text-sidebar-foreground">
-            {moduleConfig.heading} module
-          </p>
-          <p className="mt-1 text-sm text-sidebar-foreground/72">
-            Persistent domain navigation for the current workspace.
-          </p>
-        </div>
-      </SidebarHeader>
+  const activeItem = useMemo(() => {
+    return [...moduleConfig.items]
+      .filter((i) => i.to)
+      .sort((a, b) => (b.to?.length ?? 0) - (a.to?.length ?? 0))
+      .find((i) => location.pathname === i.to || location.pathname.startsWith(`${i.to}/`));
+  }, [moduleConfig.items, location.pathname]);
 
-      <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupLabel>Navigation</SidebarGroupLabel>
+  return (
+    <Sidebar className="border-r-0 pt-[72px] !z-30">
+      <SidebarContent className="mt-4 gap-0">
+        <SidebarGroup className="p-0">
           <SidebarGroupContent>
-            <SidebarMenu>
+            <SidebarMenu className="gap-2">
               {moduleConfig.items.map((item) => {
-                const isActive = Boolean(
-                  item.to &&
-                  (location.pathname === item.to || location.pathname.startsWith(`${item.to}/`)),
-                );
-                const content = (
-                  <>
-                    <item.icon className="h-4 w-4" />
-                    <span>{item.label}</span>
-                  </>
-                );
+                const isActive = item === activeItem;
 
                 return (
                   <SidebarMenuItem key={item.label}>
                     {item.to ? (
-                      <SidebarMenuButton asChild isActive={isActive} tooltip={item.label}>
-                        <NavLink to={item.to}>{content}</NavLink>
+                      <SidebarMenuButton
+                        asChild
+                        tooltip={item.label}
+                        className={cn(
+                          "h-[76px] flex-col items-center justify-center gap-0 rounded-l-xl p-0 ml-2.5",
+                          isActive
+                            ? "rounded-r-none bg-[#f1f5f9] text-slate-900 shadow-[-2px_0_5px_rgba(0,0,0,0.05)] hover:bg-[#f1f5f9] hover:text-slate-900"
+                            : "text-slate-400 hover:text-white hover:bg-white/10 rounded-r-xl mr-2.5",
+                        )}
+                      >
+                        <NavLink to={item.to}>
+                          <item.icon
+                            className={cn(
+                              "!h-6 !w-6 transition-colors",
+                              isActive ? "!text-emerald-600" : "text-slate-400",
+                            )}
+                          />
+                          <span className="mt-1.5 text-[10px] font-medium tracking-wide text-center px-1 leading-tight transition-colors text-inherit">
+                            {item.label}
+                          </span>
+                        </NavLink>
                       </SidebarMenuButton>
                     ) : (
-                      <SidebarMenuButton
-                        aria-disabled="true"
-                        className="cursor-default opacity-80"
-                        tooltip={item.label}
-                      >
-                        {content}
+                      <SidebarMenuButton className="h-[76px] flex-col items-center justify-center gap-0 rounded-xl opacity-60 cursor-default ml-2.5 mr-2.5 p-0 hover:bg-transparent hover:text-inherit">
+                        <item.icon className="!h-6 !w-6 text-slate-500" />
+                        <span className="mt-1.5 text-[10px] font-medium tracking-wide text-slate-500 text-center px-1 leading-tight">
+                          {item.label}
+                        </span>
                       </SidebarMenuButton>
                     )}
-                    {item.badge ? <SidebarMenuBadge>{item.badge}</SidebarMenuBadge> : null}
+                    {item.badge && !isActive && (
+                      <SidebarMenuBadge className="right-3 top-1.5 h-4 min-w-4 rounded-full bg-orange-500 px-1 text-[9px] font-bold text-white">
+                        {item.badge}
+                      </SidebarMenuBadge>
+                    )}
                   </SidebarMenuItem>
                 );
               })}
@@ -238,13 +269,6 @@ function SidebarBody() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-
-      <SidebarFooter>
-        <div className="rounded-2xl border border-white/8 bg-white/6 p-3 text-sm text-sidebar-foreground/75">
-          <p className="font-medium text-sidebar-foreground">Suite shell</p>
-          <p className="mt-1">Module navigation now tracks the active route for each workspace.</p>
-        </div>
-      </SidebarFooter>
       <SidebarRail />
     </Sidebar>
   );

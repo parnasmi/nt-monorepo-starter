@@ -1,1 +1,4 @@
-export { default } from "./ui/AccountingPage";
+import { lazy } from "react";
+
+export const AccountingPage = lazy(() => import("./ui/AccountingPage"));
+export const LogisticsPage = lazy(() => import("./logistics"));

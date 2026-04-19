@@ -208,6 +208,13 @@ function SidebarBody() {
     [currentModule],
   );
 
+  const activeItem = useMemo(() => {
+    return [...moduleConfig.items]
+      .filter((i) => i.to)
+      .sort((a, b) => (b.to?.length ?? 0) - (a.to?.length ?? 0))
+      .find((i) => location.pathname === i.to || location.pathname.startsWith(`${i.to}/`));
+  }, [moduleConfig.items, location.pathname]);
+
   return (
     <Sidebar className="border-r-0 pt-[72px] !z-30">
       <SidebarContent className="mt-4 gap-0">
@@ -215,10 +222,7 @@ function SidebarBody() {
           <SidebarGroupContent>
             <SidebarMenu className="gap-2">
               {moduleConfig.items.map((item) => {
-                const isActive = Boolean(
-                  item.to &&
-                  (location.pathname === item.to || location.pathname.startsWith(`${item.to}/`)),
-                );
+                const isActive = item === activeItem;
 
                 return (
                   <SidebarMenuItem key={item.label}>
@@ -240,7 +244,7 @@ function SidebarBody() {
                               isActive ? "!text-emerald-600" : "text-slate-400",
                             )}
                           />
-                          <span className="mt-1.5 text-[10px] font-medium tracking-wide text-center px-1 leading-tight">
+                          <span className="mt-1.5 text-[10px] font-medium tracking-wide text-center px-1 leading-tight transition-colors text-inherit">
                             {item.label}
                           </span>
                         </NavLink>

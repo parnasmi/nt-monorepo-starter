@@ -13,6 +13,7 @@ type RequireAuthProps = {
 export function RequireAuth({ children, availableIn }: RequireAuthProps) {
   const isAuthenticated = useBoundStore((state) => state.isAuthenticated);
   const allowedProducts = useBoundStore((state) => state.allowedProducts);
+  const profile = useBoundStore((state) => state.profile);
   const location = useLocation();
 
   const hasRequiredProducts = useMemo(() => {
@@ -20,15 +21,24 @@ export function RequireAuth({ children, availableIn }: RequireAuthProps) {
       return true;
     }
 
+    // If authenticated but profile isn't loaded yet, we can't determine permissions
+    if (isAuthenticated && profile === null) {
+      return null;
+    }
+
     if (!allowedProducts.length) {
       return false;
     }
 
     return allowedProducts.some((product) => availableIn.includes(product));
-  }, [allowedProducts, availableIn]);
+  }, [allowedProducts, availableIn, isAuthenticated, profile]);
 
   if (!isAuthenticated) {
     return <Navigate replace state={{ from: location }} to={getRouteAuthLogin()} />;
+  }
+
+  if (hasRequiredProducts === null) {
+    return null;
   }
 
   if (!hasRequiredProducts) {

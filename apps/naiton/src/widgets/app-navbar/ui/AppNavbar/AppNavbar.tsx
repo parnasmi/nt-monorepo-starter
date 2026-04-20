@@ -14,7 +14,18 @@ import { useMemo } from "react";
 import { NavLink, useLocation } from "react-router";
 import { useTranslation } from "react-i18next";
 
-import { getAppsRoute, getRouteLogout } from "@/shared/const/router.const";
+import {
+  getRouteAccountingOverview,
+  getRouteCrmCompany,
+  getRouteDashboardOverview,
+  getRouteFmsMap,
+  getRouteHrmHeadcount,
+  getRouteLogout,
+  getRouteProcurementRequests,
+  getRouteProductionLines,
+  getRouteSalesOrders,
+  getRouteWmsInventory,
+} from "@/shared/const/router.const";
 import { useBoundStore } from "@/shared/store";
 import type { AllowedProducts } from "@/shared/types/requests.types";
 import { Avatar, AvatarFallback, AvatarImage } from "@repo/ui-kit/shadcn/avatar";
@@ -37,14 +48,14 @@ type NavbarModule = {
 };
 
 const modules: NavbarModule[] = [
-  { key: "sales", label: "Sales", to: `${getAppsRoute()}/sales` },
-  { key: "wms", label: "WMS", to: `${getAppsRoute()}/wms` },
-  { key: "crm", label: "CRM", to: `${getAppsRoute()}/crm` },
-  { key: "procurement", label: "Procurement", to: `${getAppsRoute()}/procurement` },
-  { key: "production", label: "Production", to: `${getAppsRoute()}/production` },
-  { key: "accounting", label: "Accounting", to: `${getAppsRoute()}/accounting` },
-  { key: "hrm", label: "HRM", to: `${getAppsRoute()}/hrm` },
-  { key: "fms", label: "FMS", to: `${getAppsRoute()}/fms` },
+  { key: "sales", label: "Sales", to: getRouteSalesOrders() },
+  { key: "wms", label: "WMS", to: getRouteWmsInventory() },
+  { key: "crm", label: "CRM", to: getRouteCrmCompany() },
+  { key: "procurement", label: "Procurement", to: getRouteProcurementRequests() },
+  { key: "production", label: "Production", to: getRouteProductionLines() },
+  { key: "accounting", label: "Accounting", to: getRouteAccountingOverview() },
+  { key: "hrm", label: "HRM", to: getRouteHrmHeadcount() },
+  { key: "fms", label: "FMS", to: getRouteFmsMap() },
 ];
 
 const actionIcons = [ShoppingBag, Share2, CircleHelp, Bell, Settings];
@@ -83,7 +94,7 @@ export function AppNavbar() {
 
           <NavLink
             className="hidden items-center gap-2 rounded-2xl border border-white/15 bg-white/4 px-3 py-2 sm:flex"
-            to={`${getAppsRoute()}/dashboard`}
+            to={getRouteDashboardOverview()}
           >
             <div className="flex h-10 w-10 items-center justify-center rounded-full border border-white/30 bg-white/10 text-lg font-bold">
               N
@@ -187,15 +198,12 @@ export function AppNavbar() {
               <DropdownMenuLabel>{profile?.role ?? "Suite administrator"}</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem asChild>
-                <NavLink to={`${getAppsRoute()}/dashboard`}>Workspace overview</NavLink>
+                <NavLink to={getRouteDashboardOverview()}>Workspace overview</NavLink>
               </DropdownMenuItem>
               <DropdownMenuItem disabled>Profile center arrives after auth flow</DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem asChild>
-                <NavLink
-                  className="flex items-center gap-2"
-                  to={`${getAppsRoute()}/${getRouteLogout()}`}
-                >
+                <NavLink className="flex items-center gap-2" to={getRouteLogout()}>
                   <LogOut className="h-4 w-4" />
                   Logout
                 </NavLink>

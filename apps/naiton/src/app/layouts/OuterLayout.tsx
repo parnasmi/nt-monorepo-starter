@@ -13,13 +13,10 @@ export function OuterLayout() {
       defaultOpen={!isSidebarCollapsed}
       onOpenChange={(isOpen) => setIsSidebarCollapsed(!isOpen)}
       open={!isSidebarCollapsed}
+      style={{ "--sidebar-width": "88px" } as React.CSSProperties}
     >
-      <div className="min-h-screen bg-transparent">
-        <AppNavbar />
-        <div className="pt-[72px]">
-          <Outlet />
-        </div>
-      </div>
+      <AppNavbar />
+      <Outlet />
     </SidebarProvider>
   );
 }

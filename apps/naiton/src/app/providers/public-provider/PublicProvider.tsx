@@ -10,6 +10,7 @@ import { useBoundStore } from '@/shared/store'
 const queryClient = new QueryClient({
 	defaultOptions: {
 		queries: {
+			refetchOnWindowFocus: false,
 			retry: false,
 			staleTime: 60_000
 		}

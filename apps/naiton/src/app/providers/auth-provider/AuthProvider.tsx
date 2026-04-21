@@ -1,4 +1,4 @@
-import { PageLoader } from '@repo/ui-kit/shared/ui/PageLoader'
+import { Loading } from '@repo/ui-kit/shared/ui/loading'
 import { type ReactNode, useEffect } from 'react'
 import { Outlet } from 'react-router'
 import { useFetchQueries } from '@/shared/api/api-helper-hooks/useFetchQueries'
@@ -44,7 +44,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 	}, [profileQuery.data, setAllowedProducts, setCompanyInfo, setProfile])
 
 	if (isAuthenticated && profile === null && profileQuery.isPending) {
-		return <PageLoader />
+		return <Loading loading={true} />
 	}
 
 	return children ?? <Outlet />

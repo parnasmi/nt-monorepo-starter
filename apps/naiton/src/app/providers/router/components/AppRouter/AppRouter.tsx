@@ -1,4 +1,4 @@
-import { PageLoader } from '@repo/ui-kit/shared/ui/PageLoader'
+import { Loading } from '@repo/ui-kit/shared/ui/loading'
 import { Suspense, useCallback } from 'react'
 import { Navigate, Route, Routes } from 'react-router'
 import { AuthLayout } from '@/app/layouts/AuthLayout'
@@ -25,7 +25,7 @@ import { ScrollContainer } from '../ScrollContainer/ScrollContainer'
 export default function AppRouter() {
 	const renderWithWrapper = useCallback((route: AppRoutesProps) => {
 		const element = (
-			<Suspense fallback={<PageLoader />}>
+			<Suspense fallback={<Loading loading={true} />}>
 				<ScrollContainer>{route.element}</ScrollContainer>
 			</Suspense>
 		)

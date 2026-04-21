@@ -1,4 +1,4 @@
-import { Spinner } from '../../shadcn/ui/spinner'
+import { Spinner } from '../../shadcn/spinner'
 
 export const PageLoader = () => {
 	return (
@@ -8,7 +8,7 @@ export const PageLoader = () => {
 			style={{ background: 'var(--bg-loader-overlay)' }}
 		>
 			<div data-testid='custom-spinner'>
-				<Spinner size='large' show={true} />
+				<Spinner className='size-4' show={true} />
 			</div>
 		</div>
 	)

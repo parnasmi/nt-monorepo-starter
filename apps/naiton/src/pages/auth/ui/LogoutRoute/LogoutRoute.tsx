@@ -1,4 +1,4 @@
-import { PageLoader } from '@repo/ui-kit/shared/ui/PageLoader'
+import { Loading } from '@repo/ui-kit/shared/ui/loading'
 import { useQueryClient } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router'
@@ -16,5 +16,5 @@ export function LogoutRoute() {
 		navigate(getRouteAuthLogin(), { replace: true })
 	}, [navigate, queryClient, reset])
 
-	return <PageLoader />
+	return <Loading loading={true} />
 }

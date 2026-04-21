@@ -13,6 +13,8 @@
 			"outputs": ["dist/**"],
 			"env": ["NODE_ENV=production"]
 		},
+		"storybook:dev": { "cache": false, "persistent": true },
+		"storybook:build": { "outputs": ["storybook-static/**"] },
 		"lint": { "dependsOn": ["^lint"] },
 		"format": { "dependsOn": ["^format"] },
 		"check-types": { "dependsOn": ["^check-types"] },

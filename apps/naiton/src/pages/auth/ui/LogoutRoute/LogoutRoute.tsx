@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
 
-import { useAuthActions } from "@/features/auth/model/authStore";
+import { useAuthActions } from "@/pages/auth/model/authStore";
 import { getRouteAuthLogin } from "@/shared/const/router.const";
 import { PageLoader } from "@repo/ui-kit/shared/ui/PageLoader";
 

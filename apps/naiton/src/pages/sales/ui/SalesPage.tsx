@@ -18,7 +18,6 @@ import { Filter, Plus, Search, SlidersHorizontal } from 'lucide-react'
 import { useDeferredValue, useMemo, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { z } from 'zod'
-
 import { useCreateMutation } from '@/shared/api/api-helper-hooks/useCreateMutation'
 import { useFetchQueries } from '@/shared/api/api-helper-hooks/useFetchQueries'
 import { endpoints } from '@/shared/const/endpoints.const'

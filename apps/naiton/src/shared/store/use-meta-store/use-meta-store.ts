@@ -1,5 +1,4 @@
 import type { StateCreator } from 'zustand'
-
 import {
 	LNG_LOCALSTORAGE_KEY,
 	SIDEBAR_COLLAPSED_LOCALSTORAGE_KEY,

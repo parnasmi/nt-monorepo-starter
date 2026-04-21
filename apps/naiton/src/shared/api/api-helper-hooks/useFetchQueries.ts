@@ -2,10 +2,8 @@ import { keepPreviousData, useQuery, type UseQueryOptions } from '@tanstack/reac
 import axios from 'axios'
 import { useEffect, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-
 import { useToastNotif } from '@/shared/hooks/useToastNotif/useToastNotif'
 import type { GetRequestResponse } from '@/shared/types/requests.types'
-
 import { request } from '../api'
 
 type QueryFetchProps<T> = {

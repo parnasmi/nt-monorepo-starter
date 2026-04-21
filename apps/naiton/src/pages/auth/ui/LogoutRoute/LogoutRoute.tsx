@@ -2,7 +2,6 @@ import { PageLoader } from '@repo/ui-kit/shared/ui/PageLoader'
 import { useQueryClient } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router'
-
 import { useAuthActions } from '@/pages/auth/model/authStore'
 import { getRouteAuthLogin } from '@/shared/const/router.const'
 

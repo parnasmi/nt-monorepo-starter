@@ -64,7 +64,7 @@ The `deps/` folder alongside this plan contains battle-tested reference implemen
 | `deps/notification.types.ts`    | `src/shared/types/notification.types.ts`                                                    | 6             |
 | `deps/useRoutingObjects.ts`     | `src/shared/hooks/useRoutingObjects/useRoutingObjects.ts`                                   | 6             |
 | `deps/getAbsolutePath.ts`       | `src/shared/lib/utils/getAbsolutePath/getAbsolutePath.ts`                                   | 6             |
-| `deps/PublicProvider.tsx`       | `src/app/providers/publicProvider/PublicProvider.tsx`                                       | 8             |
+| `deps/PublicProvider.tsx`       | `src/app/providers/public-provider/PublicProvider.tsx`                                      | 8             |
 | `deps/RequireAuth.tsx`          | `src/app/providers/router/components/RequireAuth.tsx`                                       | 8             |
 | `deps/ScrollContainer.tsx`      | `src/app/providers/router/components/ScrollContainer/ScrollContainer.tsx`                   | 8             |
 | `deps/PageLoader.tsx`           | `packages/ui-kit/src/shared/ui/PageLoader.tsx` or `src/shared/ui/PageLoader/PageLoader.tsx` | 3, 8          |
@@ -84,7 +84,7 @@ The `deps/` folder alongside this plan contains battle-tested reference implemen
 │       ├── src/
 │       │   ├── app/
 │       │   │   ├── layouts/          # AuthLayout, OuterLayout, InnerLayout
-│       │   │   ├── providers/        # publicProvider, authProvider, router
+│       │   │   ├── providers/        # public-provider, auth-provider, router
 │       │   │   └── styles/index.css
 │       │   ├── pages/                # dashboard, sales, crm, login, notfound, forbidden
 │       │   ├── widgets/              # app-navbar, app-sidebar
@@ -995,7 +995,7 @@ export const SIDEBAR_COLLAPSED_LOCALSTORAGE_KEY = 'naiton-sidebar-collapsed'
 
 ### 6.6.6 — Axios ↔ Store synchronization
 
-- [ ] In `src/app/providers/publicProvider/PublicProvider.tsx` (implemented in Phase 8.1), wire the store to axios **once** at mount:
+- [ ] In `src/app/providers/public-provider/PublicProvider.tsx` (implemented in Phase 8.1), wire the store to axios **once** at mount:
 
 ```ts
 import { useEffect } from 'react'
@@ -1780,13 +1780,13 @@ export function useRhForm<
 
 ### 8.1 — Providers
 
-- [x] `src/app/providers/publicProvider/PublicProvider.tsx` — reference implementation in **`deps/PublicProvider.tsx`**. Key responsibilities:
+- [x] `src/app/providers/public-provider/PublicProvider.tsx` — reference implementation in **`deps/PublicProvider.tsx`**. Key responsibilities:
   - Creates `QueryClient` (retry off, 1-minute stale time).
   - Wraps children in `<QueryClientProvider>` + `<Toaster position="top-right" />` + `<ReactQueryDevtools>`.
   - Subscribes to Zustand via `useBoundStore.subscribe((state) => apiSubscribe(state))` at **module level** (outside React tree).
   - Redirects authenticated users away from login page.
 
-- [x] `src/app/providers/authProvider/AuthProvider.tsx`:
+- [x] `src/app/providers/auth-provider/AuthProvider.tsx`:
   - Fetches `/v1/profile` on mount via `useFetchQueries`.
   - Populates `useBoundStore` with user + allowed products.
   - Renders `<Outlet />` once loaded.
@@ -1814,8 +1814,8 @@ export function useRhForm<
 
 ### 8.3 — Widgets
 
-- [x] `src/widgets/app-navbar/ui/AppNavbar/AppNavbar.tsx` — top bar with module switcher (`NavLink` to `/sales`, `/crm`, etc.), profile dropdown, language switcher.
-- [x] `src/widgets/app-sidebar/ui/AppSidebar/AppSidebar.tsx` — reads current top-level module from URL and renders module-specific nav items. Uses `useMemo` + `React.memo` to guarantee no re-render across inner-page navigation.
+- [x] `src/widgets/app-navbar/ui/AppNavbar.tsx` — top bar with module switcher (`NavLink` to `/sales`, `/crm`, etc.), profile dropdown, language switcher.
+- [x] `src/widgets/app-sidebar/ui/AppSidebar.tsx` — reads current top-level module from URL and renders module-specific nav items. Uses `useMemo` + `React.memo` to guarantee no re-render across inner-page navigation.
 
 ### 8.4 — Routes config
 
@@ -1908,7 +1908,7 @@ export default function AppRouter() {
 
   ```tsx
   import { BrowserRouter } from 'react-router'
-  import { PublicProvider } from '@/app/providers/publicProvider/PublicProvider'
+  import { PublicProvider } from '@/app/providers/public-provider/PublicProvider'
   import AppRouter from '@/app/providers/router/components/AppRouter/AppRouter'
   import '@/shared/config/i18n/i18n'
   import '@/app/styles/index.css'
@@ -1933,8 +1933,8 @@ export default function AppRouter() {
 ### Files changed
 
 - `apps/naiton/src/App.tsx` and `apps/naiton/src/main.tsx` — moved `BrowserRouter` + `PublicProvider` into `App` and kept MSW bootstrap isolated in `main.tsx`.
-- `apps/naiton/src/app/providers/publicProvider/PublicProvider.tsx` — added TanStack Query provider, sonner toaster, React Query Devtools, store-to-axios subscription, and login-route redirect for authenticated users.
-- `apps/naiton/src/app/providers/authProvider/AuthProvider.tsx` — fetches `/v1/profile`, hydrates auth store user/product/company data, and gates protected routes behind a loader while profile bootstraps.
+- `apps/naiton/src/app/providers/public-provider/PublicProvider.tsx` — added TanStack Query provider, sonner toaster, React Query Devtools, store-to-axios subscription, and login-route redirect for authenticated users.
+- `apps/naiton/src/app/providers/auth-provider/AuthProvider.tsx` — fetches `/v1/profile`, hydrates auth store user/product/company data, and gates protected routes behind a loader while profile bootstraps.
 - `apps/naiton/src/app/providers/router/components/{AppRouter,RequireAuth,ScrollContainer}` and `src/app/providers/router/config/routes.tsx` — created the full route tree with lazy module pages, auth guard wiring, scroll shell, forbidden/not-found fallbacks, and nested persistent layouts.
 - `apps/naiton/src/app/layouts/{AuthLayout,OuterLayout,InnerLayout}.tsx` — added the three-layer layout engine: auth split-screen, persistent top suite shell, and persistent sidebar domain shell.
 - `apps/naiton/src/widgets/app-navbar/**/*` — built the green suite navbar with module navigation, search, language switcher, action icons, and profile menu.

@@ -1,5 +1,4 @@
 import { expect, test as setup } from '@playwright/test'
-
 import { mockNaitonApi } from './support/mockApi'
 
 const authFile = 'tests/e2e/.auth/user.json'

@@ -1,7 +1,6 @@
 import { PageLoader } from '@repo/ui-kit/shared/ui/PageLoader'
 import { type ReactNode, useEffect } from 'react'
 import { Outlet } from 'react-router'
-
 import { useFetchQueries } from '@/shared/api/api-helper-hooks/useFetchQueries'
 import { endpoints } from '@/shared/const/endpoints.const'
 import { useBoundStore } from '@/shared/store'

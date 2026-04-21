@@ -1,8 +1,13 @@
-@import 'tailwindcss';
+@import './_fonts.css';
+@import './_tailwind.css';
+
 @source '../../../../../packages/ui-kit';
 @import '@repo/ui-kit/index.css';
 
 :root {
+	--header-height: 56px;
+	--table-header-height: 51px;
+
 	--background: 210 33% 98%;
 	--foreground: 213 29% 17%;
 	--card: 0 0% 100%;

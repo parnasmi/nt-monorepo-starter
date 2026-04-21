@@ -1,5 +1,4 @@
 import type { StateCreator } from 'zustand'
-
 import type { AuthState } from '../use-auth-store/use-auth-store'
 import type { MetaState } from '../use-meta-store/use-meta-store'
 

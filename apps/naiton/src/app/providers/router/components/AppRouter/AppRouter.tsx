@@ -1,11 +1,10 @@
 import { PageLoader } from '@repo/ui-kit/shared/ui/PageLoader'
 import { Suspense, useCallback } from 'react'
 import { Navigate, Route, Routes } from 'react-router'
-
 import { AuthLayout } from '@/app/layouts/AuthLayout'
 import { InnerLayout } from '@/app/layouts/InnerLayout'
 import { OuterLayout } from '@/app/layouts/OuterLayout'
-import { AuthProvider } from '@/app/providers/authProvider/AuthProvider'
+import { AuthProvider } from '@/app/providers/auth-provider/AuthProvider'
 import { AuthLoginPage, RegisterPage } from '@/pages/auth'
 import { ForbiddenPage } from '@/pages/forbidden'
 import { NotFoundPage } from '@/pages/notfound'
@@ -19,7 +18,6 @@ import {
 	getPathLogin,
 	getPathRegister
 } from '@/shared/const/router.const'
-
 import { routes as routePaths, type AppRoutesProps } from '../../config/routes'
 import { RequireAuth } from '../RequireAuth'
 import { ScrollContainer } from '../ScrollContainer/ScrollContainer'

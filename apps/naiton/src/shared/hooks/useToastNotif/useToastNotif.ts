@@ -1,6 +1,5 @@
 import { useCallback } from 'react'
 import { toast } from 'sonner'
-
 import type { ShowToastOptions, SonnerToastOptions } from '@/shared/types/notification.types'
 
 export function useToastNotif() {

@@ -6,7 +6,6 @@ import {
 	getPaginationRowModel,
 	type TableOptions
 } from '@tanstack/react-table'
-
 import { Button } from '../../shadcn/ui/button'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../../shadcn/ui/table'
 

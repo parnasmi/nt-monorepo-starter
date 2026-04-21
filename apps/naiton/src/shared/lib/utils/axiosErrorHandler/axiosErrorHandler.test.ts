@@ -1,5 +1,4 @@
 import type { AxiosError } from 'axios'
-
 import { axiosErrorHandler } from './axiosErrorHandler'
 
 describe('axiosErrorHandler', () => {

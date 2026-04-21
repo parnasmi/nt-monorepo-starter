@@ -2,7 +2,6 @@ import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import type { AxiosResponse } from 'axios'
 import { MemoryRouter, Route, Routes } from 'react-router'
-
 // import { LoginForm } from '@/features/auth'
 import { request } from '@/shared/api'
 import { endpoints } from '@/shared/const/endpoints.const'

@@ -1,7 +1,5 @@
 import axios, { AxiosError, type AxiosInstance, type AxiosResponse } from 'axios'
-
 import { envConfig } from '@/config/env/env.config'
-
 import {
 	ACCESSTOKEN_LOCALSTORAGE_KEY,
 	COMPANYINFO_LOCALSTORAGE_KEY,

@@ -1,5 +1,4 @@
 import { Navigate } from 'react-router'
-
 import { AccountingPage, LogisticsPage } from '@/pages/accounting'
 import { LogoutRoute } from '@/pages/auth'
 import { CrmPage, TasksPage } from '@/pages/crm'

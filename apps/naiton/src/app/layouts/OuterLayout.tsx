@@ -1,6 +1,5 @@
 import { SidebarProvider } from '@repo/ui-kit/shadcn/sidebar'
 import { Outlet } from 'react-router'
-
 import { AppNavbar } from '@/app/layouts/app-navbar'
 import { useBoundStore } from '@/shared/store'
 

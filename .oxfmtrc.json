@@ -6,7 +6,9 @@
 	"printWidth": 120,
 	"semi": false,
 	"singleQuote": true,
-	"sortImports": true,
+	"sortImports": {
+		"newlinesBetween": false
+	},
 	"sortTailwindcss": true,
 	"jsxSingleQuote": true,
 	"bracketSpacing": true,

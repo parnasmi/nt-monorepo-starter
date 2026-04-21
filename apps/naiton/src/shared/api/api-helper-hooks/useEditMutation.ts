@@ -1,6 +1,5 @@
 import { useMutation, type UseMutationResult } from '@tanstack/react-query'
 import { type AxiosError, type AxiosResponse } from 'axios'
-
 import { request } from '../api'
 
 interface EditRequestArgs<TRequestBody> {

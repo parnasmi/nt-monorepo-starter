@@ -1,6 +1,5 @@
 import { type JSX, useMemo } from 'react'
 import { Navigate, useLocation } from 'react-router'
-
 import { getRouteAuthLogin, getRouteForbidden } from '@/shared/const/router.const'
 import { useBoundStore } from '@/shared/store'
 import type { AllowedProducts } from '@/shared/types/requests.types'
@@ -11,9 +10,7 @@ type RequireAuthProps = {
 }
 
 export function RequireAuth({ children, availableIn }: RequireAuthProps) {
-	const isAuthenticated = useBoundStore((state) => state.isAuthenticated)
-	const allowedProducts = useBoundStore((state) => state.allowedProducts)
-	const profile = useBoundStore((state) => state.profile)
+	const { isAuthenticated, allowedProducts, profile } = useBoundStore()
 	const location = useLocation()
 
 	const hasRequiredProducts = useMemo(() => {

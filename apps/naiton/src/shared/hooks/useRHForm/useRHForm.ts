@@ -9,7 +9,6 @@ import {
 	type UseFormSetError
 } from 'react-hook-form'
 import { infer as zodInfer, type ZodTypeAny } from 'zod'
-
 import { request } from '@/shared/api'
 import { useToastNotif } from '@/shared/hooks/useToastNotif/useToastNotif'
 import type { PostRequestResponse } from '@/shared/types/requests.types'

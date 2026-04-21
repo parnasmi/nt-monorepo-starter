@@ -1,1 +1,1 @@
-export { AppSidebar } from './ui/AppSidebar/AppSidebar'
+export { AppSidebar } from './ui/AppSidebar'

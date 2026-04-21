@@ -1,5 +1,4 @@
 import { expect, test } from '@playwright/test'
-
 import { mockNaitonApi } from './support/mockApi'
 
 const lazySalesChunkPattern = /(?:\/src\/pages\/sales\/|\/assets\/sales-).+/i

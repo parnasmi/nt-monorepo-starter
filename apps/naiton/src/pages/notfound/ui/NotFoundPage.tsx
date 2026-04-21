@@ -1,7 +1,6 @@
 import { Button } from '@repo/ui-kit/shadcn/button'
 import { Compass } from 'lucide-react'
 import { NavLink } from 'react-router'
-
 import { getAppsRoute, getRouteAuthLogin } from '@/shared/const/router.const'
 
 export default function NotFoundPage() {

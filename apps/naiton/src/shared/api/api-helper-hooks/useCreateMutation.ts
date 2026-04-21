@@ -2,11 +2,9 @@ import { useMutation, type UseMutationResult } from '@tanstack/react-query'
 import { type AxiosError, type AxiosResponse } from 'axios'
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-
 import { useToastNotif } from '@/shared/hooks/useToastNotif/useToastNotif'
 import { axiosErrorHandler } from '@/shared/lib/utils/axiosErrorHandler/axiosErrorHandler'
 import type { PostRequestResponse } from '@/shared/types/requests.types'
-
 import { request } from '../api'
 
 interface UseCreateMutationArgs<TRequestBody, TResponseData> {

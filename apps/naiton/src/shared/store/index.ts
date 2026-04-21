@@ -1,7 +1,6 @@
 import { create, type StateCreator } from 'zustand'
 import { devtools } from 'zustand/middleware'
 import { useShallow } from 'zustand/react/shallow'
-
 import { createAuthSlice, type AuthState } from './use-auth-store/use-auth-store'
 import { createMetaSlice, type MetaState } from './use-meta-store/use-meta-store'
 import { createModuleUiSlice, type ModuleUiState } from './use-module-ui-store/use-module-ui-store'

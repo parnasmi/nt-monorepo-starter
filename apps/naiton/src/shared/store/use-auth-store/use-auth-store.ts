@@ -1,5 +1,4 @@
 import type { StateCreator } from 'zustand'
-
 import {
 	ACCESSTOKEN_LOCALSTORAGE_KEY,
 	COMPANYINFO_LOCALSTORAGE_KEY,

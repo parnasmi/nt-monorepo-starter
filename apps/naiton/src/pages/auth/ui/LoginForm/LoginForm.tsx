@@ -5,7 +5,6 @@ import { LockKeyhole, Phone } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
 import { z } from 'zod'
-
 import { useAuthActions } from '@/pages/auth/model/authStore'
 import { endpoints } from '@/shared/const/endpoints.const'
 import { getAppsRoute } from '@/shared/const/router.const'

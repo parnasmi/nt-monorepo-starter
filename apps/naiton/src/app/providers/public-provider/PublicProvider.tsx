@@ -3,7 +3,6 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { type ReactNode, useLayoutEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router'
 import { Toaster } from 'sonner'
-
 import { apiSubscribe } from '@/shared/api/api'
 import { getAppsRoute, getRouteAuth } from '@/shared/const/router.const'
 import { useBoundStore } from '@/shared/store'

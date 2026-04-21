@@ -1,5 +1,4 @@
 import { useShallow } from 'zustand/react/shallow'
-
 import { useBoundStore } from '@/shared/store'
 
 export const useAuthSession = () =>

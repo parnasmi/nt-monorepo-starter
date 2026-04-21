@@ -1,5 +1,4 @@
 import { delay, http, HttpResponse } from 'msw'
-
 import { envConfig } from '@/config/env/env.config'
 import { endpoints } from '@/shared/const/endpoints.const'
 import type {

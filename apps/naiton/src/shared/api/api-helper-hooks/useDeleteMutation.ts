@@ -1,9 +1,7 @@
 import { useMutation, type UseMutationResult } from '@tanstack/react-query'
 import axios from 'axios'
-
 import { useToastNotif } from '@/shared/hooks/useToastNotif/useToastNotif'
 import type { PostRequestResponse } from '@/shared/types/requests.types'
-
 import { request } from '../api'
 
 interface DeleteRequestArgs {

@@ -35,7 +35,7 @@ import { ProductionPage, ProductionOrdersPage } from "@/pages/production";
 import { AccountingPage, LogisticsPage } from "@/pages/accounting";
 import { HrmPage, RecruitmentPage } from "@/pages/hrm";
 import { FmsPage, FmsDashboardPage } from "@/pages/fms";
-import { LogoutRoute } from "@/features/auth";
+import { LogoutRoute } from "@/pages/auth";
 
 export type AppRoutesProps = {
   path: string;

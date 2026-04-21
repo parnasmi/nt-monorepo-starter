@@ -1,6 +1,6 @@
 # Naiton Business Suite — Frontend PoC
 
-Enterprise-grade React SPA following the "Majestic Monolith" architecture with Feature-Sliced Design (FSD).
+Enterprise-grade React SPA following the "Majestic Monolith" architecture with FSD-inspired conventions (not strict FSD layering).
 
 ## Stack
 
@@ -16,7 +16,10 @@ Enterprise-grade React SPA following the "Majestic Monolith" architecture with F
 
 ## Architecture
 
-- **FSD layers**: `app → pages → widgets → features → entities → shared`
+- **Architecture policy (updated April 21, 2026)**: keep selected FSD principles, but do not enforce strict FSD folder layers.
+- **Folder strategy**: no `widgets`, `features`, or `entities` folders; keep components close to where they are used.
+- **Reusable components**: place project-wide reusable UI in `src/shared/components`.
+- **Primary app structure**: `app → pages → shared` (plus root support files like `main.tsx`, `App.tsx`, `test`).
 - **Layout Engine**: AuthLayout → OuterLayout (AppNavbar) → InnerLayout (Sidebar) — nested persistent, no remounts on navigation
 - **Code splitting**: each top-level module lazy-loaded via dynamic `import()`
 - **Mock-first**: MSW v2 handlers simulate API until real backend is ready

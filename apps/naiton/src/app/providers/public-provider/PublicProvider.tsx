@@ -1,8 +1,8 @@
+import { Toaster } from '@repo/ui-kit/shadcn/sonner'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { type ReactNode, useLayoutEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router'
-import { Toaster } from 'sonner'
 import { apiSubscribe } from '@/shared/api/api'
 import { getAppsRoute, getRouteAuth } from '@/shared/const/router.const'
 import { useBoundStore } from '@/shared/store'
@@ -21,11 +21,7 @@ useBoundStore.subscribe((state) => {
 	apiSubscribe(state)
 })
 
-type PublicProviderProps = {
-	children: ReactNode
-}
-
-export function PublicProvider({ children }: PublicProviderProps) {
+export function PublicProvider({ children }: { children: ReactNode }) {
 	const navigate = useNavigate()
 	const location = useLocation()
 	const isAuthenticated = useBoundStore((state) => state.isAuthenticated)
@@ -42,7 +38,7 @@ export function PublicProvider({ children }: PublicProviderProps) {
 		<QueryClientProvider client={queryClient}>
 			<ReactQueryDevtools initialIsOpen={false} />
 			{children}
-			<Toaster position='top-right' richColors />
+			<Toaster position='top-center' duration={3000} />
 		</QueryClientProvider>
 	)
 }

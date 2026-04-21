@@ -1,7 +1,7 @@
 {
-  "appName": "Naiton Business Suite",
-  "loading": "Загрузка",
-  "save": "Сохранить",
-  "cancel": "Отмена",
-  "somethingWentWrong": "Что-то пошло не так"
+	"appName": "Naiton Business Suite",
+	"loading": "Загрузка",
+	"save": "Сохранить",
+	"cancel": "Отмена",
+	"somethingWentWrong": "Что-то пошло не так"
 }

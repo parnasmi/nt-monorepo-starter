@@ -1,9 +1,9 @@
-import type { ExternalToast } from "sonner";
+import type { ExternalToast } from 'sonner'
 
-export type SonnerToastOptions = ExternalToast;
+export type SonnerToastOptions = ExternalToast
 
 export type ShowToastOptions = {
-  type?: "success" | "info" | "warning" | "error";
-  message?: string;
-  toastOptions?: SonnerToastOptions;
-};
+	type?: 'success' | 'info' | 'warning' | 'error'
+	message?: string
+	toastOptions?: SonnerToastOptions
+}

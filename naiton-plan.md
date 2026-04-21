@@ -143,47 +143,47 @@ The `deps/` folder alongside this plan contains battle-tested reference implemen
 - [x] Create `turbo.json`:
   ```json
   {
-    "$schema": "https://turborepo.com/schema.json",
-    "ui": "tui",
-    "tasks": {
-      "build": {
-        "dependsOn": ["^build"],
-        "inputs": ["$TURBO_DEFAULT$", ".env*"],
-        "outputs": ["dist/**"]
-      },
-      "build:prod": {
-        "dependsOn": ["^build"],
-        "inputs": ["$TURBO_DEFAULT$", ".env*", ".env.prod"],
-        "outputs": ["dist/**"],
-        "env": ["NODE_ENV=production"]
-      },
-      "lint": { "dependsOn": ["^lint"] },
-      "check-types": { "dependsOn": ["^check-types"] },
-      "test": { "dependsOn": ["^build"] },
-      "dev": { "cache": false, "persistent": true }
-    }
+  	"$schema": "https://turborepo.com/schema.json",
+  	"ui": "tui",
+  	"tasks": {
+  		"build": {
+  			"dependsOn": ["^build"],
+  			"inputs": ["$TURBO_DEFAULT$", ".env*"],
+  			"outputs": ["dist/**"]
+  		},
+  		"build:prod": {
+  			"dependsOn": ["^build"],
+  			"inputs": ["$TURBO_DEFAULT$", ".env*", ".env.prod"],
+  			"outputs": ["dist/**"],
+  			"env": ["NODE_ENV=production"]
+  		},
+  		"lint": { "dependsOn": ["^lint"] },
+  		"check-types": { "dependsOn": ["^check-types"] },
+  		"test": { "dependsOn": ["^build"] },
+  		"dev": { "cache": false, "persistent": true }
+  	}
   }
   ```
 - [x] Add root scripts to `package.json`:
   ```json
   {
-    "scripts": {
-      "build": "turbo run build",
-      "dev": "turbo run dev",
-      "lint": "turbo run lint",
-      "format": "oxfmt . || prettier --write \"**/*.{ts,tsx,md,json}\"",
-      "check-types": "turbo run check-types",
-      "prepare": "husky"
-    }
+  	"scripts": {
+  		"build": "turbo run build",
+  		"dev": "turbo run dev",
+  		"lint": "turbo run lint",
+  		"format": "oxfmt . || prettier --write \"**/*.{ts,tsx,md,json}\"",
+  		"check-types": "turbo run check-types",
+  		"prepare": "husky"
+  	}
   }
   ```
 - [x] Create `.prettierrc.json`:
   ```json
   {
-    "semi": true,
-    "singleQuote": true,
-    "plugins": ["prettier-plugin-tailwindcss"],
-    "tailwindFunctions": ["cva"]
+  	"semi": true,
+  	"singleQuote": true,
+  	"plugins": ["prettier-plugin-tailwindcss"],
+  	"tailwindFunctions": ["cva"]
   }
   ```
 - [x] Create `.prettierignore` (ignore `node_modules`, `dist`, `.turbo`, `coverage`, `public`).
@@ -227,36 +227,36 @@ The `deps/` folder alongside this plan contains battle-tested reference implemen
 - [x] Create `packages/ui-kit/package.json` (name `@repo/ui-kit`, private, `tsc -b` build). Mirror the `exports` map pattern:
   ```json
   {
-    "name": "@repo/ui-kit",
-    "version": "0.0.0",
-    "private": true,
-    "exports": {
-      "./tailwind-postcss": "./postcss.config.mjs",
-      "./base-variables.css": "./src/styles/base-variables.css",
-      "./base-shadcn.css": "./src/styles/base-shadcn.css",
-      "./index.css": "./src/styles/index.css",
-      "./theme.css": "./src/styles/theme.css",
-      "./shadcn/*": "./src/shadcn/ui/*.tsx",
-      "./shared/*": "./src/shared/*",
-      "./shared/ui/*": "./src/shared/ui/*.tsx",
-      "./shared/lib/*": "./src/shared/lib/*.ts",
-      "./shared/icons/*": "./src/shared/assets/icons/*.tsx",
-      "./lib/*": "./src/shared/lib/*.ts"
-    },
-    "scripts": {
-      "lint": "oxlint .",
-      "check-types": "tsc --noEmit",
-      "build": "tsc -b",
-      "dev": "tsc --watch --preserveWatchOutput"
-    }
+  	"name": "@repo/ui-kit",
+  	"version": "0.0.0",
+  	"private": true,
+  	"exports": {
+  		"./tailwind-postcss": "./postcss.config.mjs",
+  		"./base-variables.css": "./src/styles/base-variables.css",
+  		"./base-shadcn.css": "./src/styles/base-shadcn.css",
+  		"./index.css": "./src/styles/index.css",
+  		"./theme.css": "./src/styles/theme.css",
+  		"./shadcn/*": "./src/shadcn/ui/*.tsx",
+  		"./shared/*": "./src/shared/*",
+  		"./shared/ui/*": "./src/shared/ui/*.tsx",
+  		"./shared/lib/*": "./src/shared/lib/*.ts",
+  		"./shared/icons/*": "./src/shared/assets/icons/*.tsx",
+  		"./lib/*": "./src/shared/lib/*.ts"
+  	},
+  	"scripts": {
+  		"lint": "oxlint .",
+  		"check-types": "tsc --noEmit",
+  		"build": "tsc -b",
+  		"dev": "tsc --watch --preserveWatchOutput"
+  	}
   }
   ```
 - [x] Install dependencies: `react@latest`, `react-dom@latest`, `react-router@latest`, `react-hook-form@latest`, `@hookform/resolvers@latest`, `zod@latest`, `react-i18next@latest`, `tailwindcss@latest`, `@tailwindcss/postcss@latest`, `clsx`, `tailwind-merge`, `class-variance-authority`, `tw-animate-css`, `lucide-react`, `@tanstack/react-table`, and Radix UI primitives (`@radix-ui/react-dialog`, `...-dropdown-menu`, `...-select`, `...-checkbox`, `...-label`, `...-scroll-area`, `...-separator`, `...-tabs`, `...-tooltip`, `...-slot`, `...-avatar`, `...-accordion`, `...-radio-group`, `...-collapsible`).
 - [x] Create `packages/ui-kit/postcss.config.mjs`:
   ```js
   export const postcssConfig = {
-    plugins: { '@tailwindcss/postcss': {} },
-  };
+  	plugins: { '@tailwindcss/postcss': {} }
+  }
   ```
 - [x] Create `src/styles/base-variables.css` (CSS custom properties: colors, radius, font sizes — define `--background`, `--foreground`, `--primary`, etc.).
 - [x] Create `src/styles/theme.css` (`@theme` block with Naiton brand tokens).
@@ -309,24 +309,24 @@ The `deps/` folder alongside this plan contains battle-tested reference implemen
 - [x] Create `apps/naiton/package.json` (name `naiton`, private, type `module`). Scripts:
   ```json
   {
-    "scripts": {
-      "dev": "vite --host --port 5175",
-      "build": "vite build",
-      "build:ts": "tsc -b && vite build",
-      "preview": "vite preview",
-      "build:prod": "env-cmd -f .env.prod cross-env NODE_ENV=production pnpm run build",
-      "build:beta": "env-cmd -f .env.beta cross-env NODE_ENV=production pnpm run build",
-      "lint": "oxlint .",
-      "format": "oxfmt .",
-      "check-types": "tsc -b --noEmit",
-      "test": "vitest",
-      "test:run": "vitest run",
-      "test:coverage": "vitest run --coverage",
-      "test:integration": "vitest run --config vitest.integration.config.mts",
-      "test:integration:watch": "vitest --config vitest.integration.config.mts",
-      "test:e2e": "playwright test --config playwright.config.ts",
-      "test:e2e:ui": "playwright test --config playwright.config.ts --ui"
-    }
+  	"scripts": {
+  		"dev": "vite --host --port 5175",
+  		"build": "vite build",
+  		"build:ts": "tsc -b && vite build",
+  		"preview": "vite preview",
+  		"build:prod": "env-cmd -f .env.prod cross-env NODE_ENV=production pnpm run build",
+  		"build:beta": "env-cmd -f .env.beta cross-env NODE_ENV=production pnpm run build",
+  		"lint": "oxlint .",
+  		"format": "oxfmt .",
+  		"check-types": "tsc -b --noEmit",
+  		"test": "vitest",
+  		"test:run": "vitest run",
+  		"test:coverage": "vitest run --coverage",
+  		"test:integration": "vitest run --config vitest.integration.config.mts",
+  		"test:integration:watch": "vitest --config vitest.integration.config.mts",
+  		"test:e2e": "playwright test --config playwright.config.ts",
+  		"test:e2e:ui": "playwright test --config playwright.config.ts --ui"
+  	}
   }
   ```
 - [x] Install runtime deps: `react@latest react-dom@latest react-router@latest @tanstack/react-query@latest @tanstack/react-query-devtools@latest zustand@latest react-hook-form@latest @hookform/resolvers@latest zod@latest axios@latest sonner@latest react-i18next@latest i18next@latest i18next-http-backend@latest i18next-browser-languagedetector@latest react-error-boundary@latest clsx tailwind-merge class-variance-authority lucide-react nuqs date-fns usehooks-ts use-debounce next-themes vaul @repo/ui-kit@workspace:*`.
@@ -334,82 +334,75 @@ The `deps/` folder alongside this plan contains battle-tested reference implemen
 - [x] Create `tsconfig.json`:
   ```json
   {
-    "files": [],
-    "references": [
-      { "path": "./tsconfig.app.json" },
-      { "path": "./tsconfig.node.json" }
-    ],
-    "compilerOptions": {
-      "baseUrl": ".",
-      "paths": {
-        "@/*": ["./src/*"],
-        "@repo/ui-kit/*": ["../../packages/ui-kit/src/*"]
-      }
-    }
+  	"files": [],
+  	"references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.node.json" }],
+  	"compilerOptions": {
+  		"baseUrl": ".",
+  		"paths": {
+  			"@/*": ["./src/*"],
+  			"@repo/ui-kit/*": ["../../packages/ui-kit/src/*"]
+  		}
+  	}
   }
   ```
 - [x] Create `tsconfig.app.json`:
   ```json
   {
-    "compilerOptions": {
-      "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
-      "target": "ES2022",
-      "useDefineForClassFields": true,
-      "lib": ["ES2022", "DOM", "DOM.Iterable"],
-      "module": "ESNext",
-      "skipLibCheck": true,
-      "allowJs": true,
-      "moduleResolution": "bundler",
-      "allowImportingTsExtensions": true,
-      "isolatedModules": true,
-      "moduleDetection": "force",
-      "noEmit": true,
-      "jsx": "react-jsx",
-      "strict": true,
-      "noUnusedLocals": true,
-      "noUnusedParameters": true,
-      "noFallthroughCasesInSwitch": true,
-      "noUncheckedSideEffectImports": true,
-      "types": ["vitest/globals"],
-      "baseUrl": ".",
-      "paths": {
-        "@/*": ["./src/*"],
-        "@/config/*": ["./config/*"]
-      }
-    },
-    "include": ["src", "config", "tests"]
+  	"compilerOptions": {
+  		"tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+  		"target": "ES2022",
+  		"useDefineForClassFields": true,
+  		"lib": ["ES2022", "DOM", "DOM.Iterable"],
+  		"module": "ESNext",
+  		"skipLibCheck": true,
+  		"allowJs": true,
+  		"moduleResolution": "bundler",
+  		"allowImportingTsExtensions": true,
+  		"isolatedModules": true,
+  		"moduleDetection": "force",
+  		"noEmit": true,
+  		"jsx": "react-jsx",
+  		"strict": true,
+  		"noUnusedLocals": true,
+  		"noUnusedParameters": true,
+  		"noFallthroughCasesInSwitch": true,
+  		"noUncheckedSideEffectImports": true,
+  		"types": ["vitest/globals"],
+  		"baseUrl": ".",
+  		"paths": {
+  			"@/*": ["./src/*"],
+  			"@/config/*": ["./config/*"]
+  		}
+  	},
+  	"include": ["src", "config", "tests"]
   }
   ```
 - [x] Create `tsconfig.node.json` (for Vite config files).
 - [x] Create `vite.config.ts` (mirrors dashboard):
 
   ```ts
-  import { defineConfig } from 'vite';
-  import viteReact from '@vitejs/plugin-react';
-  import tailwindcss from '@tailwindcss/vite';
-  import svgr from 'vite-plugin-svgr';
+  import { defineConfig } from 'vite'
+  import viteReact from '@vitejs/plugin-react'
+  import tailwindcss from '@tailwindcss/vite'
+  import svgr from 'vite-plugin-svgr'
 
   export default defineConfig(({ mode }) => ({
-    build: { sourcemap: true },
-    plugins: [
-      svgr({ svgrOptions: { exportType: 'default' } }),
-      viteReact(),
-      tailwindcss(),
-    ],
-    clearScreen: false,
-    resolve: {
-      alias: [
-        { find: '@/config', replacement: '/config' },
-        { find: '@', replacement: '/src' },
-      ],
-    },
-    define: {
-      __IS_DEV__: JSON.stringify(mode === 'development'),
-      __PROJECT__: JSON.stringify('frontend'),
-      'import.meta.env.VITE_APP_VERSION': JSON.stringify('1.0.0'),
-    },
-    server: { port: 5175 },
-  }));
+  	build: { sourcemap: true },
+  	plugins: [svgr({ svgrOptions: { exportType: 'default' } }), viteReact(), tailwindcss()],
+  	clearScreen: false,
+  	resolve: {
+  		alias: [
+  			{ find: '@/config', replacement: '/config' },
+  			{ find: '@', replacement: '/src' }
+  		]
+  	},
+  	define: {
+  		__IS_DEV__: JSON.stringify(mode === 'development'),
+  		__PROJECT__: JSON.stringify('frontend'),
+  		'import.meta.env.VITE_APP_VERSION': JSON.stringify('1.0.0')
+  	},
+  	server: { port: 5175 }
+  }))
   ```
 
 - [x] Create env files:
@@ -419,13 +412,13 @@ The `deps/` folder alongside this plan contains battle-tested reference implemen
   - `config/env/env.config.ts`:
     ```ts
     type EnvConfig = {
-      API_ROOT: string;
-      APP_VERSION: string;
-    };
+    	API_ROOT: string
+    	APP_VERSION: string
+    }
     export const envConfig: EnvConfig = {
-      API_ROOT: import.meta.env.VITE_PUBLIC_API_BASE_URL as string,
-      APP_VERSION: import.meta.env.VITE_PUBLIC_APP_VERSION as string,
-    };
+    	API_ROOT: import.meta.env.VITE_PUBLIC_API_BASE_URL as string,
+    	APP_VERSION: import.meta.env.VITE_PUBLIC_APP_VERSION as string
+    }
     ```
 - [x] Create `index.html` with `<div id="root">` and `<script type="module" src="/src/main.tsx">`.
 - [x] Create `src/main.tsx` (renders `<App />` inside `StrictMode` + `BrowserRouter`).
@@ -478,14 +471,14 @@ The `deps/` folder alongside this plan contains battle-tested reference implemen
 - [x] Create `oxlint.json` at workspace root:
   ```json
   {
-    "$schema": "https://raw.githubusercontent.com/oxc-project/oxc/main/npm/oxlint/configuration_schema.json",
-    "categories": {
-      "correctness": "error",
-      "suspicious": "warn",
-      "perf": "warn"
-    },
-    "rules": { "no-console": "warn" },
-    "ignorePatterns": ["dist", "node_modules", ".turbo", "coverage", "public"]
+  	"$schema": "https://raw.githubusercontent.com/oxc-project/oxc/main/npm/oxlint/configuration_schema.json",
+  	"categories": {
+  		"correctness": "error",
+  		"suspicious": "warn",
+  		"perf": "warn"
+  	},
+  	"rules": { "no-console": "warn" },
+  	"ignorePatterns": ["dist", "node_modules", ".turbo", "coverage", "public"]
   }
   ```
 - [x] Add `format` and `lint` turbo tasks to each workspace `package.json`.
@@ -497,10 +490,10 @@ The `deps/` folder alongside this plan contains battle-tested reference implemen
 - [x] Add `lint-staged` config to root `package.json`:
   ```json
   {
-    "lint-staged": {
-      "*.{ts,tsx,js,jsx}": ["oxlint --fix", "oxfmt"],
-      "*.{md,json,yaml,yml}": ["prettier --write"]
-    }
+  	"lint-staged": {
+  		"*.{ts,tsx,js,jsx}": ["oxlint --fix", "oxfmt"],
+  		"*.{md,json,yaml,yml}": ["prettier --write"]
+  	}
   }
   ```
 
@@ -533,101 +526,93 @@ The `deps/` folder alongside this plan contains battle-tested reference implemen
 
 ```ts
 export type GetRequestResponse<T> = {
-  success: boolean;
-  message: unknown;
-  data: T;
-  meta: null | {
-    count: number;
-    current_page: number;
-    from: number;
-    last_page: number;
-    per_page: number;
-    to: number;
-    total: number;
-  };
-};
+	success: boolean
+	message: unknown
+	data: T
+	meta: null | {
+		count: number
+		current_page: number
+		from: number
+		last_page: number
+		per_page: number
+		to: number
+		total: number
+	}
+}
 
-export type AuthRoutes = 'login' | 'register' | 'invitation' | 'myid';
+export type AuthRoutes = 'login' | 'register' | 'invitation' | 'myid'
 
 export type TCompanyInfo = {
-  company_name: string;
-  owner_phone: string;
-  inn: string;
-  slug: string;
-  route: AuthRoutes;
-};
+	company_name: string
+	owner_phone: string
+	inn: string
+	slug: string
+	route: AuthRoutes
+}
 
 export type PostRequestResponse<T = null> = {
-  success: boolean;
-  message: unknown;
-  data: T;
-  meta: unknown[];
-};
+	success: boolean
+	message: unknown
+	data: T
+	meta: unknown[]
+}
 
 export type ChallengeResponseType = {
-  success: boolean;
-  message: string | null;
-  data: {
-    challenge: string;
-    ttl: number;
-    status: number;
-    message: string;
-  };
-  meta: unknown[];
-};
+	success: boolean
+	message: string | null
+	data: {
+		challenge: string
+		ttl: number
+		status: number
+		message: string
+	}
+	meta: unknown[]
+}
 
 export type CompanyInfoResponse = {
-  success: boolean;
-  message: null | string;
-  data: TCompanyInfo;
-  meta: unknown[];
-};
+	success: boolean
+	message: null | string
+	data: TCompanyInfo
+	meta: unknown[]
+}
 
 export type CompanyRequest = {
-  hash?: string;
-  inn?: string;
-};
+	hash?: string
+	inn?: string
+}
 
-export type AllowedProducts =
-  | 'sales'
-  | 'crm'
-  | 'wms'
-  | 'procurement'
-  | 'production'
-  | 'accounting'
-  | 'hrm'
-  | 'fms';
+export type AllowedProducts = 'sales' | 'crm' | 'wms' | 'procurement' | 'production' | 'accounting' | 'hrm' | 'fms'
 
-export type FormSubmitResponse = PostRequestResponse<LoginResponse>;
+export type FormSubmitResponse = PostRequestResponse<LoginResponse>
 
 export type Session = {
-  device: string;
-  device_name: string;
-  device_version: string;
-};
+	device: string
+	device_name: string
+	device_version: string
+}
 
 export type FormSubmitRequest = {
-  otp: string;
-  phone: string;
-  hash: string;
-  session: Session;
-};
+	otp: string
+	phone: string
+	hash: string
+	session: Session
+}
 
 export type LoginResponse = {
-  token_type: 'Bearer';
-  expires_in: number;
-  access_token: string;
-  refresh_token: string;
-  companyTin: string;
-  csrf: string;
-  start_pay_flow: boolean;
-  allowed: AllowedProducts[];
-};
+	token_type: 'Bearer'
+	expires_in: number
+	access_token: string
+	refresh_token: string
+	companyTin: string
+	csrf: string
+	start_pay_flow: boolean
+	allowed: AllowedProducts[]
+}
 
 export type SubscriptionMeta = {
-  allowed: AllowedProducts[];
-  start_pay_flow: boolean;
-};
+	allowed: AllowedProducts[]
+	start_pay_flow: boolean
+}
 ```
 
 ### 6.2 — `shared/types/notification.types.ts`
@@ -635,15 +620,15 @@ export type SubscriptionMeta = {
 - [x] Create. Reference implementation in **`deps/notification.types.ts`** (dashboard's original uses `ToastT` from sonner). Either approach works — use this version for consistency with the dashboard:
 
 ```ts
-import type { ExternalToast } from 'sonner';
+import type { ExternalToast } from 'sonner'
 
-export type SonnerToastOptions = ExternalToast;
+export type SonnerToastOptions = ExternalToast
 
 export type ShowToastOptions = {
-  type?: 'success' | 'info' | 'warning' | 'error';
-  message?: string;
-  toastOptions?: SonnerToastOptions;
-};
+	type?: 'success' | 'info' | 'warning' | 'error'
+	message?: string
+	toastOptions?: SonnerToastOptions
+}
 ```
 
 ### 6.3 — `shared/const/localstorage.const.ts`
@@ -659,26 +644,26 @@ export type ShowToastOptions = {
 - [x] Create a discriminated-union error wrapper used by `useCreateMutation`:
 
 ```ts
-import axios from 'axios';
+import axios from 'axios'
 
 type AxiosErrorType<T> = {
-  type: 'axios-error';
-  error: import('axios').AxiosError<T>;
-};
-type UnknownErrorType = { type: 'unknown'; error: unknown };
+	type: 'axios-error'
+	error: import('axios').AxiosError<T>
+}
+type UnknownErrorType = { type: 'unknown'; error: unknown }
 
 export function axiosErrorHandler<T>({
-  error,
-  callback,
+	error,
+	callback
 }: {
-  error: unknown;
-  callback: (e: AxiosErrorType<T> | UnknownErrorType) => void;
+	error: unknown
+	callback: (e: AxiosErrorType<T> | UnknownErrorType) => void
 }) {
-  if (axios.isAxiosError<T, Record<string, unknown>>(error)) {
-    callback({ type: 'axios-error', error });
-  } else {
-    callback({ type: 'unknown', error });
-  }
+	if (axios.isAxiosError<T, Record<string, unknown>>(error)) {
+		callback({ type: 'axios-error', error })
+	} else {
+		callback({ type: 'unknown', error })
+	}
 }
 ```
 
@@ -718,119 +703,111 @@ src/shared/store/
 - [x] Create:
 
 ```ts
-import { StateCreator } from 'zustand';
+import { StateCreator } from 'zustand'
 import {
-  ACCESSTOKEN_LOCALSTORAGE_KEY,
-  COMPANYINFO_LOCALSTORAGE_KEY,
-  REFRESHTOKEN_LOCALSTORAGE_KEY,
-} from '../../const/localstorage.const';
-import storage from '../../lib/storage';
-import { TCompanyInfo, AllowedProducts } from '../../types/requests.types';
+	ACCESSTOKEN_LOCALSTORAGE_KEY,
+	COMPANYINFO_LOCALSTORAGE_KEY,
+	REFRESHTOKEN_LOCALSTORAGE_KEY
+} from '../../const/localstorage.const'
+import storage from '../../lib/storage'
+import { TCompanyInfo, AllowedProducts } from '../../types/requests.types'
 
 export interface UserProfile {
-  id: string | number;
-  fullName: string;
-  email?: string;
-  phone?: string;
-  role?: string;
-  avatarUrl?: string;
+	id: string | number
+	fullName: string
+	email?: string
+	phone?: string
+	role?: string
+	avatarUrl?: string
 }
 
 export interface AuthState {
-  // ----- state -----
-  accessToken: string | null;
-  refreshToken: string | null;
-  csrfToken: string | null;
-  profile: UserProfile | null;
-  companyInfo: TCompanyInfo | null;
-  allowedProducts: AllowedProducts[];
-  isAuthenticated: boolean;
+	// ----- state -----
+	accessToken: string | null
+	refreshToken: string | null
+	csrfToken: string | null
+	profile: UserProfile | null
+	companyInfo: TCompanyInfo | null
+	allowedProducts: AllowedProducts[]
+	isAuthenticated: boolean
 
-  // ----- actions -----
-  setAccessToken: (token: string | null) => void;
-  setRefreshToken: (token: string | null) => void;
-  setCsrfToken: (token: string | null) => void;
-  setProfile: (profile: UserProfile | null) => void;
-  setCompanyInfo: (info: TCompanyInfo | null) => void;
-  setAllowedProducts: (products: AllowedProducts[]) => void;
-  login: (payload: {
-    accessToken: string;
-    refreshToken: string;
-    allowed: AllowedProducts[];
-  }) => void;
-  reset: () => void;
+	// ----- actions -----
+	setAccessToken: (token: string | null) => void
+	setRefreshToken: (token: string | null) => void
+	setCsrfToken: (token: string | null) => void
+	setProfile: (profile: UserProfile | null) => void
+	setCompanyInfo: (info: TCompanyInfo | null) => void
+	setAllowedProducts: (products: AllowedProducts[]) => void
+	login: (payload: { accessToken: string; refreshToken: string; allowed: AllowedProducts[] }) => void
+	reset: () => void
 }
 
-const companyRaw = storage.get(COMPANYINFO_LOCALSTORAGE_KEY);
-const initialCompany = companyRaw
-  ? (JSON.parse(companyRaw) as TCompanyInfo)
-  : null;
+const companyRaw = storage.get(COMPANYINFO_LOCALSTORAGE_KEY)
+const initialCompany = companyRaw ? (JSON.parse(companyRaw) as TCompanyInfo) : null
 
 const initialState = {
-  accessToken: storage.get(ACCESSTOKEN_LOCALSTORAGE_KEY) ?? null,
-  refreshToken: storage.get(REFRESHTOKEN_LOCALSTORAGE_KEY) ?? null,
-  csrfToken: null,
-  profile: null,
-  companyInfo: initialCompany,
-  allowedProducts: [] as AllowedProducts[],
-  isAuthenticated: Boolean(storage.get(ACCESSTOKEN_LOCALSTORAGE_KEY)),
-};
+	accessToken: storage.get(ACCESSTOKEN_LOCALSTORAGE_KEY) ?? null,
+	refreshToken: storage.get(REFRESHTOKEN_LOCALSTORAGE_KEY) ?? null,
+	csrfToken: null,
+	profile: null,
+	companyInfo: initialCompany,
+	allowedProducts: [] as AllowedProducts[],
+	isAuthenticated: Boolean(storage.get(ACCESSTOKEN_LOCALSTORAGE_KEY))
+}
 
-export const createAuthSlice: StateCreator<AuthState, [], [], AuthState> = (
-  set,
-) => ({
-  ...initialState,
+export const createAuthSlice: StateCreator<AuthState, [], [], AuthState> = (set) => ({
+	...initialState,
 
-  setAccessToken: (accessToken) => {
-    if (accessToken) storage.set(ACCESSTOKEN_LOCALSTORAGE_KEY, accessToken);
-    else storage.remove(ACCESSTOKEN_LOCALSTORAGE_KEY);
-    set({ accessToken, isAuthenticated: Boolean(accessToken) });
-  },
+	setAccessToken: (accessToken) => {
+		if (accessToken) storage.set(ACCESSTOKEN_LOCALSTORAGE_KEY, accessToken)
+		else storage.remove(ACCESSTOKEN_LOCALSTORAGE_KEY)
+		set({ accessToken, isAuthenticated: Boolean(accessToken) })
+	},
 
-  setRefreshToken: (refreshToken) => {
-    if (refreshToken) storage.set(REFRESHTOKEN_LOCALSTORAGE_KEY, refreshToken);
-    else storage.remove(REFRESHTOKEN_LOCALSTORAGE_KEY);
-    set({ refreshToken });
-  },
+	setRefreshToken: (refreshToken) => {
+		if (refreshToken) storage.set(REFRESHTOKEN_LOCALSTORAGE_KEY, refreshToken)
+		else storage.remove(REFRESHTOKEN_LOCALSTORAGE_KEY)
+		set({ refreshToken })
+	},
 
-  setCsrfToken: (csrfToken) => set({ csrfToken }),
+	setCsrfToken: (csrfToken) => set({ csrfToken }),
 
-  setProfile: (profile) => set({ profile }),
+	setProfile: (profile) => set({ profile }),
 
-  setCompanyInfo: (companyInfo) => {
-    if (companyInfo) {
-      storage.set(COMPANYINFO_LOCALSTORAGE_KEY, JSON.stringify(companyInfo));
-    } else {
-      storage.remove(COMPANYINFO_LOCALSTORAGE_KEY);
-    }
-    set({ companyInfo });
-  },
+	setCompanyInfo: (companyInfo) => {
+		if (companyInfo) {
+			storage.set(COMPANYINFO_LOCALSTORAGE_KEY, JSON.stringify(companyInfo))
+		} else {
+			storage.remove(COMPANYINFO_LOCALSTORAGE_KEY)
+		}
+		set({ companyInfo })
+	},
 
-  setAllowedProducts: (allowedProducts) => set({ allowedProducts }),
+	setAllowedProducts: (allowedProducts) => set({ allowedProducts }),
 
-  login: ({ accessToken, refreshToken, allowed }) => {
-    storage.set(ACCESSTOKEN_LOCALSTORAGE_KEY, accessToken);
-    storage.set(REFRESHTOKEN_LOCALSTORAGE_KEY, refreshToken);
-    set({
-      accessToken,
-      refreshToken,
-      allowedProducts: allowed,
-      isAuthenticated: true,
-    });
-  },
+	login: ({ accessToken, refreshToken, allowed }) => {
+		storage.set(ACCESSTOKEN_LOCALSTORAGE_KEY, accessToken)
+		storage.set(REFRESHTOKEN_LOCALSTORAGE_KEY, refreshToken)
+		set({
+			accessToken,
+			refreshToken,
+			allowedProducts: allowed,
+			isAuthenticated: true
+		})
+	},
 
-  reset: () => {
-    storage.remove(ACCESSTOKEN_LOCALSTORAGE_KEY);
-    storage.remove(REFRESHTOKEN_LOCALSTORAGE_KEY);
-    storage.remove(COMPANYINFO_LOCALSTORAGE_KEY);
-    set({
-      ...initialState,
-      accessToken: null,
-      refreshToken: null,
-      isAuthenticated: false,
-    });
-  },
-});
+	reset: () => {
+		storage.remove(ACCESSTOKEN_LOCALSTORAGE_KEY)
+		storage.remove(REFRESHTOKEN_LOCALSTORAGE_KEY)
+		storage.remove(COMPANYINFO_LOCALSTORAGE_KEY)
+		set({
+			...initialState,
+			accessToken: null,
+			refreshToken: null,
+			isAuthenticated: false
+		})
+	}
+})
 ```
 
 ### 6.6.2 — `shared/store/use-meta-store/use-meta-store.ts`
@@ -838,76 +815,68 @@ export const createAuthSlice: StateCreator<AuthState, [], [], AuthState> = (
 - [x] Create:
 
 ```ts
-import { StateCreator } from 'zustand';
+import { StateCreator } from 'zustand'
 import {
-  LNG_LOCALSTORAGE_KEY,
-  SIDEBAR_COLLAPSED_LOCALSTORAGE_KEY,
-  THEME_LOCALSTORAGE_KEY,
-} from '../../const/localstorage.const';
-import storage from '../../lib/storage';
+	LNG_LOCALSTORAGE_KEY,
+	SIDEBAR_COLLAPSED_LOCALSTORAGE_KEY,
+	THEME_LOCALSTORAGE_KEY
+} from '../../const/localstorage.const'
+import storage from '../../lib/storage'
 
-export type TLanguages = 'uz' | 'ru' | 'en';
-export type TTheme = 'light' | 'dark' | 'system';
+export type TLanguages = 'uz' | 'ru' | 'en'
+export type TTheme = 'light' | 'dark' | 'system'
 
 export interface PageBreadcrumb {
-  label: string;
-  to?: string;
+	label: string
+	to?: string
 }
 
 export interface MetaState {
-  // ----- state -----
-  lng: TLanguages;
-  theme: TTheme;
-  isSidebarCollapsed: boolean;
-  pageTitle: string | null;
-  pageBreadcrumbs: PageBreadcrumb[] | null;
+	// ----- state -----
+	lng: TLanguages
+	theme: TTheme
+	isSidebarCollapsed: boolean
+	pageTitle: string | null
+	pageBreadcrumbs: PageBreadcrumb[] | null
 
-  // ----- actions -----
-  setLng: (lng: TLanguages) => void;
-  setTheme: (theme: TTheme) => void;
-  setIsSidebarCollapsed: (collapsed: boolean) => void;
-  setPageTitle: (title: string | null) => void;
-  setPageBreadcrumbs: (crumbs: PageBreadcrumb[] | null) => void;
+	// ----- actions -----
+	setLng: (lng: TLanguages) => void
+	setTheme: (theme: TTheme) => void
+	setIsSidebarCollapsed: (collapsed: boolean) => void
+	setPageTitle: (title: string | null) => void
+	setPageBreadcrumbs: (crumbs: PageBreadcrumb[] | null) => void
 }
 
-const initialLng = (storage.get(LNG_LOCALSTORAGE_KEY) ?? 'uz') as TLanguages;
-const initialTheme = (storage.get(THEME_LOCALSTORAGE_KEY) ??
-  'system') as TTheme;
-const collapsedRaw = storage.get(SIDEBAR_COLLAPSED_LOCALSTORAGE_KEY);
-const initialCollapsed = collapsedRaw
-  ? (JSON.parse(collapsedRaw) as boolean)
-  : false;
+const initialLng = (storage.get(LNG_LOCALSTORAGE_KEY) ?? 'uz') as TLanguages
+const initialTheme = (storage.get(THEME_LOCALSTORAGE_KEY) ?? 'system') as TTheme
+const collapsedRaw = storage.get(SIDEBAR_COLLAPSED_LOCALSTORAGE_KEY)
+const initialCollapsed = collapsedRaw ? (JSON.parse(collapsedRaw) as boolean) : false
 
-export const createMetaSlice: StateCreator<MetaState, [], [], MetaState> = (
-  set,
-) => ({
-  lng: initialLng,
-  theme: initialTheme,
-  isSidebarCollapsed: initialCollapsed,
-  pageTitle: null,
-  pageBreadcrumbs: null,
+export const createMetaSlice: StateCreator<MetaState, [], [], MetaState> = (set) => ({
+	lng: initialLng,
+	theme: initialTheme,
+	isSidebarCollapsed: initialCollapsed,
+	pageTitle: null,
+	pageBreadcrumbs: null,
 
-  setLng: (lng) => {
-    storage.set(LNG_LOCALSTORAGE_KEY, lng);
-    set({ lng });
-  },
+	setLng: (lng) => {
+		storage.set(LNG_LOCALSTORAGE_KEY, lng)
+		set({ lng })
+	},
 
-  setTheme: (theme) => {
-    storage.set(THEME_LOCALSTORAGE_KEY, theme);
-    set({ theme });
-  },
+	setTheme: (theme) => {
+		storage.set(THEME_LOCALSTORAGE_KEY, theme)
+		set({ theme })
+	},
 
-  setIsSidebarCollapsed: (isSidebarCollapsed) => {
-    storage.set(
-      SIDEBAR_COLLAPSED_LOCALSTORAGE_KEY,
-      JSON.stringify(isSidebarCollapsed),
-    );
-    set({ isSidebarCollapsed });
-  },
+	setIsSidebarCollapsed: (isSidebarCollapsed) => {
+		storage.set(SIDEBAR_COLLAPSED_LOCALSTORAGE_KEY, JSON.stringify(isSidebarCollapsed))
+		set({ isSidebarCollapsed })
+	},
 
-  setPageTitle: (pageTitle) => set({ pageTitle }),
-  setPageBreadcrumbs: (pageBreadcrumbs) => set({ pageBreadcrumbs }),
-});
+	setPageTitle: (pageTitle) => set({ pageTitle }),
+	setPageBreadcrumbs: (pageBreadcrumbs) => set({ pageBreadcrumbs })
+})
 ```
 
 ### 6.6.3 — `shared/store/use-module-ui-store/use-module-ui-store.ts`
@@ -915,38 +884,32 @@ export const createMetaSlice: StateCreator<MetaState, [], [], MetaState> = (
 - [x] Create a slice for cross-module ephemeral UI flags (global spinners, command palette open, etc.):
 
 ```ts
-import { StateCreator } from 'zustand';
+import { StateCreator } from 'zustand'
 
 export interface ModuleUiState {
-  isGlobalLoading: boolean;
-  isCommandPaletteOpen: boolean;
-  activeModal: string | null;
+	isGlobalLoading: boolean
+	isCommandPaletteOpen: boolean
+	activeModal: string | null
 
-  setIsGlobalLoading: (loading: boolean) => void;
-  setIsCommandPaletteOpen: (open: boolean) => void;
-  setActiveModal: (id: string | null) => void;
-  resetUi: () => void;
+	setIsGlobalLoading: (loading: boolean) => void
+	setIsCommandPaletteOpen: (open: boolean) => void
+	setActiveModal: (id: string | null) => void
+	resetUi: () => void
 }
 
 const initialState = {
-  isGlobalLoading: false,
-  isCommandPaletteOpen: false,
-  activeModal: null as string | null,
-};
+	isGlobalLoading: false,
+	isCommandPaletteOpen: false,
+	activeModal: null as string | null
+}
 
-export const createModuleUiSlice: StateCreator<
-  ModuleUiState,
-  [],
-  [],
-  ModuleUiState
-> = (set) => ({
-  ...initialState,
-  setIsGlobalLoading: (isGlobalLoading) => set({ isGlobalLoading }),
-  setIsCommandPaletteOpen: (isCommandPaletteOpen) =>
-    set({ isCommandPaletteOpen }),
-  setActiveModal: (activeModal) => set({ activeModal }),
-  resetUi: () => set(initialState),
-});
+export const createModuleUiSlice: StateCreator<ModuleUiState, [], [], ModuleUiState> = (set) => ({
+	...initialState,
+	setIsGlobalLoading: (isGlobalLoading) => set({ isGlobalLoading }),
+	setIsCommandPaletteOpen: (isCommandPaletteOpen) => set({ isCommandPaletteOpen }),
+	setActiveModal: (activeModal) => set({ activeModal }),
+	resetUi: () => set(initialState)
+})
 ```
 
 ### 6.6.4 — `shared/store/index.ts` (bound store)
@@ -954,76 +917,67 @@ export const createModuleUiSlice: StateCreator<
 - [x] Create:
 
 ```ts
-import { create } from 'zustand';
-import { devtools } from 'zustand/middleware';
-import { useShallow } from 'zustand/react/shallow';
+import { create } from 'zustand'
+import { devtools } from 'zustand/middleware'
+import { useShallow } from 'zustand/react/shallow'
 
-import {
-  type AuthState,
-  createAuthSlice,
-} from './use-auth-store/use-auth-store';
-import {
-  type MetaState,
-  createMetaSlice,
-} from './use-meta-store/use-meta-store';
-import {
-  type ModuleUiState,
-  createModuleUiSlice,
-} from './use-module-ui-store/use-module-ui-store';
+import { type AuthState, createAuthSlice } from './use-auth-store/use-auth-store'
+import { type MetaState, createMetaSlice } from './use-meta-store/use-meta-store'
+import { type ModuleUiState, createModuleUiSlice } from './use-module-ui-store/use-module-ui-store'
 
-export type { AuthState, MetaState, ModuleUiState };
+export type { AuthState, MetaState, ModuleUiState }
 
-export type SharedStoreState = AuthState & MetaState & ModuleUiState;
+export type SharedStoreState = AuthState & MetaState & ModuleUiState
 
 // docs: https://github.com/pmndrs/zustand/blob/main/docs/guides/slices-pattern.md
 export const useBoundStore = create<SharedStoreState>()(
-  devtools(
-    (...a) => ({
-      ...createAuthSlice(...a),
-      ...createMetaSlice(...a),
-      ...createModuleUiSlice(...a),
-    }),
-    { name: 'naiton-store', enabled: import.meta.env.MODE === 'development' },
-  ),
-);
+	devtools(
+		(...a) => ({
+			...createAuthSlice(...a),
+			...createMetaSlice(...a),
+			...createModuleUiSlice(...a)
+		}),
+		{ name: 'naiton-store', enabled: import.meta.env.MODE === 'development' }
+	)
+)
 
 // ----- Selector hooks (preferred in components) -----
 export const useAuth = () =>
-  useBoundStore(
-    useShallow((s) => ({
-      accessToken: s.accessToken,
-      isAuthenticated: s.isAuthenticated,
-      profile: s.profile,
-      allowedProducts: s.allowedProducts,
-      companyInfo: s.companyInfo,
-      login: s.login,
-      reset: s.reset,
-    })),
-  );
+	useBoundStore(
+		useShallow((s) => ({
+			accessToken: s.accessToken,
+			isAuthenticated: s.isAuthenticated,
+			profile: s.profile,
+			allowedProducts: s.allowedProducts,
+			companyInfo: s.companyInfo,
+			login: s.login,
+			reset: s.reset
+		}))
+	)
 
 export const useMeta = () =>
-  useBoundStore(
-    useShallow((s) => ({
-      lng: s.lng,
-      theme: s.theme,
-      isSidebarCollapsed: s.isSidebarCollapsed,
-      setLng: s.setLng,
-      setTheme: s.setTheme,
-      setIsSidebarCollapsed: s.setIsSidebarCollapsed,
-    })),
-  );
+	useBoundStore(
+		useShallow((s) => ({
+			lng: s.lng,
+			theme: s.theme,
+			isSidebarCollapsed: s.isSidebarCollapsed,
+			setLng: s.setLng,
+			setTheme: s.setTheme,
+			setIsSidebarCollapsed: s.setIsSidebarCollapsed
+		}))
+	)
 
 export const useModuleUi = () =>
-  useBoundStore(
-    useShallow((s) => ({
-      isGlobalLoading: s.isGlobalLoading,
-      isCommandPaletteOpen: s.isCommandPaletteOpen,
-      activeModal: s.activeModal,
-      setIsGlobalLoading: s.setIsGlobalLoading,
-      setIsCommandPaletteOpen: s.setIsCommandPaletteOpen,
-      setActiveModal: s.setActiveModal,
-    })),
-  );
+	useBoundStore(
+		useShallow((s) => ({
+			isGlobalLoading: s.isGlobalLoading,
+			isCommandPaletteOpen: s.isCommandPaletteOpen,
+			activeModal: s.activeModal,
+			setIsGlobalLoading: s.setIsGlobalLoading,
+			setIsCommandPaletteOpen: s.setIsCommandPaletteOpen,
+			setActiveModal: s.setActiveModal
+		}))
+	)
 ```
 
 ### 6.6.5 — Extend `localstorage.const.ts` for store keys
@@ -1031,12 +985,12 @@ export const useModuleUi = () =>
 - [x] Add to `src/shared/const/localstorage.const.ts`:
 
 ```ts
-export const ACCESSTOKEN_LOCALSTORAGE_KEY = 'naiton-access-token';
-export const REFRESHTOKEN_LOCALSTORAGE_KEY = 'naiton-refresh-token';
-export const COMPANYINFO_LOCALSTORAGE_KEY = 'naiton-company-info';
-export const LNG_LOCALSTORAGE_KEY = 'naiton-lng';
-export const THEME_LOCALSTORAGE_KEY = 'naiton-theme';
-export const SIDEBAR_COLLAPSED_LOCALSTORAGE_KEY = 'naiton-sidebar-collapsed';
+export const ACCESSTOKEN_LOCALSTORAGE_KEY = 'naiton-access-token'
+export const REFRESHTOKEN_LOCALSTORAGE_KEY = 'naiton-refresh-token'
+export const COMPANYINFO_LOCALSTORAGE_KEY = 'naiton-company-info'
+export const LNG_LOCALSTORAGE_KEY = 'naiton-lng'
+export const THEME_LOCALSTORAGE_KEY = 'naiton-theme'
+export const SIDEBAR_COLLAPSED_LOCALSTORAGE_KEY = 'naiton-sidebar-collapsed'
 ```
 
 ### 6.6.6 — Axios ↔ Store synchronization
@@ -1044,18 +998,18 @@ export const SIDEBAR_COLLAPSED_LOCALSTORAGE_KEY = 'naiton-sidebar-collapsed';
 - [ ] In `src/app/providers/publicProvider/PublicProvider.tsx` (implemented in Phase 8.1), wire the store to axios **once** at mount:
 
 ```ts
-import { useEffect } from 'react';
-import { useBoundStore } from '@/shared/store';
-import { apiSubscribe } from '@/shared/api';
+import { useEffect } from 'react'
+import { useBoundStore } from '@/shared/store'
+import { apiSubscribe } from '@/shared/api'
 
 // Inside PublicProvider:
 useEffect(() => {
-  // Prime axios with current store state.
-  apiSubscribe(useBoundStore.getState());
-  // Re-prime on any future state change (auth + meta).
-  const unsubscribe = useBoundStore.subscribe((state) => apiSubscribe(state));
-  return unsubscribe;
-}, []);
+	// Prime axios with current store state.
+	apiSubscribe(useBoundStore.getState())
+	// Re-prime on any future state change (auth + meta).
+	const unsubscribe = useBoundStore.subscribe((state) => apiSubscribe(state))
+	return unsubscribe
+}, [])
 ```
 
 > **Why subscribe rather than recompute on every request?** The axios `request` instance is a module-level singleton; rebuilding headers per request would race with React re-renders. The subscription pattern guarantees headers reflect the latest store state with zero per-request overhead.
@@ -1067,14 +1021,9 @@ useEffect(() => {
 - **Reading outside React**: `useBoundStore.getState()` — used by `api.ts` for interceptors.
 - **Cross-slice actions**: if an action needs state from another slice, use `get()` inside the slice factory:
   ```ts
-  export const createFooSlice: StateCreator<
-    FooState & BarState,
-    [],
-    [],
-    FooState
-  > = (set, get) => ({
-    doThing: () => set({ foo: get().bar + 1 }),
-  });
+  export const createFooSlice: StateCreator<FooState & BarState, [], [], FooState> = (set, get) => ({
+  	doThing: () => set({ foo: get().bar + 1 })
+  })
   ```
   Since all slices share the bound store's full type (`SharedStoreState`), cross-slice reads are type-safe.
 
@@ -1091,38 +1040,38 @@ useEffect(() => {
 
 ```ts
 export enum AppRoutes {
-  DASHBOARD = 'dashboard',
-  SALES = 'sales',
-  CRM = 'crm',
-  WMS = 'wms',
-  PROCUREMENT = 'procurement',
-  PRODUCTION = 'production',
-  ACCOUNTING = 'accounting',
-  HRM = 'hrm',
-  FMS = 'fms',
-  USER_PROFILE = 'user-profile',
-  LOGOUT = 'logout',
+	DASHBOARD = 'dashboard',
+	SALES = 'sales',
+	CRM = 'crm',
+	WMS = 'wms',
+	PROCUREMENT = 'procurement',
+	PRODUCTION = 'production',
+	ACCOUNTING = 'accounting',
+	HRM = 'hrm',
+	FMS = 'fms',
+	USER_PROFILE = 'user-profile',
+	LOGOUT = 'logout'
 }
 
 export enum AuthRoutesEnum {
-  LOGIN = 'login',
-  REGISTER = 'register',
+	LOGIN = 'login',
+	REGISTER = 'register'
 }
 
-export const getAppsRoute = () => '/app';
-export const getRouteAuth = () => '/auth';
-export const getRouteAuthLogin = () => '/auth/login';
-export const getRouteForbidden = () => '/forbidden';
-export const getRouteLogout = () => 'logout';
-export const getRouteDashboard = () => 'dashboard';
-export const getRouteSales = () => 'sales';
-export const getRouteCrm = () => 'crm';
-export const getRouteWms = () => 'wms';
-export const getRouteProcurement = () => 'procurement';
-export const getRouteProduction = () => 'production';
-export const getRouteAccounting = () => 'accounting';
-export const getRouteHrm = () => 'hrm';
-export const getRouteFms = () => 'fms';
+export const getAppsRoute = () => '/app'
+export const getRouteAuth = () => '/auth'
+export const getRouteAuthLogin = () => '/auth/login'
+export const getRouteForbidden = () => '/forbidden'
+export const getRouteLogout = () => 'logout'
+export const getRouteDashboard = () => 'dashboard'
+export const getRouteSales = () => 'sales'
+export const getRouteCrm = () => 'crm'
+export const getRouteWms = () => 'wms'
+export const getRouteProcurement = () => 'procurement'
+export const getRouteProduction = () => 'production'
+export const getRouteAccounting = () => 'accounting'
+export const getRouteHrm = () => 'hrm'
+export const getRouteFms = () => 'fms'
 ```
 
 ### 6.8 — `shared/const/endpoints.const.ts`
@@ -1131,14 +1080,14 @@ export const getRouteFms = () => 'fms';
 
 ```ts
 export const endpoints = {
-  LOGIN: '/v1/auth/login',
-  LOGOUT: '/v1/auth/logout',
-  PROFILE: '/v1/profile',
-  SALES_ORDERS: '/v1/sales/orders',
-  SALES_ORDER_DETAILS: '/v1/sales/orders/:id',
-  CRM_LEADS: '/v1/crm/leads',
-  CRM_LEAD_DETAILS: '/v1/crm/leads/:id',
-} as const;
+	LOGIN: '/v1/auth/login',
+	LOGOUT: '/v1/auth/logout',
+	PROFILE: '/v1/profile',
+	SALES_ORDERS: '/v1/sales/orders',
+	SALES_ORDER_DETAILS: '/v1/sales/orders/:id',
+	CRM_LEADS: '/v1/crm/leads',
+	CRM_LEAD_DETAILS: '/v1/crm/leads/:id'
+} as const
 ```
 
 ### 6.9 — `shared/api/api.ts` (verbatim, adapted)
@@ -1146,76 +1095,74 @@ export const endpoints = {
 - [x] Create `apps/naiton/src/shared/api/api.ts` (same interceptor & subscription logic as dashboard, routed through `envConfig.API_ROOT`):
 
 ```ts
-import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios'
 import {
-  ACCESSTOKEN_LOCALSTORAGE_KEY,
-  COMPANYINFO_LOCALSTORAGE_KEY,
-  LNG_LOCALSTORAGE_KEY,
-} from '../const/localstorage.const';
-import storage from '../lib/storage';
-import { envConfig } from '@/config/env/env.config';
-import { getRouteAuthLogin, getRouteForbidden } from '../const/router.const';
-import { SharedStoreState, useBoundStore } from '../store';
-import { TCompanyInfo } from '../types/requests.types';
+	ACCESSTOKEN_LOCALSTORAGE_KEY,
+	COMPANYINFO_LOCALSTORAGE_KEY,
+	LNG_LOCALSTORAGE_KEY
+} from '../const/localstorage.const'
+import storage from '../lib/storage'
+import { envConfig } from '@/config/env/env.config'
+import { getRouteAuthLogin, getRouteForbidden } from '../const/router.const'
+import { SharedStoreState, useBoundStore } from '../store'
+import { TCompanyInfo } from '../types/requests.types'
 
 export const request: AxiosInstance = axios.create({
-  baseURL: envConfig.API_ROOT,
-});
+	baseURL: envConfig.API_ROOT
+})
 
-request.defaults.headers.common.Accept = 'application/json';
-request.defaults.headers.common['Content-Type'] =
-  'application/json; charset=utf-8';
+request.defaults.headers.common.Accept = 'application/json'
+request.defaults.headers.common['Content-Type'] = 'application/json; charset=utf-8'
 
-let token = storage.get(ACCESSTOKEN_LOCALSTORAGE_KEY);
+let token = storage.get(ACCESSTOKEN_LOCALSTORAGE_KEY)
 const companyInfo = storage.get(COMPANYINFO_LOCALSTORAGE_KEY)
-  ? (JSON.parse(storage.get(COMPANYINFO_LOCALSTORAGE_KEY)!) as TCompanyInfo)
-  : null;
+	? (JSON.parse(storage.get(COMPANYINFO_LOCALSTORAGE_KEY)!) as TCompanyInfo)
+	: null
 
 const getLanguage = () => {
-  try {
-    const storeLng = useBoundStore.getState().lng;
-    return storeLng || storage.get(LNG_LOCALSTORAGE_KEY) || 'uz';
-  } catch {
-    return storage.get(LNG_LOCALSTORAGE_KEY) || 'uz';
-  }
-};
+	try {
+		const storeLng = useBoundStore.getState().lng
+		return storeLng || storage.get(LNG_LOCALSTORAGE_KEY) || 'uz'
+	} catch {
+		return storage.get(LNG_LOCALSTORAGE_KEY) || 'uz'
+	}
+}
 
 request.interceptors.request.use((config) => {
-  config.headers['Accept-Language'] = getLanguage();
-  return config;
-});
+	config.headers['Accept-Language'] = getLanguage()
+	return config
+})
 
 export const apiSubscribe = (store?: SharedStoreState): void => {
-  request.defaults.headers.common['Company-Tin'] =
-    store?.companyInfo?.inn ?? companyInfo?.inn;
+	request.defaults.headers.common['Company-Tin'] = store?.companyInfo?.inn ?? companyInfo?.inn
 
-  if (store?.csrfToken) {
-    request.defaults.headers.common['X-Csrf-Token'] = store.csrfToken;
-  }
+	if (store?.csrfToken) {
+		request.defaults.headers.common['X-Csrf-Token'] = store.csrfToken
+	}
 
-  if (store?.accessToken) token = store.accessToken;
+	if (store?.accessToken) token = store.accessToken
 
-  if (token) {
-    request.defaults.headers.common.Authorization = `Bearer ${token}`;
-  }
-};
+	if (token) {
+		request.defaults.headers.common.Authorization = `Bearer ${token}`
+	}
+}
 
-apiSubscribe();
+apiSubscribe()
 
 request.interceptors.response.use(
-  (response: AxiosResponse) => response,
-  (error: AxiosError) => {
-    const status = error?.response?.status;
-    if (status === 401 && typeof window !== 'undefined') {
-      window.location.href = `${getRouteAuthLogin()}?tokenExpired=true`;
-    } else if (status === 403 && typeof window !== 'undefined') {
-      window.location.href = getRouteForbidden();
-    } else if (status === 429) {
-      alert('Too Many Requests');
-    }
-    return Promise.reject(error);
-  },
-);
+	(response: AxiosResponse) => response,
+	(error: AxiosError) => {
+		const status = error?.response?.status
+		if (status === 401 && typeof window !== 'undefined') {
+			window.location.href = `${getRouteAuthLogin()}?tokenExpired=true`
+		} else if (status === 403 && typeof window !== 'undefined') {
+			window.location.href = getRouteForbidden()
+		} else if (status === 429) {
+			alert('Too Many Requests')
+		}
+		return Promise.reject(error)
+	}
+)
 ```
 
 ### 6.10 — `shared/api/api-helper-hooks/useFetchQueries.ts` (verbatim)
@@ -1223,86 +1170,75 @@ request.interceptors.response.use(
 - [x] Create:
 
 ```ts
-import {
-  UseQueryOptions,
-  keepPreviousData,
-  useQuery,
-} from '@tanstack/react-query';
-import axios from 'axios';
-import { useEffect, useMemo } from 'react';
-import { request } from '../api';
-import { useTranslation } from 'react-i18next';
-import { GetRequestResponse } from '@/shared/types/requests.types';
-import { useToastNotif } from '@/shared/hooks/useToastNotif/useToastNotif';
+import { UseQueryOptions, keepPreviousData, useQuery } from '@tanstack/react-query'
+import axios from 'axios'
+import { useEffect, useMemo } from 'react'
+import { request } from '../api'
+import { useTranslation } from 'react-i18next'
+import { GetRequestResponse } from '@/shared/types/requests.types'
+import { useToastNotif } from '@/shared/hooks/useToastNotif/useToastNotif'
 
 type QueryFetchProps<T> = {
-  url: string;
-  params?: Record<string, string | null | undefined | number>;
-  initialData?: T;
-  enabled?: boolean;
-  refetchOnWindowFocus?: boolean;
-  keepPrevious?: boolean;
-  retry?: boolean | number;
-  showNotification?: boolean;
-} & Omit<UseQueryOptions<T>, 'queryKey' | 'queryFn'>;
+	url: string
+	params?: Record<string, string | null | undefined | number>
+	initialData?: T
+	enabled?: boolean
+	refetchOnWindowFocus?: boolean
+	keepPrevious?: boolean
+	retry?: boolean | number
+	showNotification?: boolean
+} & Omit<UseQueryOptions<T>, 'queryKey' | 'queryFn'>
 
 export const useFetchQueries = <T>(options: QueryFetchProps<T>) => {
-  const {
-    url,
-    params = {},
-    initialData,
-    enabled = true,
-    refetchOnWindowFocus = true,
-    keepPrevious,
-    retry = false,
-    showNotification = true,
-    ...queryOptions
-  } = options;
-  const { showToast } = useToastNotif();
-  const stringifiedParams = Object.entries(params).reduce(
-    (acc, [key, value]) => `${acc}-${key}-${value}`,
-    '',
-  );
-  const computedQueryKey = `${url}-${stringifiedParams}`;
-  const cachedQueryKey = useMemo(() => [computedQueryKey], [computedQueryKey]);
-  const { t } = useTranslation();
-  const query = useQuery({
-    queryKey: cachedQueryKey,
-    queryFn: async (): Promise<T> => {
-      const { data } = await request.get<T>(url, { params });
-      return data;
-    },
-    // @ts-expect-error - placeholderData typing mismatch
-    placeholderData: keepPrevious ? keepPreviousData : initialData,
-    enabled,
-    refetchOnWindowFocus,
-    retry,
-    ...queryOptions,
-  });
+	const {
+		url,
+		params = {},
+		initialData,
+		enabled = true,
+		refetchOnWindowFocus = true,
+		keepPrevious,
+		retry = false,
+		showNotification = true,
+		...queryOptions
+	} = options
+	const { showToast } = useToastNotif()
+	const stringifiedParams = Object.entries(params).reduce((acc, [key, value]) => `${acc}-${key}-${value}`, '')
+	const computedQueryKey = `${url}-${stringifiedParams}`
+	const cachedQueryKey = useMemo(() => [computedQueryKey], [computedQueryKey])
+	const { t } = useTranslation()
+	const query = useQuery({
+		queryKey: cachedQueryKey,
+		queryFn: async (): Promise<T> => {
+			const { data } = await request.get<T>(url, { params })
+			return data
+		},
+		// @ts-expect-error - placeholderData typing mismatch
+		placeholderData: keepPrevious ? keepPreviousData : initialData,
+		enabled,
+		refetchOnWindowFocus,
+		retry,
+		...queryOptions
+	})
 
-  useEffect(() => {
-    if (query.error) {
-      const message = t('Что-то пошло не так');
-      let errorMessage = '';
-      if (
-        axios.isAxiosError<GetRequestResponse<T>, Record<string, string>>(
-          query.error,
-        )
-      ) {
-        errorMessage = query?.error?.response?.data?.message as string;
-      }
-      if (showNotification) {
-        showToast({
-          message: errorMessage || message,
-          type: 'error',
-        });
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query.error, showToast]);
+	useEffect(() => {
+		if (query.error) {
+			const message = t('Что-то пошло не так')
+			let errorMessage = ''
+			if (axios.isAxiosError<GetRequestResponse<T>, Record<string, string>>(query.error)) {
+				errorMessage = query?.error?.response?.data?.message as string
+			}
+			if (showNotification) {
+				showToast({
+					message: errorMessage || message,
+					type: 'error'
+				})
+			}
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [query.error, showToast])
 
-  return query;
-};
+	return query
+}
 ```
 
 ### 6.11 — `shared/api/api-helper-hooks/useCreateMutation.ts` (verbatim)
@@ -1310,125 +1246,105 @@ export const useFetchQueries = <T>(options: QueryFetchProps<T>) => {
 - [x] Create:
 
 ```ts
-import { useMutation, UseMutationResult } from '@tanstack/react-query';
-import { AxiosError, AxiosResponse } from 'axios';
-import { useMemo } from 'react';
-import { request } from '../api';
-import { useTranslation } from 'react-i18next';
-import { useToastNotif } from '@/shared/hooks/useToastNotif/useToastNotif';
-import { axiosErrorHandler } from '@/shared/lib/utils/axiosErrorHandler/axiosErrorHandler';
-import { PostRequestResponse } from '@/shared/types/requests.types';
+import { useMutation, UseMutationResult } from '@tanstack/react-query'
+import { AxiosError, AxiosResponse } from 'axios'
+import { useMemo } from 'react'
+import { request } from '../api'
+import { useTranslation } from 'react-i18next'
+import { useToastNotif } from '@/shared/hooks/useToastNotif/useToastNotif'
+import { axiosErrorHandler } from '@/shared/lib/utils/axiosErrorHandler/axiosErrorHandler'
+import { PostRequestResponse } from '@/shared/types/requests.types'
 
 interface UseCreateMutationArgs<TRequestBody, TResponseData> {
-  url: string;
-  params?: Record<string, string>;
-  onSuccess?: (
-    data: TResponseData,
-    variables: TRequestBody,
-    context: unknown,
-  ) => void;
-  onError?: (
-    error: AxiosError,
-    variables: TRequestBody,
-    context: unknown,
-  ) => void;
-  onSettled?: (
-    data: TResponseData | undefined,
-    error: AxiosError | null,
-    variables: TRequestBody,
-    context: unknown,
-  ) => void;
-  onMutate?: (variables: TRequestBody) => void;
-  headers?: Record<string, string>;
-  retry?: boolean | number;
-  isAutoErrNotifEnabled?: boolean;
+	url: string
+	params?: Record<string, string>
+	onSuccess?: (data: TResponseData, variables: TRequestBody, context: unknown) => void
+	onError?: (error: AxiosError, variables: TRequestBody, context: unknown) => void
+	onSettled?: (
+		data: TResponseData | undefined,
+		error: AxiosError | null,
+		variables: TRequestBody,
+		context: unknown
+	) => void
+	onMutate?: (variables: TRequestBody) => void
+	headers?: Record<string, string>
+	retry?: boolean | number
+	isAutoErrNotifEnabled?: boolean
 }
 
-export function useCreateMutation<
-  TRequestBody extends Partial<Record<keyof TRequestBody, unknown>>,
-  TResponseData,
->({
-  url,
-  params,
-  onSuccess,
-  onError,
-  onSettled,
-  onMutate,
-  headers,
-  retry = false,
-  isAutoErrNotifEnabled = false,
+export function useCreateMutation<TRequestBody extends Partial<Record<keyof TRequestBody, unknown>>, TResponseData>({
+	url,
+	params,
+	onSuccess,
+	onError,
+	onSettled,
+	onMutate,
+	headers,
+	retry = false,
+	isAutoErrNotifEnabled = false
 }: UseCreateMutationArgs<TRequestBody, TResponseData>): UseMutationResult<
-  TResponseData,
-  AxiosError,
-  TRequestBody,
-  unknown
+	TResponseData,
+	AxiosError,
+	TRequestBody,
+	unknown
 > {
-  const stringifiedParams = params
-    ? Object.entries(params).reduce(
-        (acc, [key, value]) => `${acc}-${key}-${value}`,
-        '',
-      )
-    : '';
-  const computedQueryKey = `${url}-${stringifiedParams}`;
-  const cachedQueryKey = useMemo(() => [computedQueryKey], [computedQueryKey]);
-  const { t } = useTranslation();
-  const { showToast } = useToastNotif();
+	const stringifiedParams = params
+		? Object.entries(params).reduce((acc, [key, value]) => `${acc}-${key}-${value}`, '')
+		: ''
+	const computedQueryKey = `${url}-${stringifiedParams}`
+	const cachedQueryKey = useMemo(() => [computedQueryKey], [computedQueryKey])
+	const { t } = useTranslation()
+	const { showToast } = useToastNotif()
 
-  return useMutation<TResponseData, AxiosError, TRequestBody, unknown>({
-    mutationFn: async (requestData: TRequestBody) => {
-      const response: AxiosResponse<TResponseData> = await request.post(
-        url,
-        requestData,
-        {
-          params,
-          headers,
-        },
-      );
-      return response.data;
-    },
-    mutationKey: cachedQueryKey,
-    onMutate,
-    onSuccess,
-    onError: (error, variables, context) => {
-      onError?.(error, variables, context);
+	return useMutation<TResponseData, AxiosError, TRequestBody, unknown>({
+		mutationFn: async (requestData: TRequestBody) => {
+			const response: AxiosResponse<TResponseData> = await request.post(url, requestData, {
+				params,
+				headers
+			})
+			return response.data
+		},
+		mutationKey: cachedQueryKey,
+		onMutate,
+		onSuccess,
+		onError: (error, variables, context) => {
+			onError?.(error, variables, context)
 
-      if (isAutoErrNotifEnabled) {
-        axiosErrorHandler<PostRequestResponse<TRequestBody>>({
-          error: error as Error,
-          callback: (err) => {
-            if (err.type === 'axios-error') {
-              const message = t('Что-то пошло не так');
-              const errorMessage = err?.error?.response?.data?.message;
-              let allErrorsInString = '';
+			if (isAutoErrNotifEnabled) {
+				axiosErrorHandler<PostRequestResponse<TRequestBody>>({
+					error: error as Error,
+					callback: (err) => {
+						if (err.type === 'axios-error') {
+							const message = t('Что-то пошло не так')
+							const errorMessage = err?.error?.response?.data?.message
+							let allErrorsInString = ''
 
-              if (typeof errorMessage === 'string') {
-                showToast({ message, type: 'error' });
-              }
+							if (typeof errorMessage === 'string') {
+								showToast({ message, type: 'error' })
+							}
 
-              const errorsObjects = err?.error?.response?.data?.data;
-              const ALL_PROPERTIES = Object.keys(
-                variables,
-              ) as (keyof TRequestBody)[];
+							const errorsObjects = err?.error?.response?.data?.data
+							const ALL_PROPERTIES = Object.keys(variables) as (keyof TRequestBody)[]
 
-              if (errorsObjects) {
-                ALL_PROPERTIES.forEach((fieldName) => {
-                  if (fieldName in errorsObjects) {
-                    allErrorsInString += `\n${fieldName.toString()}:${errorsObjects[fieldName]?.toString()}`;
-                  }
-                });
-              }
+							if (errorsObjects) {
+								ALL_PROPERTIES.forEach((fieldName) => {
+									if (fieldName in errorsObjects) {
+										allErrorsInString += `\n${fieldName.toString()}:${errorsObjects[fieldName]?.toString()}`
+									}
+								})
+							}
 
-              if (allErrorsInString.length) {
-                showToast({ type: 'error', message: allErrorsInString });
-              }
-            }
-          },
-        });
-      }
-    },
-    onSettled,
-    retry,
-  });
+							if (allErrorsInString.length) {
+								showToast({ type: 'error', message: allErrorsInString })
+							}
+						}
+					}
+				})
+			}
+		},
+		onSettled,
+		retry
+	})
 }
 ```
 
@@ -1437,77 +1353,65 @@ export function useCreateMutation<
 - [x] Create:
 
 ```ts
-import { useMutation, UseMutationResult } from '@tanstack/react-query';
-import { AxiosError, AxiosResponse } from 'axios';
-import { request } from '../api';
+import { useMutation, UseMutationResult } from '@tanstack/react-query'
+import { AxiosError, AxiosResponse } from 'axios'
+import { request } from '../api'
 
 interface EditRequestArgs<TRequestBody> {
-  url?: string;
-  body: TRequestBody;
-  params?: Record<string, unknown>;
-  method?: 'put' | 'patch' | 'post';
+	url?: string
+	body: TRequestBody
+	params?: Record<string, unknown>
+	method?: 'put' | 'patch' | 'post'
 }
 
 const editRequest = async <TRequestBody, TResponseData>({
-  url,
-  body,
-  params,
-  method = 'put',
+	url,
+	body,
+	params,
+	method = 'put'
 }: EditRequestArgs<TRequestBody>): Promise<TResponseData> => {
-  if (!url) throw new Error('URL is required for useEditMutation');
-  const response: AxiosResponse<TResponseData> = await request[method](
-    url,
-    body,
-    { params },
-  );
-  return response.data;
-};
+	if (!url) throw new Error('URL is required for useEditMutation')
+	const response: AxiosResponse<TResponseData> = await request[method](url, body, { params })
+	return response.data
+}
 
 interface UseEditMutationArgs<TRequestBody, TResponseData> {
-  url?: string;
-  params?: Record<string, unknown>;
-  method?: 'put' | 'patch' | 'post';
-  onSuccess?: (data: TResponseData) => void;
-  onError?: (error: AxiosError) => void;
-  onSettled?: (
-    data: TResponseData | undefined,
-    error: AxiosError | null,
-  ) => void;
-  onMutate?: (variables: EditRequestArgs<TRequestBody>) => void;
+	url?: string
+	params?: Record<string, unknown>
+	method?: 'put' | 'patch' | 'post'
+	onSuccess?: (data: TResponseData) => void
+	onError?: (error: AxiosError) => void
+	onSettled?: (data: TResponseData | undefined, error: AxiosError | null) => void
+	onMutate?: (variables: EditRequestArgs<TRequestBody>) => void
 }
 
 export function useEditMutation<TRequestBody, TResponseData>({
-  url,
-  onSuccess,
-  onError,
-  onSettled,
-  onMutate,
-  params,
-  method = 'put',
+	url,
+	onSuccess,
+	onError,
+	onSettled,
+	onMutate,
+	params,
+	method = 'put'
 }: UseEditMutationArgs<TRequestBody, TResponseData>): UseMutationResult<
-  TResponseData,
-  AxiosError,
-  EditRequestArgs<TRequestBody>,
-  unknown
+	TResponseData,
+	AxiosError,
+	EditRequestArgs<TRequestBody>,
+	unknown
 > {
-  return useMutation<
-    TResponseData,
-    AxiosError,
-    EditRequestArgs<TRequestBody>,
-    unknown
-  >({
-    mutationFn: (variables) =>
-      editRequest<TRequestBody, TResponseData>({
-        ...variables,
-        url: variables.url ?? url,
-        params: params ?? variables.params,
-        method,
-      }),
-    onMutate,
-    onSuccess,
-    onError,
-    onSettled,
-  });
+	return useMutation<TResponseData, AxiosError, EditRequestArgs<TRequestBody>, unknown>({
+		mutationFn: (variables) =>
+			editRequest<TRequestBody, TResponseData>({
+				...variables,
+				url: variables.url ?? url,
+				params: params ?? variables.params,
+				method
+			}),
+		onMutate,
+		onSuccess,
+		onError,
+		onSettled
+	})
 }
 ```
 
@@ -1516,103 +1420,81 @@ export function useEditMutation<TRequestBody, TResponseData>({
 - [x] Create:
 
 ```ts
-import { useMutation, UseMutationResult } from '@tanstack/react-query';
-import axios from 'axios';
-import { request } from '../api';
-import { useToastNotif } from '@/shared/hooks/useToastNotif/useToastNotif';
-import { PostRequestResponse } from '@/shared/types/requests.types';
+import { useMutation, UseMutationResult } from '@tanstack/react-query'
+import axios from 'axios'
+import { request } from '../api'
+import { useToastNotif } from '@/shared/hooks/useToastNotif/useToastNotif'
+import { PostRequestResponse } from '@/shared/types/requests.types'
 
 interface DeleteRequestArgs {
-  id?: number | string;
-  params?: Record<string, string | number>;
-  url?: string;
-  requestBody?: Record<string, unknown>;
+	id?: number | string
+	params?: Record<string, string | number>
+	url?: string
+	requestBody?: Record<string, unknown>
 }
 
 interface DeleteResponseData {
-  message: string;
+	message: string
 }
 
 const deleteRequest = async <TResponseBody>({
-  url,
-  params,
-  requestBody,
-  id,
+	url,
+	params,
+	requestBody,
+	id
 }: DeleteRequestArgs): Promise<TResponseBody> => {
-  const computedUrl = id ? `${url}/${id}` : (url ?? '');
-  const response = await request.delete<TResponseBody>(computedUrl, {
-    params,
-    data: requestBody,
-  });
-  return response.data;
-};
+	const computedUrl = id ? `${url}/${id}` : (url ?? '')
+	const response = await request.delete<TResponseBody>(computedUrl, {
+		params,
+		data: requestBody
+	})
+	return response.data
+}
 
 interface QueryArgs<TRequestBody, T extends DeleteResponseData> {
-  apiUrl: string;
-  onSuccess?: (data: T, variables: DeleteRequestArgs, context: unknown) => void;
-  onError?: (
-    error: unknown,
-    variables: DeleteRequestArgs,
-    context: unknown,
-  ) => void;
-  onSettled?: (
-    data: T | undefined,
-    error: unknown,
-    variables: DeleteRequestArgs,
-    context: unknown,
-  ) => void;
-  onMutate?: (variables: DeleteRequestArgs) => unknown;
-  params?: Record<string, string>;
-  autoErrorHandle?: boolean;
+	apiUrl: string
+	onSuccess?: (data: T, variables: DeleteRequestArgs, context: unknown) => void
+	onError?: (error: unknown, variables: DeleteRequestArgs, context: unknown) => void
+	onSettled?: (data: T | undefined, error: unknown, variables: DeleteRequestArgs, context: unknown) => void
+	onMutate?: (variables: DeleteRequestArgs) => unknown
+	params?: Record<string, string>
+	autoErrorHandle?: boolean
 }
 
 export function useDeleteMutation<
-  TRequestBody extends Record<string, unknown>,
-  TResponseBody extends DeleteResponseData,
+	TRequestBody extends Record<string, unknown>,
+	TResponseBody extends DeleteResponseData
 >({
-  apiUrl,
-  onSuccess,
-  onError,
-  onSettled,
-  onMutate,
-  params,
-  autoErrorHandle = true,
-}: QueryArgs<TRequestBody, TResponseBody>): UseMutationResult<
-  TResponseBody,
-  unknown,
-  DeleteRequestArgs,
-  unknown
-> {
-  const { showToast } = useToastNotif();
-  return useMutation<TResponseBody, unknown, DeleteRequestArgs, unknown>({
-    mutationFn: (variables) =>
-      deleteRequest<TResponseBody>({
-        ...variables,
-        url: variables.url ?? apiUrl,
-        params: { ...params, ...variables.params },
-        requestBody: variables.requestBody,
-      }),
-    onMutate,
-    onSuccess: (data, variables, context) =>
-      onSuccess?.(data, variables, context),
-    onError: (err, variables, context) => {
-      if (
-        axios.isAxiosError<
-          PostRequestResponse<TRequestBody>,
-          Record<string, unknown>
-        >(err) &&
-        autoErrorHandle
-      ) {
-        const errorMessage = err?.response?.data?.message;
-        if (typeof errorMessage === 'string') {
-          showToast({ type: 'error', message: errorMessage });
-        }
-      }
-      onError?.(err, variables, context);
-    },
-    onSettled: (data, err, variables, context) =>
-      onSettled?.(data, err, variables, context),
-  });
+	apiUrl,
+	onSuccess,
+	onError,
+	onSettled,
+	onMutate,
+	params,
+	autoErrorHandle = true
+}: QueryArgs<TRequestBody, TResponseBody>): UseMutationResult<TResponseBody, unknown, DeleteRequestArgs, unknown> {
+	const { showToast } = useToastNotif()
+	return useMutation<TResponseBody, unknown, DeleteRequestArgs, unknown>({
+		mutationFn: (variables) =>
+			deleteRequest<TResponseBody>({
+				...variables,
+				url: variables.url ?? apiUrl,
+				params: { ...params, ...variables.params },
+				requestBody: variables.requestBody
+			}),
+		onMutate,
+		onSuccess: (data, variables, context) => onSuccess?.(data, variables, context),
+		onError: (err, variables, context) => {
+			if (axios.isAxiosError<PostRequestResponse<TRequestBody>, Record<string, unknown>>(err) && autoErrorHandle) {
+				const errorMessage = err?.response?.data?.message
+				if (typeof errorMessage === 'string') {
+					showToast({ type: 'error', message: errorMessage })
+				}
+			}
+			onError?.(err, variables, context)
+		},
+		onSettled: (data, err, variables, context) => onSettled?.(data, err, variables, context)
+	})
 }
 ```
 
@@ -1621,11 +1503,11 @@ export function useDeleteMutation<
 - [x] Create:
 
 ```ts
-export { useFetchQueries } from './api-helper-hooks/useFetchQueries';
-export { useDeleteMutation } from './api-helper-hooks/useDeleteMutation';
-export { useCreateMutation } from './api-helper-hooks/useCreateMutation';
-export { useEditMutation } from './api-helper-hooks/useEditMutation';
-export { request, apiSubscribe } from './api';
+export { useFetchQueries } from './api-helper-hooks/useFetchQueries'
+export { useDeleteMutation } from './api-helper-hooks/useDeleteMutation'
+export { useCreateMutation } from './api-helper-hooks/useCreateMutation'
+export { useEditMutation } from './api-helper-hooks/useEditMutation'
+export { request, apiSubscribe } from './api'
 ```
 
 ### 6.15 — `shared/hooks/useToastNotif/useToastNotif.ts` (verbatim)
@@ -1633,48 +1515,41 @@ export { request, apiSubscribe } from './api';
 - [x] Create:
 
 ```ts
-import { useCallback } from 'react';
-import { toast } from 'sonner';
-import {
-  ShowToastOptions,
-  SonnerToastOptions,
-} from '@/shared/types/notification.types';
+import { useCallback } from 'react'
+import { toast } from 'sonner'
+import { ShowToastOptions, SonnerToastOptions } from '@/shared/types/notification.types'
 
 export function useToastNotif() {
-  const showToast = useCallback(
-    ({
-      type = 'success',
-      message = 'Successfully created',
-      toastOptions,
-    }: ShowToastOptions) => {
-      const notify = () => {
-        const toastData: SonnerToastOptions = {
-          position: 'top-right',
-          ...toastOptions,
-        };
-        switch (type) {
-          case 'success':
-            toast.success(message, toastData);
-            break;
-          case 'info':
-            toast.info(message, toastData);
-            break;
-          case 'warning':
-            toast.warning(message, toastData);
-            break;
-          case 'error':
-            toast.error(message, toastData);
-            break;
-          default:
-            toast(message, toastData);
-        }
-      };
-      return notify();
-    },
-    [],
-  );
+	const showToast = useCallback(
+		({ type = 'success', message = 'Successfully created', toastOptions }: ShowToastOptions) => {
+			const notify = () => {
+				const toastData: SonnerToastOptions = {
+					position: 'top-right',
+					...toastOptions
+				}
+				switch (type) {
+					case 'success':
+						toast.success(message, toastData)
+						break
+					case 'info':
+						toast.info(message, toastData)
+						break
+					case 'warning':
+						toast.warning(message, toastData)
+						break
+					case 'error':
+						toast.error(message, toastData)
+						break
+					default:
+						toast(message, toastData)
+				}
+			}
+			return notify()
+		},
+		[]
+	)
 
-  return { showToast };
+	return { showToast }
 }
 ```
 
@@ -1683,172 +1558,141 @@ export function useToastNotif() {
 - [x] Create:
 
 ```ts
-import { zodResolver } from '@hookform/resolvers/zod';
-import axios, { AxiosResponse } from 'axios';
-import {
-  DefaultValues,
-  FieldValues,
-  SubmitHandler,
-  useForm,
-  UseFormSetError,
-} from 'react-hook-form';
-import { infer as zodInfer, ZodType } from 'zod';
-import { request } from '@/shared/api';
-import { PostRequestResponse } from '@/shared/types/requests.types';
-import { useToastNotif } from '@/shared/hooks/useToastNotif/useToastNotif';
+import { zodResolver } from '@hookform/resolvers/zod'
+import axios, { AxiosResponse } from 'axios'
+import { DefaultValues, FieldValues, SubmitHandler, useForm, UseFormSetError } from 'react-hook-form'
+import { infer as zodInfer, ZodType } from 'zod'
+import { request } from '@/shared/api'
+import { PostRequestResponse } from '@/shared/types/requests.types'
+import { useToastNotif } from '@/shared/hooks/useToastNotif/useToastNotif'
 
-type UseRhFormProps<
-  TSchema extends ZodType<FieldValues>,
-  ResponseType,
-  RequestType,
-> = {
-  initialValues: DefaultValues<zodInfer<TSchema>>;
-  successCallback: (
-    formData: zodInfer<TSchema>,
-    response?: AxiosResponse<ResponseType>,
-  ) => void;
-  errorCallback?: (
-    setError: UseFormSetError<zodInfer<TSchema>>,
-    error: unknown,
-  ) => void;
-  fieldDataMapper?: (
-    formData: zodInfer<TSchema>,
-  ) => Promise<RequestType> | RequestType;
-  url: string;
-  method?: 'put' | 'post';
-  validationSchema: TSchema;
-  isMultiPart?: boolean;
-  autoErrorHandle?: boolean;
-  showErrorsInNotification?: boolean;
-  resolveToSuccess?: boolean;
-};
+type UseRhFormProps<TSchema extends ZodType<FieldValues>, ResponseType, RequestType> = {
+	initialValues: DefaultValues<zodInfer<TSchema>>
+	successCallback: (formData: zodInfer<TSchema>, response?: AxiosResponse<ResponseType>) => void
+	errorCallback?: (setError: UseFormSetError<zodInfer<TSchema>>, error: unknown) => void
+	fieldDataMapper?: (formData: zodInfer<TSchema>) => Promise<RequestType> | RequestType
+	url: string
+	method?: 'put' | 'post'
+	validationSchema: TSchema
+	isMultiPart?: boolean
+	autoErrorHandle?: boolean
+	showErrorsInNotification?: boolean
+	resolveToSuccess?: boolean
+}
 
 export function useRhForm<
-  TSchema extends ZodType<FieldValues>,
-  ResponseType,
-  RequestType extends Partial<Record<keyof RequestType, unknown>>,
+	TSchema extends ZodType<FieldValues>,
+	ResponseType,
+	RequestType extends Partial<Record<keyof RequestType, unknown>>
 >({
-  initialValues,
-  successCallback,
-  errorCallback,
-  fieldDataMapper,
-  url,
-  method = 'post',
-  validationSchema,
-  isMultiPart,
-  autoErrorHandle = false,
-  resolveToSuccess = false,
-  showErrorsInNotification,
+	initialValues,
+	successCallback,
+	errorCallback,
+	fieldDataMapper,
+	url,
+	method = 'post',
+	validationSchema,
+	isMultiPart,
+	autoErrorHandle = false,
+	resolveToSuccess = false,
+	showErrorsInNotification
 }: UseRhFormProps<TSchema, ResponseType, RequestType>) {
-  const { showToast } = useToastNotif();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-    watch,
-    setError,
-    control,
-    trigger,
-    reset,
-    setValue,
-    resetField,
-    clearErrors,
-  } = useForm<zodInfer<TSchema>>({
-    defaultValues: initialValues,
-    mode: 'onBlur',
-    resolver: zodResolver(validationSchema),
-  });
+	const { showToast } = useToastNotif()
+	const {
+		register,
+		handleSubmit,
+		formState: { errors, isSubmitting },
+		watch,
+		setError,
+		control,
+		trigger,
+		reset,
+		setValue,
+		resetField,
+		clearErrors
+	} = useForm<zodInfer<TSchema>>({
+		defaultValues: initialValues,
+		mode: 'onBlur',
+		resolver: zodResolver(validationSchema)
+	})
 
-  const onSubmit: SubmitHandler<zodInfer<TSchema>> = async (data) => {
-    try {
-      const normalizedData = (await fieldDataMapper?.(data)) || data;
-      const headers = isMultiPart
-        ? { headers: { 'Content-Type': 'multipart/form-data' } }
-        : {};
+	const onSubmit: SubmitHandler<zodInfer<TSchema>> = async (data) => {
+		try {
+			const normalizedData = (await fieldDataMapper?.(data)) || data
+			const headers = isMultiPart ? { headers: { 'Content-Type': 'multipart/form-data' } } : {}
 
-      if (resolveToSuccess) {
-        await Promise.resolve();
-        successCallback(data);
-      } else {
-        const response = await request[method]<ResponseType>(
-          url,
-          normalizedData,
-          headers,
-        );
-        successCallback(data, response);
-      }
-    } catch (error: unknown) {
-      const ALL_PROPERTIES = Object.keys(
-        initialValues,
-      ) as (keyof RequestType)[];
+			if (resolveToSuccess) {
+				await Promise.resolve()
+				successCallback(data)
+			} else {
+				const response = await request[method]<ResponseType>(url, normalizedData, headers)
+				successCallback(data, response)
+			}
+		} catch (error: unknown) {
+			const ALL_PROPERTIES = Object.keys(initialValues) as (keyof RequestType)[]
 
-      if (
-        axios.isAxiosError<
-          PostRequestResponse<RequestType>,
-          Record<string, unknown>
-        >(error)
-      ) {
-        const message = error?.response?.data?.message;
-        const errorsObjects = error?.response?.data?.data;
-        let allErrorsInString = '';
+			if (axios.isAxiosError<PostRequestResponse<RequestType>, Record<string, unknown>>(error)) {
+				const message = error?.response?.data?.message
+				const errorsObjects = error?.response?.data?.data
+				let allErrorsInString = ''
 
-        if (errorsObjects && autoErrorHandle) {
-          ALL_PROPERTIES.forEach((fieldName) => {
-            if (fieldName in errorsObjects) {
-              // @ts-expect-error RHF generic setError path
-              setError(fieldName, {
-                type: 'custom',
-                message: errorsObjects[fieldName]?.toString(),
-              });
-            }
-          });
-        }
+				if (errorsObjects && autoErrorHandle) {
+					ALL_PROPERTIES.forEach((fieldName) => {
+						if (fieldName in errorsObjects) {
+							// @ts-expect-error RHF generic setError path
+							setError(fieldName, {
+								type: 'custom',
+								message: errorsObjects[fieldName]?.toString()
+							})
+						}
+					})
+				}
 
-        for (const key in errorsObjects) {
-          if (key.includes('.')) {
-            // @ts-expect-error RHF generic setError path
-            setError(key, {
-              type: 'custom',
-              message: errorsObjects[key]?.toString(),
-            });
-          }
-        }
+				for (const key in errorsObjects) {
+					if (key.includes('.')) {
+						// @ts-expect-error RHF generic setError path
+						setError(key, {
+							type: 'custom',
+							message: errorsObjects[key]?.toString()
+						})
+					}
+				}
 
-        if (errorsObjects && showErrorsInNotification) {
-          ALL_PROPERTIES.forEach((fieldName) => {
-            if (fieldName in errorsObjects) {
-              allErrorsInString += `\n${fieldName.toString()}:${errorsObjects[fieldName]?.toString()}`;
-            }
-          });
-        }
+				if (errorsObjects && showErrorsInNotification) {
+					ALL_PROPERTIES.forEach((fieldName) => {
+						if (fieldName in errorsObjects) {
+							allErrorsInString += `\n${fieldName.toString()}:${errorsObjects[fieldName]?.toString()}`
+						}
+					})
+				}
 
-        if (allErrorsInString.length) {
-          showToast({ type: 'error', message: allErrorsInString });
-        }
+				if (allErrorsInString.length) {
+					showToast({ type: 'error', message: allErrorsInString })
+				}
 
-        if (typeof message === 'string') {
-          showToast({ type: 'error', message });
-        }
-      }
-      errorCallback?.(setError, error);
-    }
-  };
+				if (typeof message === 'string') {
+					showToast({ type: 'error', message })
+				}
+			}
+			errorCallback?.(setError, error)
+		}
+	}
 
-  return {
-    onSubmit: handleSubmit(onSubmit),
-    register,
-    errors,
-    watch,
-    setError,
-    isSubmitting,
-    control,
-    trigger,
-    reset,
-    setValue,
-    handleSubmit,
-    resetField,
-    clearErrors,
-  };
+	return {
+		onSubmit: handleSubmit(onSubmit),
+		register,
+		errors,
+		watch,
+		setError,
+		isSubmitting,
+		control,
+		trigger,
+		reset,
+		setValue,
+		handleSubmit,
+		resetField,
+		clearErrors
+	}
 }
 ```
 
@@ -1908,8 +1752,8 @@ export function useRhForm<
 - [x] In `src/main.tsx`, conditionally start MSW when `import.meta.env.DEV`:
   ```ts
   if (import.meta.env.DEV) {
-    const { worker } = await import('@/shared/api/mocks/browser');
-    await worker.start({ onUnhandledRequest: 'bypass' });
+  	const { worker } = await import('@/shared/api/mocks/browser')
+  	await worker.start({ onUnhandledRequest: 'bypass' })
   }
   ```
 
@@ -1977,25 +1821,25 @@ export function useRhForm<
 
 - [x] `src/app/providers/router/config/routes.tsx`:
   ```tsx
-  import { lazy } from 'react';
-  import { AppRoutes, AllowedProducts } from '@/shared/types/requests.types';
+  import { lazy } from 'react'
+  import { AppRoutes, AllowedProducts } from '@/shared/types/requests.types'
   // ... lazy imports:
-  const DashboardPage = lazy(() => import('@/pages/dashboard'));
-  const SalesPage = lazy(() => import('@/pages/sales'));
-  const CrmPage = lazy(() => import('@/pages/crm'));
+  const DashboardPage = lazy(() => import('@/pages/dashboard'))
+  const SalesPage = lazy(() => import('@/pages/sales'))
+  const CrmPage = lazy(() => import('@/pages/crm'))
   // ... 5 more module pages lazy-loaded
   export type AppRoutesProps = {
-    path: string;
-    element: React.ReactNode;
-    authOnly?: boolean;
-    availableIn?: AllowedProducts[];
-  };
+  	path: string
+  	element: React.ReactNode
+  	authOnly?: boolean
+  	availableIn?: AllowedProducts[]
+  }
   export const routes: Record<string, AppRoutesProps> = {
-    /* ... */
-  };
+  	/* ... */
+  }
   export const authRoutes = {
-    /* login, register */
-  };
+  	/* login, register */
+  }
   ```
 
 ### 8.5 — `AppRouter.tsx` (verbatim pattern adapted)
@@ -2003,75 +1847,58 @@ export function useRhForm<
 - [x] `src/app/providers/router/components/AppRouter/AppRouter.tsx`:
 
 ```tsx
-import { Suspense, useCallback } from 'react';
-import { Navigate, Route, Routes } from 'react-router';
-import { AuthLayout } from '@/app/layouts/AuthLayout';
-import { OuterLayout } from '@/app/layouts/OuterLayout';
-import { InnerLayout } from '@/app/layouts/InnerLayout';
-import { AuthLoginPage } from '@/pages/auth';
-import { NotFoundPage } from '@/pages/notfound';
-import { ForbiddenPage } from '@/pages/forbidden';
-import {
-  getAppsRoute,
-  getRouteAuth,
-  getRouteAuthLogin,
-  getRouteForbidden,
-} from '@/shared/const/router.const';
-import { PageLoader } from '@repo/ui-kit/shared/ui/PageLoader';
-import {
-  AppRoutesProps,
-  authRoutes,
-  routes as routePaths,
-} from '../../config/routes';
-import { RequireAuth } from '../RequireAuth';
-import { ScrollContainer } from '../ScrollContainer/ScrollContainer';
+import { Suspense, useCallback } from 'react'
+import { Navigate, Route, Routes } from 'react-router'
+import { AuthLayout } from '@/app/layouts/AuthLayout'
+import { OuterLayout } from '@/app/layouts/OuterLayout'
+import { InnerLayout } from '@/app/layouts/InnerLayout'
+import { AuthLoginPage } from '@/pages/auth'
+import { NotFoundPage } from '@/pages/notfound'
+import { ForbiddenPage } from '@/pages/forbidden'
+import { getAppsRoute, getRouteAuth, getRouteAuthLogin, getRouteForbidden } from '@/shared/const/router.const'
+import { PageLoader } from '@repo/ui-kit/shared/ui/PageLoader'
+import { AppRoutesProps, authRoutes, routes as routePaths } from '../../config/routes'
+import { RequireAuth } from '../RequireAuth'
+import { ScrollContainer } from '../ScrollContainer/ScrollContainer'
 
 export default function AppRouter() {
-  const renderWithWrapper = useCallback((route: AppRoutesProps) => {
-    const element = (
-      <Suspense fallback={<PageLoader />}>{route.element}</Suspense>
-    );
-    return (
-      <Route
-        key={route.path}
-        path={route.path}
-        element={
-          route.authOnly ? (
-            <RequireAuth availableIn={route.availableIn}>{element}</RequireAuth>
-          ) : (
-            element
-          )
-        }
-      />
-    );
-  }, []);
+	const renderWithWrapper = useCallback((route: AppRoutesProps) => {
+		const element = <Suspense fallback={<PageLoader />}>{route.element}</Suspense>
+		return (
+			<Route
+				key={route.path}
+				path={route.path}
+				element={route.authOnly ? <RequireAuth availableIn={route.availableIn}>{element}</RequireAuth> : element}
+			/>
+		)
+	}, [])
 
-  return (
-    <Routes>
-      <Route path="/" element={<Navigate to={getRouteAuthLogin()} replace />} />
-      <Route path={getRouteAuth()} element={<AuthLayout />}>
-        <Route index element={<AuthLoginPage />} />
-        {Object.values(authRoutes).map(renderWithWrapper)}
-      </Route>
-      <Route path={getAppsRoute()} element={<OuterLayout />}>
-        <Route element={<InnerLayout />}>
-          <Route
-            index
-            element={
-              <ScrollContainer>
-                <RequireAuth>
-                  <Navigate to="dashboard" replace />
-                </RequireAuth>
-              </ScrollContainer>
-            }
-          />
-          {Object.values(routePaths).map(renderWithWrapper)}
-        </Route>
-      </Route>
-      <Route path={getRouteForbidden()} element={<ForbiddenPage />} />
-      <Route path="*" element={<NotFoundPage />} />
-    </Routes>
-  );
+	return (
+		<Routes>
+			<Route path='/' element={<Navigate to={getRouteAuthLogin()} replace />} />
+			<Route path={getRouteAuth()} element={<AuthLayout />}>
+				<Route index element={<AuthLoginPage />} />
+				{Object.values(authRoutes).map(renderWithWrapper)}
+			</Route>
+			<Route path={getAppsRoute()} element={<OuterLayout />}>
+				<Route element={<InnerLayout />}>
+					<Route
+						index
+						element={
+							<ScrollContainer>
+								<RequireAuth>
+									<Navigate to='dashboard' replace />
+								</RequireAuth>
+							</ScrollContainer>
+						}
+					/>
+					{Object.values(routePaths).map(renderWithWrapper)}
+				</Route>
+			</Route>
+			<Route path={getRouteForbidden()} element={<ForbiddenPage />} />
+			<Route path='*' element={<NotFoundPage />} />
+		</Routes>
+	)
 }
 ```
 
@@ -2080,20 +1907,20 @@ export default function AppRouter() {
 - [x] Replace placeholder `App.tsx`:
 
   ```tsx
-  import { BrowserRouter } from 'react-router';
-  import { PublicProvider } from '@/app/providers/publicProvider/PublicProvider';
-  import AppRouter from '@/app/providers/router/components/AppRouter/AppRouter';
-  import '@/shared/config/i18n/i18n';
-  import '@/app/styles/index.css';
+  import { BrowserRouter } from 'react-router'
+  import { PublicProvider } from '@/app/providers/publicProvider/PublicProvider'
+  import AppRouter from '@/app/providers/router/components/AppRouter/AppRouter'
+  import '@/shared/config/i18n/i18n'
+  import '@/app/styles/index.css'
 
   export default function App() {
-    return (
-      <BrowserRouter>
-        <PublicProvider>
-          <AppRouter />
-        </PublicProvider>
-      </BrowserRouter>
-    );
+  	return (
+  		<BrowserRouter>
+  			<PublicProvider>
+  				<AppRouter />
+  			</PublicProvider>
+  		</BrowserRouter>
+  	)
   }
   ```
 
@@ -2210,29 +2037,29 @@ export default function AppRouter() {
 
 - [x] `vitest.config.ts`:
   ```ts
-  import { defineConfig } from 'vitest/config';
-  import viteReact from '@vitejs/plugin-react';
-  import svgr from 'vite-plugin-svgr';
+  import { defineConfig } from 'vitest/config'
+  import viteReact from '@vitejs/plugin-react'
+  import svgr from 'vite-plugin-svgr'
   export default defineConfig({
-    plugins: [svgr({ svgrOptions: { exportType: 'default' } }), viteReact()],
-    resolve: {
-      alias: [
-        { find: '@/config', replacement: '/config' },
-        { find: '@', replacement: '/src' },
-      ],
-    },
-    test: {
-      globals: true,
-      environment: 'jsdom',
-      setupFiles: ['./src/test/setup.ts'],
-      include: ['src/**/*.test.{ts,tsx}'],
-      css: false,
-    },
-  });
+  	plugins: [svgr({ svgrOptions: { exportType: 'default' } }), viteReact()],
+  	resolve: {
+  		alias: [
+  			{ find: '@/config', replacement: '/config' },
+  			{ find: '@', replacement: '/src' }
+  		]
+  	},
+  	test: {
+  		globals: true,
+  		environment: 'jsdom',
+  		setupFiles: ['./src/test/setup.ts'],
+  		include: ['src/**/*.test.{ts,tsx}'],
+  		css: false
+  	}
+  })
   ```
 - [x] `src/test/setup.ts`:
   ```ts
-  import '@testing-library/jest-dom/vitest';
+  import '@testing-library/jest-dom/vitest'
   ```
 - [x] Write sample unit test: `src/shared/lib/utils/axiosErrorHandler/axiosErrorHandler.test.ts`.
 
@@ -2240,34 +2067,32 @@ export default function AppRouter() {
 
 - [x] `vitest.integration.config.mts`:
   ```ts
-  import { defineConfig } from 'vitest/config';
-  import viteReact from '@vitejs/plugin-react';
-  import svgr from 'vite-plugin-svgr';
+  import { defineConfig } from 'vitest/config'
+  import viteReact from '@vitejs/plugin-react'
+  import svgr from 'vite-plugin-svgr'
   export default defineConfig({
-    plugins: [svgr({ svgrOptions: { exportType: 'default' } }), viteReact()],
-    resolve: {
-      alias: [
-        { find: '@/config', replacement: '/config' },
-        { find: '@', replacement: '/src' },
-      ],
-    },
-    define: {
-      __IS_DEV__: JSON.stringify(true),
-      __PROJECT__: JSON.stringify('frontend'),
-      'import.meta.env.VITE_PUBLIC_API_BASE_URL': JSON.stringify(
-        'http://localhost:3000/api',
-      ),
-      'import.meta.env.VITE_PUBLIC_APP_VERSION': JSON.stringify('1.0.0-test'),
-      'import.meta.env.VITE_USE_MSW': JSON.stringify('false'),
-    },
-    test: {
-      globals: true,
-      environment: 'jsdom',
-      setupFiles: ['./tests/integration/setup.ts'],
-      include: ['tests/integration/**/*.test.{ts,tsx}'],
-      css: false,
-    },
-  });
+  	plugins: [svgr({ svgrOptions: { exportType: 'default' } }), viteReact()],
+  	resolve: {
+  		alias: [
+  			{ find: '@/config', replacement: '/config' },
+  			{ find: '@', replacement: '/src' }
+  		]
+  	},
+  	define: {
+  		__IS_DEV__: JSON.stringify(true),
+  		__PROJECT__: JSON.stringify('frontend'),
+  		'import.meta.env.VITE_PUBLIC_API_BASE_URL': JSON.stringify('http://localhost:3000/api'),
+  		'import.meta.env.VITE_PUBLIC_APP_VERSION': JSON.stringify('1.0.0-test'),
+  		'import.meta.env.VITE_USE_MSW': JSON.stringify('false')
+  	},
+  	test: {
+  		globals: true,
+  		environment: 'jsdom',
+  		setupFiles: ['./tests/integration/setup.ts'],
+  		include: ['tests/integration/**/*.test.{ts,tsx}'],
+  		css: false
+  	}
+  })
   ```
 - [x] `tests/integration/setup.ts` — reference implementation in **`deps/integration-setup.ts`**. Copy and adapt. Key contents:
   - Polyfill `ResizeObserver` for Radix UI.
@@ -2279,37 +2104,37 @@ export default function AppRouter() {
 
 - [x] `playwright.config.ts`:
   ```ts
-  import { defineConfig, devices } from '@playwright/test';
+  import { defineConfig, devices } from '@playwright/test'
   export default defineConfig({
-    testDir: 'tests/e2e',
-    fullyParallel: true,
-    forbidOnly: !!process.env.CI,
-    retries: process.env.CI ? 1 : 0,
-    workers: process.env.CI ? 1 : undefined,
-    reporter: 'html',
-    use: {
-      baseURL: 'http://localhost:5175',
-      trace: 'on-first-retry',
-      screenshot: 'only-on-failure',
-    },
-    projects: [
-      { name: 'setup', testMatch: /global-setup\.ts/ },
-      {
-        name: 'chromium',
-        use: {
-          ...devices['Desktop Chrome'],
-          storageState: 'tests/e2e/.auth/user.json',
-        },
-        dependencies: ['setup'],
-      },
-    ],
-    webServer: {
-      command: 'pnpm dev:real',
-      url: 'http://localhost:5175',
-      reuseExistingServer: !process.env.CI,
-      timeout: 30_000,
-    },
-  });
+  	testDir: 'tests/e2e',
+  	fullyParallel: true,
+  	forbidOnly: !!process.env.CI,
+  	retries: process.env.CI ? 1 : 0,
+  	workers: process.env.CI ? 1 : undefined,
+  	reporter: 'html',
+  	use: {
+  		baseURL: 'http://localhost:5175',
+  		trace: 'on-first-retry',
+  		screenshot: 'only-on-failure'
+  	},
+  	projects: [
+  		{ name: 'setup', testMatch: /global-setup\.ts/ },
+  		{
+  			name: 'chromium',
+  			use: {
+  				...devices['Desktop Chrome'],
+  				storageState: 'tests/e2e/.auth/user.json'
+  			},
+  			dependencies: ['setup']
+  		}
+  	],
+  	webServer: {
+  		command: 'pnpm dev:real',
+  		url: 'http://localhost:5175',
+  		reuseExistingServer: !process.env.CI,
+  		timeout: 30_000
+  	}
+  })
   ```
 - [x] `tests/e2e/global-setup.ts` — logs in via UI and writes `tests/e2e/.auth/user.json`.
 - [x] `tests/e2e/smoke.spec.ts` — golden path: Login → Dashboard → Sales → Create Order → CRM → Logout.

@@ -1,4 +1,4 @@
-import { lazy } from "react";
+import { lazy } from 'react'
 
-export const AccountingPage = lazy(() => import("./ui/AccountingPage"));
-export const LogisticsPage = lazy(() => import("./ui/LogisticsPage"));
+export const AccountingPage = lazy(() => import('./ui/AccountingPage'))
+export const LogisticsPage = lazy(() => import('./ui/LogisticsPage'))

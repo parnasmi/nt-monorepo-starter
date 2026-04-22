@@ -7,7 +7,9 @@
 	--app-sidebar-width: 76px;
 }
 
-html, body, #root {
+html,
+body,
+#root {
 	@apply h-full;
 }
 

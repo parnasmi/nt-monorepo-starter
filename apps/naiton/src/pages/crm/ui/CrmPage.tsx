@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { cn } from '@repo/ui-kit/lib/utils'
-import { Badge } from '@repo/ui-kit/shadcn/badge'
+// import { cn } from '@repo/ui-kit/lib/utils'
+// import { Badge } from '@repo/ui-kit/shadcn/badge'
 import { Button } from '@repo/ui-kit/shadcn/button'
 import {
 	Dialog,
@@ -12,7 +12,7 @@ import {
 } from '@repo/ui-kit/shadcn/dialog'
 import { Input } from '@repo/ui-kit/shadcn/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@repo/ui-kit/shadcn/select'
-import { DataTable } from '@repo/ui-kit/shared/ui/DataTable'
+import { DataTable, ColumnDef } from '@repo/ui-kit/shared/ui/data-table'
 import { useQueryClient } from '@tanstack/react-query'
 import { Plus, Search } from 'lucide-react'
 import { useDeferredValue, useMemo, useState } from 'react'
@@ -42,25 +42,25 @@ const createLeadSchema = z.object({
 type CreateLeadFormValues = z.infer<typeof createLeadSchema>
 type CrmLeadsResponse = GetRequestResponse<CrmLead[]>
 
-const dateFormatter = new Intl.DateTimeFormat('en-GB', {
-	day: '2-digit',
-	month: 'short',
-	year: 'numeric'
-})
+// const dateFormatter = new Intl.DateTimeFormat('en-GB', {
+// 	day: '2-digit',
+// 	month: 'short',
+// 	year: 'numeric'
+// })
 
-const stageClassNames: Record<CrmLead['stage'], string> = {
-	new: 'border-amber-200 bg-amber-50 text-amber-700',
-	qualified: 'border-sky-200 bg-sky-50 text-sky-700',
-	proposal: 'border-emerald-200 bg-emerald-50 text-emerald-700'
-}
+// const stageClassNames: Record<CrmLead['stage'], string> = {
+// 	new: 'border-amber-200 bg-amber-50 text-amber-700',
+// 	qualified: 'border-sky-200 bg-sky-50 text-sky-700',
+// 	proposal: 'border-emerald-200 bg-emerald-50 text-emerald-700'
+// }
 
-function StageBadge({ stage }: { stage: CrmLead['stage'] }) {
-	return (
-		<Badge className={cn('rounded-full border px-2.5 py-1 font-medium capitalize', stageClassNames[stage])}>
-			{stage}
-		</Badge>
-	)
-}
+// function StageBadge({ stage }: { stage: CrmLead['stage'] }) {
+// 	return (
+// 		<Badge className={cn('rounded-full border px-2.5 py-1 font-medium capitalize', stageClassNames[stage])}>
+// 			{stage}
+// 		</Badge>
+// 	)
+// }
 
 export default function CrmPage() {
 	const [searchValue, setSearchValue] = useState('')
@@ -127,41 +127,30 @@ export default function CrmPage() {
 		)
 	}, [deferredSearch, leadsQuery.data?.data])
 
-	const columns = useMemo(
-		() => [
-			{
-				accessorKey: 'id',
-				header: 'ID',
-				cell: ({ row }: { row: { original: CrmLead } }) => (
-					<span className='font-semibold text-emerald-600'>{row.original.id}</span>
-				)
-			},
-			{
-				accessorKey: 'name',
-				header: 'Lead'
-			},
-			{
-				accessorKey: 'company',
-				header: 'Company'
-			},
-			{
-				accessorKey: 'stage',
-				header: 'Stage',
-				cell: ({ row }: { row: { original: CrmLead } }) => <StageBadge stage={row.original.stage} />
-			},
-			{
-				accessorKey: 'source',
-				header: 'Source',
-				cell: ({ row }: { row: { original: CrmLead } }) => <span className='capitalize'>{row.original.source}</span>
-			},
-			{
-				accessorKey: 'createdAt',
-				header: 'Created at',
-				cell: ({ row }: { row: { original: CrmLead } }) => dateFormatter.format(new Date(row.original.createdAt))
+	const columns = useMemo(() => {
+		if (!filteredLeads.length) return []
+
+		return Object.keys(filteredLeads[0]).map((key): ColumnDef<CrmLead> => {
+			switch (key as keyof CrmLead) {
+				case 'id':
+					return {
+						accessorKey: key,
+						header: 'ID',
+						size: 55,
+						meta: {
+							thClassName: 'sticky bg-gray-100 left-0 z-1',
+							tdClassName:
+								'sticky group-data-[state=false]:bg-white group-data-[state=selected]:bg-gray-100 text-success-600 left-0 z-1'
+						}
+					}
+				default:
+					return {
+						accessorKey: key,
+						header: key
+					}
 			}
-		],
-		[]
-	)
+		})
+	}, [filteredLeads])
 
 	const totalLeads = leadsQuery.data?.meta?.total ?? filteredLeads.length
 	const isSubmitting = createLeadMutation.isPending || isFormSubmitting
@@ -197,18 +186,20 @@ export default function CrmPage() {
 				</div>
 
 				<div className='mt-3 overflow-hidden rounded-[20px] border border-slate-200 bg-white'>
-					{leadsQuery.isLoading ? (
-						<div className='flex h-72 items-center justify-center text-sm text-slate-500'>Loading CRM leads...</div>
-					) : (
-						<DataTable
-							columns={columns}
-							data={filteredLeads}
-							pageSize={10}
-							tableOptions={{
-								getRowId: (row) => row.id
-							}}
-						/>
-					)}
+					<DataTable
+						columns={columns}
+						data={filteredLeads}
+						loading={leadsQuery.isLoading}
+						fetching={leadsQuery.isFetching}
+						sorting={[]}
+						columnVisibility={{}}
+						columnOrder={[]}
+						columnSizing={{}}
+						setSorting={(updater) => console.log(updater)}
+						setColumnVisibility={(updater) => console.log(updater)}
+						setColumnOrder={(updater) => console.log(updater)}
+						setColumnSizing={(updater) => console.log(updater)}
+					/>
 				</div>
 			</div>
 

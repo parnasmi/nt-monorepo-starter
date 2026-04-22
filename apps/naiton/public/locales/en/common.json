@@ -3,5 +3,7 @@
 	"loading": "Yuklanmoqda",
 	"save": "Saqlash",
 	"cancel": "Bekor qilish",
-	"somethingWentWrong": "Nimadir xato ketdi"
+	"somethingWentWrong": "Nimadir xato ketdi",
+	"logout": "Logout",
+	"search": "Search"
 }

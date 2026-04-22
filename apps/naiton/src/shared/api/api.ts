@@ -27,9 +27,9 @@ const initialCompanyInfo = storage.get(COMPANYINFO_LOCALSTORAGE_KEY)
 const getLanguage = () => {
 	try {
 		const storeLng = useBoundStore.getState().lng
-		return storeLng || storage.get(LNG_LOCALSTORAGE_KEY) || 'uz'
+		return storeLng || storage.get(LNG_LOCALSTORAGE_KEY) || 'en'
 	} catch {
-		return storage.get(LNG_LOCALSTORAGE_KEY) || 'uz'
+		return storage.get(LNG_LOCALSTORAGE_KEY) || 'en'
 	}
 }
 

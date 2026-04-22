@@ -23,6 +23,7 @@
 		"test:e2e:ui": "playwright test --config playwright.config.ts --ui"
 	},
 	"dependencies": {
+		"@fluentui/react-icons": "2.0.324",
 		"@hookform/resolvers": "5.2.2",
 		"@repo/ui-kit": "workspace:^",
 		"@tanstack/react-query": "5.99.2",

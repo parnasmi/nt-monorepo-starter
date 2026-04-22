@@ -13,8 +13,8 @@ if (!i18n.isInitialized) {
 		.use(LanguageDetector)
 		.use(initReactI18next)
 		.init({
-			fallbackLng: 'uz',
-			supportedLngs: ['uz', 'ru'],
+			fallbackLng: 'en',
+			supportedLngs: ['en', 'ru'],
 			ns: [...i18nNamespaces],
 			defaultNS: defaultI18nNamespace,
 			load: 'languageOnly',
@@ -25,7 +25,7 @@ if (!i18n.isInitialized) {
 				loadPath: '/locales/{{lng}}/{{ns}}.json'
 			},
 			detection: {
-				order: ['localStorage', 'navigator', 'htmlTag'],
+				order: ['localStorage', 'htmlTag'],
 				lookupLocalStorage: LNG_LOCALSTORAGE_KEY,
 				caches: ['localStorage']
 			},

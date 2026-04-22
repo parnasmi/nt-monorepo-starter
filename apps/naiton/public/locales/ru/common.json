@@ -3,5 +3,7 @@
 	"loading": "Загрузка",
 	"save": "Сохранить",
 	"cancel": "Отмена",
-	"somethingWentWrong": "Что-то пошло не так"
+	"somethingWentWrong": "Что-то пошло не так",
+	"logout": "Выход",
+	"search": "Поиск"
 }

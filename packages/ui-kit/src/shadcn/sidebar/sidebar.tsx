@@ -144,7 +144,7 @@ const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(
 		if (collapsible === 'none') {
 			return (
 				<div
-					className={cn('bg-sidebar text-sidebar-foreground flex h-full w-[--sidebar-width] flex-col', className)}
+					className={cn('bg-gray-600 text-white flex h-full w-[--sidebar-width] flex-col', className)}
 					ref={ref}
 					{...props}
 				>
@@ -159,7 +159,7 @@ const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(
 					<SheetContent
 						data-sidebar='sidebar'
 						data-mobile='true'
-						className='bg-sidebar text-sidebar-foreground w-[--sidebar-width] p-0 [&>button]:hidden'
+						className='w-[--sidebar-width] bg-gray-600 p-0 text-white [&>button]:hidden'
 						style={
 							{
 								'--sidebar-width': SIDEBAR_WIDTH_MOBILE
@@ -180,7 +180,7 @@ const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(
 		return (
 			<div
 				ref={ref}
-				className='group peer text-sidebar-foreground hidden md:block'
+				className='group peer hidden md:block'
 				data-state={state}
 				data-collapsible={state === 'collapsed' ? collapsible : ''}
 				data-variant={variant}
@@ -213,7 +213,7 @@ const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(
 				>
 					<div
 						data-sidebar='sidebar'
-						className='bg-sidebar group-data-[variant=floating]:border-sidebar-border flex h-full w-full flex-col group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:shadow'
+						className='group-data-[variant=floating]:border-sidebar-border flex h-full w-full flex-col bg-gray-600 group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:shadow'
 					>
 						{children}
 					</div>

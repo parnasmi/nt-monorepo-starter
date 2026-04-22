@@ -17,7 +17,7 @@ const resetSharedStore = () => {
 		companyInfo: null,
 		allowedProducts: [],
 		isAuthenticated: false,
-		lng: 'uz',
+		lng: 'en',
 		theme: 'system',
 		isSidebarCollapsed: false,
 		pageTitle: null,

@@ -1,30 +1,34 @@
+import {
+	AlertRegular,
+	ArrowExitRegular,
+	ChevronDownRegular,
+	PersonRegular,
+	QuestionCircleRegular,
+	SearchRegular,
+	SettingsRegular,
+	ShareRegular,
+	WindowMultipleRegular,
+	GlobeRegular
+} from '@fluentui/react-icons'
 import { cn } from '@repo/ui-kit/lib/utils'
 import { Avatar, AvatarFallback, AvatarImage } from '@repo/ui-kit/shadcn/avatar'
 import { Button } from '@repo/ui-kit/shadcn/button'
 import {
 	DropdownMenu,
 	DropdownMenuContent,
+	DropdownMenuGroup,
 	DropdownMenuItem,
 	DropdownMenuLabel,
-	DropdownMenuSeparator,
 	DropdownMenuTrigger
 } from '@repo/ui-kit/shadcn/dropdown-menu'
+import { InputGroup, InputGroupAddon, InputGroupInput } from '@repo/ui-kit/shadcn/input-group'
+import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from '@repo/ui-kit/shadcn/select'
 import { SidebarTrigger } from '@repo/ui-kit/shadcn/sidebar'
-import {
-	Bell,
-	ChevronDown,
-	CircleHelp,
-	Globe,
-	LogOut,
-	MonitorCog,
-	Search,
-	Settings,
-	Share2,
-	ShoppingBag
-} from 'lucide-react'
+import { SvgIcon } from '@repo/ui-kit/shared/ui/svg-icon'
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { NavLink, useLocation } from 'react-router'
+import { NavLink, useLocation, useNavigate } from 'react-router'
+import NaitonLogo from '@/shared/assets/img/naiton-logo.svg?react'
 import {
 	getRouteAccountingOverview,
 	getRouteCrmCompany,
@@ -57,11 +61,12 @@ const modules: NavbarModule[] = [
 	{ key: 'fms', label: 'FMS', to: getRouteFmsMap() }
 ]
 
-const actionIcons = [ShoppingBag, Share2, CircleHelp, Bell, Settings]
+const actionIcons = [WindowMultipleRegular, ShareRegular, QuestionCircleRegular, AlertRegular, SettingsRegular]
 
 export const AppNavbar = () => {
 	const location = useLocation()
-	const { i18n } = useTranslation()
+	const navigate = useNavigate()
+	const { i18n, t } = useTranslation()
 	const { allowedProducts, profile, lng, setLng } = useBoundStore()
 
 	const visibleModules = useMemo(() => {
@@ -72,44 +77,23 @@ export const AppNavbar = () => {
 		return modules.filter((moduleItem) => allowedProducts.includes(moduleItem.key))
 	}, [allowedProducts])
 
-	const initials = useMemo(() => {
-		const fullName = profile?.fullName ?? 'Super Admin'
-		return fullName
-			.split(' ')
-			.map((part) => part[0])
-			.join('')
-			.slice(0, 2)
-			.toUpperCase()
-	}, [profile?.fullName])
-
 	return (
-		<header className='bg-primary text-primary-foreground fixed inset-x-0 top-0 z-40 border-b border-black/5 shadow-[0_10px_30px_rgba(15,23,42,0.12)]'>
-			<div className='flex h-[72px] items-center gap-3 px-3 sm:px-5'>
+		<header className='bg-success-600 fixed inset-x-0 top-0 z-40 text-white'>
+			<div className='flex items-center gap-4 px-3 py-2 sm:px-4'>
 				<div className='flex min-w-0 items-center gap-3'>
 					<SidebarTrigger className='text-white hover:bg-white/10 md:hidden' />
 
-					<NavLink
-						className='hidden items-center gap-2 rounded-2xl border border-white/15 bg-white/4 px-3 py-2 sm:flex'
-						to={getRouteDashboardOverview()}
-					>
-						<div className='flex h-10 w-10 items-center justify-center rounded-full border border-white/30 bg-white/10 text-lg font-bold'>
-							N
-						</div>
-						<div className='leading-tight'>
-							<p className='text-[1.7rem] font-semibold tracking-tight'>Naiton</p>
-							<p className='text-[0.62rem] font-medium tracking-[0.24em] text-white/80 uppercase'>Business Suite</p>
-						</div>
+					<NavLink className='hidden sm:flex' to={getRouteDashboardOverview()}>
+						<SvgIcon icon={<NaitonLogo />} width={109} height={40} className='text-white' />
 					</NavLink>
 				</div>
 
-				<div className='hidden flex-1 items-center gap-2 rounded-xl border border-white/10 bg-white/10 px-3 lg:flex lg:max-w-xs'>
-					<Search className='h-4 w-4 text-white/80' />
-					<input
-						className='h-11 w-full border-0 bg-transparent text-sm text-white outline-none placeholder:text-white/65'
-						placeholder='Search Naiton'
-						type='search'
-					/>
-				</div>
+				<InputGroup className='bg-success-500 flex-1 border-transparent text-white lg:flex lg:max-w-50'>
+					<InputGroupAddon align='inline-start'>
+						<SearchRegular fontSize={16} />
+					</InputGroupAddon>
+					<InputGroupInput placeholder={`${t('search')}...`} className='placeholder:text-white/90' />
+				</InputGroup>
 
 				<nav className='hidden min-w-0 flex-1 items-center justify-start gap-1 overflow-x-auto xl:flex'>
 					{visibleModules.map((moduleItem) => (
@@ -117,8 +101,8 @@ export const AppNavbar = () => {
 							key={moduleItem.key}
 							className={({ isActive }) =>
 								cn(
-									'rounded-xl px-3 py-2 text-sm font-medium text-white/80 transition hover:bg-white/10 hover:text-white',
-									(isActive || location.pathname.startsWith(moduleItem.to)) && 'bg-white/12 text-white shadow-inner'
+									'rounded-sm px-1.5 py-2 text-white transition-colors hover:bg-white/10 hover:text-white/80',
+									(isActive || location.pathname.startsWith(moduleItem.to)) && 'bg-white/10'
 								)
 							}
 							to={moduleItem.to}
@@ -128,84 +112,77 @@ export const AppNavbar = () => {
 					))}
 				</nav>
 
-				<div className='ml-auto flex items-center gap-1.5 text-white'>
+				<div className='ml-auto flex items-center gap-2 text-white'>
 					{actionIcons.map((Icon, index) => (
-						<button
+						<Button
 							key={Icon.displayName ?? index}
-							className='relative inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/7 transition hover:bg-white/14'
-							type='button'
+							variant='ghost'
+							size='icon'
+							className='relative rounded-sm p-1 text-white transition hover:border-white/10 hover:bg-white/10'
 						>
-							<Icon className='h-4 w-4' />
+							<Icon className='size-6' />
 							{index === 3 ? (
-								<span className='absolute -top-0.5 -right-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-orange-500 px-1 text-[10px] font-bold text-white'>
+								<span className='absolute -top-0.5 -right-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-orange-500 px-1 text-[11px] leading-[13px] text-white'>
 									3
 								</span>
 							) : null}
-						</button>
+						</Button>
 					))}
-
-					<DropdownMenu>
-						<DropdownMenuTrigger asChild>
-							<Button
-								className='h-10 rounded-full border border-white/10 bg-white/9 px-2 text-white hover:bg-white/14'
-								variant='ghost'
-							>
-								<Globe className='h-4 w-4' />
-								<span className='text-xs font-semibold uppercase'>{lng}</span>
-							</Button>
-						</DropdownMenuTrigger>
-						<DropdownMenuContent align='end' className='w-40'>
-							{['uz', 'ru'].map((language) => (
-								<DropdownMenuItem
-									key={language}
-									onClick={() => {
-										setLng(language as 'uz' | 'ru')
-										void i18n.changeLanguage(language)
-									}}
-								>
-									{language.toUpperCase()}
-								</DropdownMenuItem>
-							))}
-						</DropdownMenuContent>
-					</DropdownMenu>
-
-					<DropdownMenu>
-						<DropdownMenuTrigger asChild>
-							<button
-								className='inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/8 px-2 py-1.5 transition hover:bg-white/14'
-								type='button'
-							>
-								<Avatar className='h-8 w-8 border border-white/20'>
-									<AvatarImage alt={profile?.fullName ?? 'User'} src={profile?.avatarUrl} />
-									<AvatarFallback className='bg-white/20 text-xs font-semibold text-white'>{initials}</AvatarFallback>
-								</Avatar>
-								<span className='hidden text-sm font-medium sm:block'>{profile?.fullName ?? 'Super Admin'}</span>
-								<ChevronDown className='h-4 w-4 text-white/80' />
-							</button>
-						</DropdownMenuTrigger>
-						<DropdownMenuContent align='end' className='w-56'>
-							<DropdownMenuLabel>{profile?.role ?? 'Suite administrator'}</DropdownMenuLabel>
-							<DropdownMenuSeparator />
-							<DropdownMenuItem asChild>
-								<NavLink to={getRouteDashboardOverview()}>Workspace overview</NavLink>
-							</DropdownMenuItem>
-							<DropdownMenuItem disabled>Profile center arrives after auth flow</DropdownMenuItem>
-							<DropdownMenuSeparator />
-							<DropdownMenuItem asChild>
-								<NavLink className='flex items-center gap-2' to={getRouteLogout()}>
-									<LogOut className='h-4 w-4' />
-									Logout
-								</NavLink>
-							</DropdownMenuItem>
-						</DropdownMenuContent>
-					</DropdownMenu>
-
-					<button
-						className='hidden h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/7 transition hover:bg-white/14 sm:inline-flex'
-						type='button'
+					<Select
+						value={lng}
+						onValueChange={async (value) => {
+							setLng(value as 'en' | 'ru')
+							await i18n.changeLanguage(value)
+						}}
 					>
-						<MonitorCog className='h-4 w-4' />
-					</button>
+						<SelectTrigger className='border-success-500 rounded-full bg-transparent p-1 text-white uppercase'>
+							<GlobeRegular fontSize={24} />
+							<SelectValue />
+						</SelectTrigger>
+						<SelectContent align='end'>
+							{['en', 'ru'].map((language, index) => (
+								<SelectItem key={`${language}_${index}`} value={language}>
+									{language.toUpperCase()}
+								</SelectItem>
+							))}
+						</SelectContent>
+					</Select>
+
+					<DropdownMenu>
+						<DropdownMenuTrigger
+							className='border-success-500 inline-flex cursor-pointer items-center gap-1 rounded-full border p-1 pr-2 text-xs outline-none disabled:cursor-default'
+							disabled={!profile}
+						>
+							<Avatar className='size-7 border border-white/20'>
+								{profile ? (
+									<AvatarImage src={profile.avatarUrl} alt={profile.fullName} />
+								) : (
+									<AvatarFallback className='bg-success-500'>
+										<PersonRegular fontSize={20} />
+									</AvatarFallback>
+								)}
+							</Avatar>
+							<span>{profile ? profile.fullName : 'Guest'}</span>
+							<ChevronDownRegular fontSize={16} />
+						</DropdownMenuTrigger>
+						<DropdownMenuContent align='end'>
+							{profile && profile.role && <DropdownMenuLabel>{profile.role}</DropdownMenuLabel>}
+							<DropdownMenuGroup>
+								<DropdownMenuItem>
+									<PersonRegular fontSize={16} />
+									<span>Profile</span>
+								</DropdownMenuItem>
+								<DropdownMenuItem>
+									<SettingsRegular fontSize={16} />
+									<span>Settings</span>
+								</DropdownMenuItem>
+								<DropdownMenuItem className='text-red-500' onClick={() => navigate(getRouteLogout())}>
+									<ArrowExitRegular fontSize={16} />
+									<span>{t('logout')}</span>
+								</DropdownMenuItem>
+							</DropdownMenuGroup>
+						</DropdownMenuContent>
+					</DropdownMenu>
 				</div>
 			</div>
 		</header>

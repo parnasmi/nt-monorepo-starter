@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { cn } from '@repo/ui-kit/lib/utils'
-import { Badge } from '@repo/ui-kit/shadcn/badge'
+// import { cn } from '@repo/ui-kit/lib/utils'
+// import { Badge } from '@repo/ui-kit/shadcn/badge'
 import { Button } from '@repo/ui-kit/shadcn/button'
 import {
 	Dialog,
@@ -12,7 +12,7 @@ import {
 } from '@repo/ui-kit/shadcn/dialog'
 import { Input } from '@repo/ui-kit/shadcn/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@repo/ui-kit/shadcn/select'
-import { DataTable } from '@repo/ui-kit/shared/ui/DataTable'
+import { ColumnDef, DataTable } from '@repo/ui-kit/shared/ui/data-table'
 import { useQueryClient } from '@tanstack/react-query'
 import { Filter, Plus, Search, SlidersHorizontal } from 'lucide-react'
 import { useDeferredValue, useMemo, useState } from 'react'
@@ -24,6 +24,7 @@ import { endpoints } from '@/shared/const/endpoints.const'
 import { useToastNotif } from '@/shared/hooks/useToastNotif/useToastNotif'
 import type {
 	CreateSalesOrderRequest,
+	CrmLead,
 	GetRequestResponse,
 	PostRequestResponse,
 	SalesOrder
@@ -40,31 +41,31 @@ const createOrderSchema = z.object({
 type CreateOrderFormValues = z.infer<typeof createOrderSchema>
 type SalesOrdersResponse = GetRequestResponse<SalesOrder[]>
 
-const currencyFormatter = new Intl.NumberFormat('en-US', {
-	style: 'currency',
-	currency: 'USD',
-	maximumFractionDigits: 0
-})
+// const currencyFormatter = new Intl.NumberFormat('en-US', {
+// 	style: 'currency',
+// 	currency: 'USD',
+// 	maximumFractionDigits: 0
+// })
 
-const dateFormatter = new Intl.DateTimeFormat('en-GB', {
-	day: '2-digit',
-	month: 'short',
-	year: 'numeric'
-})
+// const dateFormatter = new Intl.DateTimeFormat('en-GB', {
+// 	day: '2-digit',
+// 	month: 'short',
+// 	year: 'numeric'
+// })
 
-const statusClassNames: Record<SalesOrder['status'], string> = {
-	draft: 'border-slate-200 bg-slate-100 text-slate-600',
-	confirmed: 'border-sky-200 bg-sky-50 text-sky-700',
-	fulfilled: 'border-emerald-200 bg-emerald-50 text-emerald-700'
-}
+// const statusClassNames: Record<SalesOrder['status'], string> = {
+// 	draft: 'border-slate-200 bg-slate-100 text-slate-600',
+// 	confirmed: 'border-sky-200 bg-sky-50 text-sky-700',
+// 	fulfilled: 'border-emerald-200 bg-emerald-50 text-emerald-700'
+// }
 
-function SalesStatusBadge({ status }: { status: SalesOrder['status'] }) {
-	return (
-		<Badge className={cn('rounded-full border px-2.5 py-1 font-medium capitalize', statusClassNames[status])}>
-			{status}
-		</Badge>
-	)
-}
+// function SalesStatusBadge({ status }: { status: SalesOrder['status'] }) {
+// 	return (
+// 		<Badge className={cn('rounded-full border px-2.5 py-1 font-medium capitalize', statusClassNames[status])}>
+// 			{status}
+// 		</Badge>
+// 	)
+// }
 
 export default function SalesPage() {
 	const [searchValue, setSearchValue] = useState('')
@@ -128,37 +129,30 @@ export default function SalesPage() {
 		)
 	}, [deferredSearch, ordersQuery.data?.data])
 
-	const columns = useMemo(
-		() => [
-			{
-				accessorKey: 'id',
-				header: 'ID',
-				cell: ({ row }: { row: { original: SalesOrder } }) => (
-					<span className='font-semibold text-emerald-600'>{row.original.id}</span>
-				)
-			},
-			{
-				accessorKey: 'customer',
-				header: 'Customer'
-			},
-			{
-				accessorKey: 'amount',
-				header: 'Amount',
-				cell: ({ row }: { row: { original: SalesOrder } }) => currencyFormatter.format(row.original.amount)
-			},
-			{
-				accessorKey: 'status',
-				header: 'Status',
-				cell: ({ row }: { row: { original: SalesOrder } }) => <SalesStatusBadge status={row.original.status} />
-			},
-			{
-				accessorKey: 'createdAt',
-				header: 'Created at',
-				cell: ({ row }: { row: { original: SalesOrder } }) => dateFormatter.format(new Date(row.original.createdAt))
+	const columns = useMemo(() => {
+		if (!filteredOrders.length) return []
+
+		return Object.keys(filteredOrders[0]).map((key): ColumnDef<SalesOrder> => {
+			switch (key as keyof CrmLead) {
+				case 'id':
+					return {
+						accessorKey: key,
+						header: 'ID',
+						size: 55,
+						meta: {
+							thClassName: 'sticky bg-gray-100 left-0 z-1',
+							tdClassName:
+								'sticky group-data-[state=false]:bg-white group-data-[state=selected]:bg-gray-100 text-success-600 left-0 z-1'
+						}
+					}
+				default:
+					return {
+						accessorKey: key,
+						header: key
+					}
 			}
-		],
-		[]
-	)
+		})
+	}, [filteredOrders])
 
 	const totalOrders = ordersQuery.data?.meta?.total ?? filteredOrders.length
 	const isSubmitting = createOrderMutation.isPending || isFormSubmitting
@@ -204,18 +198,20 @@ export default function SalesPage() {
 				</div>
 
 				<div className='mt-3 overflow-hidden rounded-[20px] border border-slate-200 bg-white'>
-					{ordersQuery.isLoading ? (
-						<div className='flex h-72 items-center justify-center text-sm text-slate-500'>Loading sales orders...</div>
-					) : (
-						<DataTable
-							columns={columns}
-							data={filteredOrders}
-							pageSize={10}
-							tableOptions={{
-								getRowId: (row) => row.id
-							}}
-						/>
-					)}
+					<DataTable
+						columns={columns}
+						data={filteredOrders}
+						loading={ordersQuery.isLoading}
+						fetching={ordersQuery.isFetching}
+						sorting={[]}
+						columnVisibility={{}}
+						columnOrder={[]}
+						columnSizing={{}}
+						setSorting={(updater) => console.log(updater)}
+						setColumnVisibility={(updater) => console.log(updater)}
+						setColumnOrder={(updater) => console.log(updater)}
+						setColumnSizing={(updater) => console.log(updater)}
+					/>
 				</div>
 			</div>
 

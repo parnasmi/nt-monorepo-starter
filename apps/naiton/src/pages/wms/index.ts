@@ -1,4 +1,4 @@
-import { lazy } from "react";
+import { lazy } from 'react'
 
-export const WmsPage = lazy(() => import("./ui/WmsPage"));
-export const ZonesPage = lazy(() => import("./ui/ZonesPage"));
+export const WmsPage = lazy(() => import('./ui/WmsPage'))
+export const ZonesPage = lazy(() => import('./ui/ZonesPage'))

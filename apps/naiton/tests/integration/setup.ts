@@ -32,7 +32,7 @@ vi.mock('react-i18next', () => ({
 		t: (key: string) => key,
 		i18n: {
 			changeLanguage: vi.fn().mockResolvedValue(undefined),
-			language: 'uz'
+			language: 'en'
 		}
 	}),
 	Trans: ({ children }: { children: ReactNode }) => children,

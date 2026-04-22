@@ -8,7 +8,7 @@ import storage from '../../lib/storage'
 import type { AuthState } from '../use-auth-store/use-auth-store'
 import type { ModuleUiState } from '../use-module-ui-store/use-module-ui-store'
 
-export type TLanguages = 'uz' | 'ru' | 'en'
+export type TLanguages = 'en' | 'ru'
 export type TTheme = 'light' | 'dark' | 'system'
 
 export interface PageBreadcrumb {
@@ -31,7 +31,7 @@ export interface MetaState {
 
 type MetaSliceState = MetaState & Partial<AuthState> & Partial<ModuleUiState>
 
-const initialLng = (storage.get(LNG_LOCALSTORAGE_KEY) ?? 'uz') as TLanguages
+const initialLng = (storage.get(LNG_LOCALSTORAGE_KEY) ?? 'en') as TLanguages
 const initialTheme = (storage.get(THEME_LOCALSTORAGE_KEY) ?? 'system') as TTheme
 const collapsedRaw = storage.get(SIDEBAR_COLLAPSED_LOCALSTORAGE_KEY)
 const initialCollapsed = collapsedRaw ? (JSON.parse(collapsedRaw) as boolean) : false

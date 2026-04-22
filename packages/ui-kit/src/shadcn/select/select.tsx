@@ -23,7 +23,7 @@ const SelectTrigger = forwardRef<ElementRef<typeof SelectPrimitive.Trigger>, Sel
 		<SelectPrimitive.Trigger
 			ref={ref}
 			className={cn(
-				'aria-invalid:border-error-500 text-ssm inline-flex cursor-pointer items-center justify-between gap-1 rounded border border-gray-200 bg-white px-3 py-2 whitespace-nowrap outline-none disabled:cursor-not-allowed disabled:opacity-50 data-placeholder:text-gray-500 data-[state=open]:[&_svg]:rotate-180 [&>span]:line-clamp-1',
+				'aria-invalid:border-error-500 text-ssm inline-flex cursor-pointer items-center justify-between gap-1 rounded border border-gray-200 bg-white px-3 py-2 whitespace-nowrap text-gray-900 outline-none disabled:cursor-not-allowed disabled:opacity-50 data-placeholder:text-gray-500 data-[state=open]:[&_svg]:rotate-180 [&>span]:line-clamp-1',
 				className
 			)}
 			{...props}

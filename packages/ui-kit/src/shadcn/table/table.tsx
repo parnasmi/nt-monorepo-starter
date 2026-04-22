@@ -1,8 +1,8 @@
 import { forwardRef } from 'react'
-import SortDownIcon from '@/shared/assets/icons/sort-down.svg'
-import SortUpIcon from '@/shared/assets/icons/sort-up.svg'
-import SortIcon from '@/shared/assets/icons/sort.svg'
 import { cn } from '../../lib/utils.ts'
+import SortDownIcon from '../../shared/assets/icons/sort-down.svg?react'
+import SortUpIcon from '../../shared/assets/icons/sort-up.svg?react'
+import SortIcon from '../../shared/assets/icons/sort.svg?react'
 import { SvgIcon } from '../../shared/ui/svg-icon'
 import type {
 	TableBodyProps,

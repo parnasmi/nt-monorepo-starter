@@ -1,6 +1,6 @@
 import { SidebarInset } from '@repo/ui-kit/shadcn/sidebar'
 import { Outlet } from 'react-router'
-import { AppSidebar } from '@/app/layouts/app-sidebar'
+import { AppSidebar } from './app-sidebar'
 
 export function InnerLayout() {
 	return (

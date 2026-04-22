@@ -1,7 +1,7 @@
 import type { VariantProps } from 'class-variance-authority'
 import { ComponentProps } from 'react'
 import { TooltipContent } from '@/shadcn/tooltip'
-import { sidebarMenuButtonVariants } from './sidebar.tsx'
+import { sidebarMenuButtonVariants } from './sidebar'
 
 export type SidebarContextProps = {
 	state: 'expanded' | 'collapsed'

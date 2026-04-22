@@ -59,13 +59,10 @@ const modules: NavbarModule[] = [
 
 const actionIcons = [ShoppingBag, Share2, CircleHelp, Bell, Settings]
 
-export function AppNavbar() {
+export const AppNavbar = () => {
 	const location = useLocation()
 	const { i18n } = useTranslation()
-	const allowedProducts = useBoundStore((state) => state.allowedProducts)
-	const profile = useBoundStore((state) => state.profile)
-	const lng = useBoundStore((state) => state.lng)
-	const setLng = useBoundStore((state) => state.setLng)
+	const { allowedProducts, profile, lng, setLng } = useBoundStore()
 
 	const visibleModules = useMemo(() => {
 		if (!allowedProducts.length) {

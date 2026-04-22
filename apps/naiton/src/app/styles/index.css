@@ -1,14 +1,12 @@
 @import './_fonts.css';
-@import '@repo/ui-kit/index.css';
+@import '@repo/ui-kit';
 
 :root {
 	--header-height: 56px;
 	--table-header-height: 51px;
 }
 
-html,
-body,
-#root {
+html, body, #root {
 	@apply h-full;
 }
 

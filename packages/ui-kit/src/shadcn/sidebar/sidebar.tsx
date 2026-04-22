@@ -16,8 +16,8 @@ import {
 	ElementRef,
 	MouseEvent
 } from 'react'
-import { useIsMobile } from '../../hooks/use-mobile.tsx'
-import { cn } from '../../lib/utils.ts'
+import { useIsMobile } from '../../hooks/use-mobile'
+import { cn } from '../../lib/utils'
 import { Button } from '../button'
 import { Input } from '../input'
 import { Separator } from '../separator'
@@ -34,7 +34,7 @@ import {
 	SidebarMenuSubButtonProps,
 	SidebarProps,
 	SidebarProviderProps
-} from './types.ts'
+} from './types'
 
 const SIDEBAR_COOKIE_NAME = 'sidebar_state'
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7

@@ -212,7 +212,7 @@ function SidebarBody() {
 	}, [moduleConfig.items, location.pathname])
 
 	return (
-		<Sidebar className='!z-30 border-r-0 pt-[72px]'>
+		<Sidebar className='z-30! border-r-0 pt-18'>
 			<SidebarContent className='mt-4 gap-0'>
 				<SidebarGroup className='p-0'>
 					<SidebarGroupContent>
@@ -227,7 +227,7 @@ function SidebarBody() {
 												asChild
 												tooltip={item.label}
 												className={cn(
-													'h-[76px] flex-col items-center justify-center gap-0 rounded-l-xl p-0 ml-2.5',
+													'h-19 flex-col items-center justify-center gap-0 rounded-l-xl p-0 ml-2.5',
 													isActive
 														? 'rounded-r-none bg-[#f1f5f9] text-slate-900 shadow-[-2px_0_5px_rgba(0,0,0,0.05)] hover:bg-[#f1f5f9] hover:text-slate-900'
 														: 'text-slate-400 hover:text-white hover:bg-white/10 rounded-r-xl mr-2.5'
@@ -236,8 +236,8 @@ function SidebarBody() {
 												<NavLink to={item.to}>
 													<item.icon
 														className={cn(
-															'!h-6 !w-6 transition-colors',
-															isActive ? '!text-emerald-600' : 'text-slate-400'
+															'h-6! w-6! transition-colors',
+															isActive ? 'text-emerald-600!' : 'text-slate-400'
 														)}
 													/>
 													<span className='mt-1.5 px-1 text-center text-[10px] leading-tight font-medium tracking-wide text-inherit transition-colors'>
@@ -246,8 +246,8 @@ function SidebarBody() {
 												</NavLink>
 											</SidebarMenuButton>
 										) : (
-											<SidebarMenuButton className='mr-2.5 ml-2.5 h-[76px] cursor-default flex-col items-center justify-center gap-0 rounded-xl p-0 opacity-60 hover:bg-transparent hover:text-inherit'>
-												<item.icon className='!h-6 !w-6 text-slate-500' />
+											<SidebarMenuButton className='mr-2.5 ml-2.5 h-19 cursor-default flex-col items-center justify-center gap-0 rounded-xl p-0 opacity-60 hover:bg-transparent hover:text-inherit'>
+												<item.icon className='h-6! w-6! text-slate-500' />
 												<span className='mt-1.5 px-1 text-center text-[10px] leading-tight font-medium tracking-wide text-slate-500'>
 													{item.label}
 												</span>
